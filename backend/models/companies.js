@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const companias = new Schema({
+const companies = new Schema({
     nombre: {type: String, required: true},
     direccion: {type: String, required: true},
     email: {type: Number, required: true},
@@ -8,4 +8,4 @@ const companias = new Schema({
     ciudad: {type: String, required: true}
 });
 
-module.exports = model('companias', companias);
+module.exports = model('companies', companies);

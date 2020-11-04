@@ -1,11 +1,11 @@
 const { Schema, model } = require('mongoose');
 
 const companies = new Schema({
-    nombre: {type: String, required: true},
-    direccion: {type: String, required: true},
+    name: {type: String, required: true},
+    adress: {type: String, required: true},
     email: {type: Number, required: true},
-    telefono: {type: String, required: true},
-    ciudad: {type: String, required: true}
+    phone: {type: String, required: true},
+    city: {type: String, required: true}
 });
 
 module.exports = model('companies', companies);

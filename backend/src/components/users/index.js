@@ -1,9 +1,10 @@
 const router = require('express').Router();
-const middelware = require('./middelware');
-
 const { signIn, logIn } = require('./controller');
+const MiddlewareUsers = require('./middleware.js');
 
-router.post('/signIn', middelware, signIn);
+const validationUsers = new MiddlewareUsers;
+
+router.post('/signIn', validationUsers.dataRight, signIn);
 router.post('/logIn', logIn);
 
 module.exports = router;

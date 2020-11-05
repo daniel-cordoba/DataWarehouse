@@ -55,6 +55,24 @@ VALUES (1, 'Buenos Aires'), (1, 'Córdoba'),
 (4, 'Ciudad de México'), (4, 'Tijuana'),
 (5, 'Florida'), (5, 'Texas');
 
+CREATE TABLE `companies` (
+	`ID` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(50) NOT NULL DEFAULT '0',
+	`address` VARCHAR(100) NOT NULL DEFAULT '0',
+	`email` VARCHAR(50) NOT NULL DEFAULT '0',
+	`phone` VARCHAR(50) NOT NULL DEFAULT '0',
+	`city` VARCHAR(50) NOT NULL DEFAULT '0',
+	`city_id` INT NOT NULL DEFAULT 0,
+	PRIMARY KEY (`ID`),
+	CONSTRAINT `FK_companies_cities` FOREIGN KEY (`city_id`) REFERENCES `cities` (`ID`)
+)
+COLLATE='latin1_swedish_ci'
+;
+INSERT INTO `companies` (`name`, `address`, `email`, `phone`, `city`, `city_id`)
+VALUES ('Softtek', 'xxxxxx', 'softtek@soft.com', '3508060201', 'Tijuana', 10),
+('Globant', 'xxxxxx', 'globant@globant.com', '3408060201', 'Buenos Aires', 1),
+('Rappi', 'xxxxxx', 'rappi@rappi.com', '3308060201', 'Medellín', 5),
+('Mercadolibre', 'xxxxxx', 'mercadolibre@mercadolibre.com', '3208060201', 'Córdoba', 2);
 
 
 

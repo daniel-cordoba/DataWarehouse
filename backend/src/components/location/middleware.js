@@ -8,7 +8,7 @@ class MiddlewareLocation{
             return next();
         }else{
             console.error('No posee los permisos de administrador');
-            res.status(403).json('La petición requeire del rol administrador');
+            res.status(403).json('La petición requiere del rol administrador');
         }
     }        
 }

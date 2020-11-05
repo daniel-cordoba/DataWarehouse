@@ -16,7 +16,7 @@ const signIn = (req, res) => {
 
 const logIn = (req, res) => {
     const {email, password} = req.body;
-    const login = 'SELECT email, password FROM users WHERE email = ? AND password = ?;';
+    const login = 'SELECT email, password, profile FROM users WHERE email = ? AND password = ?;';
     sequelize.query(login, 
         {
             replacements: [email, password],

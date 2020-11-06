@@ -30,7 +30,7 @@ class MiddlewareLocation{
         }).catch(err=>{
             console.error(err);
             res.status(400).json('Error en la sintaxis de la petición');
-        })
+        });
     }
 
     repeatCountry(req, res, next) {
@@ -45,7 +45,7 @@ class MiddlewareLocation{
         }).catch(err=>{
             console.error(err);
             res.status(400).json('Error en la sintaxis de la petición');
-        })
+        });
     }
 
     repeatCity(req, res, next) {
@@ -60,7 +60,49 @@ class MiddlewareLocation{
         }).catch(err=>{
             console.error(err);
             res.status(400).json('Error en la sintaxis de la petición');
-        })
+        });
+    }
+
+    existRegion(req, res, next) {
+        const ID = req.body.ID;
+        const consulta = 'SELECT ID FROM regions WHERE ID='+ID+';';
+        sequelize.query(consulta).then(resp=>{
+            if (resp[0][0]) {
+                return next();
+            }else{
+                res.status(404).json('El recurso no fue encontrado');
+            }
+        }).catch(err=>{
+            console.error(err);
+        });
+    }
+
+    existCountry(req, res, next) {
+        const ID = req.body.ID;
+        const consulta = 'SELECT ID FROM countries WHERE ID='+ID+';';
+        sequelize.query(consulta).then(resp=>{
+            if (resp[0][0]) {
+                return next();
+            }else{
+                res.status(404).json('El recurso no fue encontrado');
+            }
+        }).catch(err=>{
+            console.error(err);
+        });
+    }
+
+    existCity(req, res, next) {
+        const ID = req.body.ID;
+        const consulta = 'SELECT ID FROM cities WHERE ID='+ID+';';
+        sequelize.query(consulta).then(resp=>{
+            if (resp[0][0]) {
+                return next();
+            }else{
+                res.status(404).json('El recurso no fue encontrado');
+            }
+        }).catch(err=>{
+            console.error(err);
+        });
     }
 }
 

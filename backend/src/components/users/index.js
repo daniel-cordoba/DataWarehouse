@@ -4,7 +4,7 @@ const MiddlewareUsers = require('./middleware.js');
 
 const validationUsers = new MiddlewareUsers;
 
-router.post('/signIn', validationUsers.dataRight, signIn);
-router.post('/logIn', logIn);
+router.post('/signin', validationUsers.dataRight, signIn);
+router.post('/login', logIn);
 
 module.exports = router;

@@ -1,5 +1,7 @@
 body { 
-    section {        
+    #section-login { 
+        //display: none; 
+        z-index: 2;      
         >div {
             border: 1px solid black;
             border-radius: 25px;

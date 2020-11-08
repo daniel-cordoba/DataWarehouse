@@ -5,25 +5,43 @@
           box-sizing: border-box;
 }
 
-body section > div {
+body #section-login {
+  z-index: 2;
+}
+
+body #section-login > div {
   border: 1px solid black;
   border-radius: 25px;
   width: 50vw;
 }
 
-body section > div > form > img {
+body #section-login > div > form > img {
   width: 10vw;
 }
 
-body section > div > form #label1_signin {
+body #section-login > div > form #label1_signin {
   width: 80%;
 }
 
-body section > div > form #label2_signin {
+body #section-login > div > form #label2_signin {
   width: 80%;
 }
 
-body section > div > form > div {
+body #section-login > div > form > div {
   width: 80%;
+}
+
+body > header {
+  border-bottom: 2px solid darkgrey;
+}
+
+body > header > nav {
+  /* #logo-title{
+                font-size: 28px;
+            } */
+}
+
+body > header > nav > img {
+  height: 60px;
 }
 /*# sourceMappingURL=style.css.map */

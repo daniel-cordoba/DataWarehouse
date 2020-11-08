@@ -1,0 +1,23 @@
+body { 
+    section {        
+        >div {
+            border: 1px solid black;
+            border-radius: 25px;
+            width: 50vw;
+            >form {                             
+                >img {
+                    width: 10vw;
+                }
+                #label1_signin{
+                    width: 80%;
+                }
+                #label2_signin{
+                    width: 80%;
+                }
+                >div{
+                    width: 80%;                  
+                }                
+            }                
+        }       
+    }    
+}

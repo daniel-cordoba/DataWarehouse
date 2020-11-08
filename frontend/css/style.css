@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body section > div {
+  border: 1px solid black;
+  border-radius: 25px;
+  width: 50vw;
+}
+
+body section > div > form > img {
+  width: 10vw;
+}
+
+body section > div > form #label1_signin {
+  width: 80%;
+}
+
+body section > div > form #label2_signin {
+  width: 80%;
+}
+
+body section > div > form > div {
+  width: 80%;
+}
+/*# sourceMappingURL=style.css.map */

@@ -44,4 +44,25 @@ body > header > nav {
 body > header > nav > img {
   height: 60px;
 }
+
+body main #contacts > div #input_contacts {
+  width: 30%;
+}
+
+body main #contacts > table > thead > tr > th > input:checked {
+  width: 80px;
+}
+
+body main #contacts > table > tbody > tr > td .btn_costume {
+  display: block;
+  background: transparent;
+  color: white;
+  border: none;
+  width: 100%;
+  text-align: initial;
+}
+
+body main #contacts > table > tbody > tr > td .btn_costume:hover {
+  background: rgba(255, 255, 255, 0.342);
+}
 /*# sourceMappingURL=style.css.map */

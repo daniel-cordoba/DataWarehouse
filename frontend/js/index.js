@@ -1,3 +1,4 @@
+//FUNCION PARA LOGIN
 function login(){
     const email=document.getElementById("email_input");
     const password=document.getElementById("password_input");
@@ -17,59 +18,58 @@ function login(){
 }
 
 //FUNCION PARA LLENAR TABLA DE CONTACTOS
-window.onload = getContacts();
-function getContacts(){
+window.onload = fillContacts();
+async function getContacts(){
     const jwt = sessionStorage.getItem("jwt");
     if(jwt!=null){
-        console.log("Bearer "+jwt);
-        fetch('http://localhost:3000/contacts',
+        //console.log("Bearer "+jwt);
+        let response = await fetch('http://localhost:3000/contacts',
         {
             method:'GET',
             headers:{"Authorization":"Bearer "+jwt}
-        }).then(res=>{
-            res.json().then(data=>{
-                console.log(data);
-                return data;
-            });
-        }).catch(err=>{
-            console.error(err);
         });
+        let dataTable = await response.json();
+        return dataTable;
     }
 }
-function fillContacts(){
-    let data = getContacts();
-
-}
-function tableContacts(){
-    /* let table_contacts = document.getElementById('table_contacts');
-    let row = document.createElement('tr');
-    let cell = document.createElement('td');
-    let checkbox = document.createElement('input');
-    let p = document.createElement('p');
-    let b = document.createElement('button'); */
-    
-    $("#table_contacts")
-        .append($('<tr>')
-            .append('<td scope="row" class="py-4"><input type="checkbox"></td>')
-            .append('<td><p class="m-0">Nombre</p><p class="m-0">Correo</p></td>')
-            .append('<td><p class="m-0">País</p><p class="m-0">Region</p></td>')
-            .append('<td class="py-4">@mdo</td>')        
-            .append('<td class="py-4">@mdo</td>')
-            .append('<td class="py-4">@mdo</td>')
-            .append($('<td>')
-                .append('<button class="btn btn-secondary mr-1" data-toggle="tooltip" data-placement="top" title="Editar"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg></button>')
-                .append('<button class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Eliminar"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></button>')
-                )
-            );
-
+async function fillContacts(){
+    let contacts = await getContacts();
+    console.log(contacts);
+    contacts.forEach(contact => {
+        const name = contact.name;
+        const last_name = contact.last_name;
+        const country = contact.country;
+        const region = contact.region;
+        const email = contact.email;
+        const company = contact.company;
+        const charge = contact.charge;
+        const interest = contact.interest;
+        tableContacts(name, last_name, country, region, email, company, charge, interest);
+    });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
+}
+function tableContacts(name, last_name, country, region, email, company, charge, interest){    
+    $("#table_contacts")
+        .append($('<tr>')
+            .append(`<td scope="row" class="align-middle"><input type="checkbox"></td>`)
+            .append(`<td><p class="m-0">${name} ${last_name}</p><p class="m-0 font-italic font-weight-light">${email}</p></td>`)
+            .append(`<td><p class="m-0">${country}</p><p class="m-0 font-italic font-weight-light">${region}</p></td>`)
+            .append(`<td class="align-middle">${company}</td>`)        
+            .append(`<td class="align-middle">${charge}</td>`)
+            .append(`<td class="align-middle"><div class="progress" style="height:20px;"><div class="progress-bar bg-info" role="progressbar" style="width: ${interest};" aria-valuemin="0" aria-valuemax="100">${interest}</div></div></td>`)
+            .append($('<td class="align-middle text-center">')
+                .append('<button class="btn btn-info mr-1" data-toggle="tooltip" data-placement="top" title="Editar"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg></button>')
+                .append('<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Eliminar"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></button>')
+                )
+            );
 }
 
 //FUNCION PARA INICIALIZAR LOS TOOLTIPS
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
+
 
 

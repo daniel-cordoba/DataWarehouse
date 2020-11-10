@@ -7,6 +7,7 @@ body {
                     width: 30%;
                 }
             }
+            //TABLE
             >table {
                 >thead {
                     >tr{
@@ -20,19 +21,18 @@ body {
                                               
                     }
                 }
-                >tbody {
-                    >tr{
-                        >td{
-                            .btn_costume{
-                                display: block;
-                                background: transparent;
+            }
+            //PAGINATION
+            #pagination {
+                >ul{
+                    >li{
+                        >a {
+                                &:active{
+                                background-color: #17a2b8;
                                 color: white;
-                                border: none;
-                                width: 100%;
-                                text-align: initial;
-                                //font-family: "Helvetica Neue";
-                                &:hover{
-                                    background: rgba(255, 255, 255, 0.342);
+                                &:visited{
+                                    background-color: #17a2b8;
+                                    color: white;
                                 }
                             }
                         }

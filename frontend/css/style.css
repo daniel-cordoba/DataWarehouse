@@ -53,16 +53,13 @@ body main #contacts > table > thead > tr > th > input:checked {
   width: 80px;
 }
 
-body main #contacts > table > tbody > tr > td .btn_costume {
-  display: block;
-  background: transparent;
+body main #contacts #pagination > ul > li > a:active {
+  background-color: #17a2b8;
   color: white;
-  border: none;
-  width: 100%;
-  text-align: initial;
 }
 
-body main #contacts > table > tbody > tr > td .btn_costume:hover {
-  background: rgba(255, 255, 255, 0.342);
+body main #contacts #pagination > ul > li > a:active:visited {
+  background-color: #17a2b8;
+  color: white;
 }
 /*# sourceMappingURL=style.css.map */

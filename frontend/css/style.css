@@ -54,6 +54,16 @@ body main #contacts > #table_contacts_wrapper > div > div #table_contacts_filter
           box-shadow: 0 1px 0 0 var(--info);
 }
 
+body main #contacts > #table_contacts_wrapper > div > div #table_contacts_length > label {
+  margin-left: 3rem;
+  margin-top: 0.2rem;
+}
+
+body main #contacts > #table_contacts_wrapper > div > div #table_contacts_length > label > select {
+  -webkit-box-shadow: 0 1px 0 0 var(--info);
+          box-shadow: 0 1px 0 0 var(--info);
+}
+
 body main #contacts > #table_contacts_wrapper > div > div > table > #table_contacts .odd .dataTables_empty {
   display: none;
 }
@@ -82,6 +92,11 @@ body main #contacts > #table_contacts_wrapper > div > div > table > #table_conta
   margin-left: -5px;
 }
 
+body main #contacts > #table_contacts_wrapper > div {
+  position: relative;
+  z-index: 1;
+}
+
 body main #contacts > #table_contacts_wrapper > div > div #table_contacts_paginate > ul > li > a {
   color: #212529;
 }
@@ -94,6 +109,12 @@ body main #contacts > #table_contacts_wrapper > div > div #table_contacts_pagina
 
 body main #contacts > #table_contacts_wrapper > div > div #table_contacts_paginate > ul > li.disabled > a {
   color: grey;
+}
+
+body main #contacts > button {
+  position: relative;
+  margin-top: -15px;
+  z-index: 5;
 }
 
 body main #companies .active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {

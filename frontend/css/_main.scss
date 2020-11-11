@@ -15,6 +15,17 @@ body {
                         #table_contacts_filter{
                             >label{
                                 #input_bar:focus {
+                                    box-shadow: 0 1px 0 0 var(--info);                                    
+                                }
+                            }
+                        }
+                    }
+                    >div{
+                        #table_contacts_length{
+                            >label{
+                                margin-left: 1rem * 3;
+                                margin-top: 1rem * 0.2;
+                                >select{
                                     box-shadow: 0 1px 0 0 var(--info);
                                 }
                             }
@@ -57,6 +68,8 @@ body {
                 }
                 //AFTER TABLE
                 >div{
+                    position: relative;
+                    z-index: 1;
                     >div{
                         #table_contacts_paginate{
                             >ul{
@@ -76,7 +89,12 @@ body {
                             }
                         }
                     }
-                }
+                }                
+            }
+            >button{
+                position: relative;
+                margin-top: -15px;
+                z-index: 5;
             }
         }
         //OTRA SECCION

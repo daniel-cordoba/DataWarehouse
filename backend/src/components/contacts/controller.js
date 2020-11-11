@@ -2,7 +2,7 @@ const sequelize = require('../../conexion');
 
 class Contacts{
     getContact = (req, res) => {
-        const getContact = 'SELECT name, last_name, charge, email, company, region, country, interest FROM contacts;';
+        const getContact = 'SELECT ID, name, last_name, charge, email, company, region, country, interest FROM contacts;';
           return sequelize.query(getContact, {type: sequelize.QueryTypes.SELECT})
             .then(resp => {
                 console.log(resp);

@@ -49,17 +49,62 @@ body main #contacts > div #input_contacts {
   width: 30%;
 }
 
-body main #contacts > table > thead > tr > th > input:checked {
-  width: 80px;
+body main #contacts > #table_contacts_wrapper > div > div #table_contacts_filter > label #input_bar:focus {
+  -webkit-box-shadow: 0 1px 0 0 var(--info);
+          box-shadow: 0 1px 0 0 var(--info);
 }
 
-body main #contacts #pagination > ul > li > a:active {
-  background-color: #17a2b8;
-  color: white;
+body main #contacts > #table_contacts_wrapper > div > div > table > #table_contacts .odd .dataTables_empty {
+  display: none;
 }
 
-body main #contacts #pagination > ul > li > a:active:visited {
-  background-color: #17a2b8;
-  color: white;
+body main #contacts > #table_contacts_wrapper > div > div > table > #table_contacts .odd.selected {
+  background-color: grey;
+}
+
+body main #contacts > #table_contacts_wrapper > div > div > table > #table_contacts .even.selected {
+  background-color: grey;
+}
+
+body main #contacts > #table_contacts_wrapper > div > div > table > #table_contacts > tr > td:first-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 40px;
+}
+
+body main #contacts > #table_contacts_wrapper > div > div > table > #table_contacts > tr > .select-checkbox::before {
+  margin-top: 10px;
+}
+
+body main #contacts > #table_contacts_wrapper > div > div > table > #table_contacts > tr > .select-checkbox::after {
+  margin-top: 0px;
+  margin-left: -5px;
+}
+
+body main #contacts > #table_contacts_wrapper > div > div #table_contacts_paginate > ul > li > a {
+  color: #212529;
+}
+
+body main #contacts > #table_contacts_wrapper > div > div #table_contacts_paginate > ul > li.active a {
+  background-color: var(--info) !important;
+  border: var(--info);
+  color: honeydew;
+}
+
+body main #contacts > #table_contacts_wrapper > div > div #table_contacts_paginate > ul > li.disabled > a {
+  color: grey;
+}
+
+body main #companies .active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid #4dd0e1;
+  -webkit-box-shadow: 0 1px 0 0 #4dd0e1;
+          box-shadow: 0 1px 0 0 #4dd0e1;
+}
+
+body main #companies .active-cyan input.form-control[type=text] {
+  border-bottom: 1px solid #4dd0e1;
+  -webkit-box-shadow: 0 1px 0 0 #4dd0e1;
+          box-shadow: 0 1px 0 0 #4dd0e1;
 }
 /*# sourceMappingURL=style.css.map */

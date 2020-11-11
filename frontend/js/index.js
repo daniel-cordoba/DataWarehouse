@@ -42,7 +42,7 @@ async function fillContacts(){
         $(`#pagination`).html(`1 - 9 de ${contacts.length}`);
         sessionStorage.setItem("contacts", JSON.stringify(contacts));        
         //console.log(JSON.parse(sessionStorage.getItem("contacts")));
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < contacts.length; i++) {
             const contact = contacts[i];
             const name = contact.name;
             const last_name = contact.last_name;
@@ -59,18 +59,46 @@ async function fillContacts(){
             $('[data-toggle="tooltip"]').tooltip()
         });
 
-       /*  $('#example').DataTable( {
+        
+        let table = $('#table_contacts').DataTable( {
+            language: {
+                info: "_START_ - _END_ de _TOTAL_ contactos",
+                infoFiltered: "(filtrados de _MAX_ contactos)",
+                infoEmpty: "No se encontraron resultados"
+              },
             columnDefs: [ {
                 orderable: false,
-                className: 'select-checkbox',
-                targets:   0
+                targets:   6
+            }, {
+                orderable: false,
+                targets:   0,
+                className: 'select-checkbox'
             } ],
             select: {
-                style:    'os',
+                style:    'multi',
                 selector: 'td:first-child'
             },
             order: [[ 1, 'asc' ]]
-        } ); */
+        } );
+
+        $('.form-control.form-control-sm').addClass("search_bar");
+        let amm = $('#table_contacts_filter').find("label").addClass("input-group").html(`<div class="input-group-prepend">
+                        <span class="input-group-text bg-info" id="basic-addon1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="var(--white)" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
+                            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
+                            </svg>
+                        </span>
+                    </div>
+                    <input type="search" id="input_bar" class="form-control search_bar d-inline-block ml-0" placeholder="Buscar contactos" aria-controls="table_contacts">`);
+
+        $('#input_bar').on( 'keyup', function () {
+            table.search( this.value ).draw();
+        } );
+        
+        //$('.form-control.form-control-sm.search_bar').attr("placeholder", "Buscar");
+
+        console.log($('.form-control.form-control-sm')[1]);
     } catch (error) {
         console.error(error);
     }
@@ -79,7 +107,7 @@ async function fillContacts(){
 function tableContacts(name, last_name, country, region, email, company, charge, interest){    
     $("#table_contacts")
         .append($('<tr>')
-            .append(`<td scope="row" class="align-middle"><input type="checkbox"></td>`)
+            .append(`<td scope="row"></td>`)
             .append(`<td><p class="m-0">${name} ${last_name}</p><p class="m-0 font-italic font-weight-light">${email}</p></td>`)
             .append(`<td><p class="m-0">${country}</p><p class="m-0 font-italic font-weight-light">${region}</p></td>`)
             .append(`<td class="align-middle">${company}</td>`)        

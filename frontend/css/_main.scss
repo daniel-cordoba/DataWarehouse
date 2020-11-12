@@ -93,11 +93,11 @@ body {
             }
             >button{
                 position: relative;
-                margin-top: -15px;
+                margin-top: -2.2rem;
                 z-index: 5;
             }
         }
-        //OTRA SECCION
+        //OTRA SECCION PARA PRUEBAS
         #companies{
             .active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
                 border-bottom: 1px solid #4dd0e1;
@@ -107,6 +107,21 @@ body {
                 border-bottom: 1px solid #4dd0e1;
                 box-shadow: 0 1px 0 0 #4dd0e1;
               }
+        }
+        //SECTION MODALS
+        #modals{
+            #add_contact{
+                div{
+                    div{
+                        .modal-body{
+                            background-image: url(../assets/person-plus.svg);
+                            background-position: right;
+                            background-repeat: no-repeat;
+                            background-size: 20%;
+                        }
+                    }
+                }
+            }
         }
         
     }

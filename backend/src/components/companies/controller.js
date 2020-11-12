@@ -1,6 +1,18 @@
 const sequelize = require('../../conexion');
 
 class Companies{
+    getCompanies(req, res){
+        const getCompany = 'SELECT ID, name, address, email, phone, city, city_id FROM companies;';
+        sequelize.query(getCompany)
+        .then(resp=>{
+            console.log(resp[0]);
+            res.status(200).json(resp[0]);
+        }).catch(err=>{
+            console.error(err);
+            res.status(400).json('Error en la sintaxis de la petición');
+        });
+    }
+
     addCompany(req, res){
         const {name, address, email, phone, city, city_id} = req.body;
         const addCompany = 'INSERT INTO companies (name, address, email, phone, city, city_id) VALUES (?, ?, ?, ?, ?, ?);';

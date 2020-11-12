@@ -113,7 +113,7 @@ body main #contacts > #table_contacts_wrapper > div > div #table_contacts_pagina
 
 body main #contacts > button {
   position: relative;
-  margin-top: -15px;
+  margin-top: -2.2rem;
   z-index: 5;
 }
 
@@ -127,5 +127,12 @@ body main #companies .active-cyan input.form-control[type=text] {
   border-bottom: 1px solid #4dd0e1;
   -webkit-box-shadow: 0 1px 0 0 #4dd0e1;
           box-shadow: 0 1px 0 0 #4dd0e1;
+}
+
+body main #modals #add_contact div div .modal-body {
+  background-image: url(../assets/person-plus.svg);
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 20%;
 }
 /*# sourceMappingURL=style.css.map */

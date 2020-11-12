@@ -5,6 +5,10 @@ const MiddlewareLocations = require('./middleware.js');
 const locations = new Locations;
 const middleware = new MiddlewareLocations;
 
+router.get('/regions', middleware.profile, locations.getRegion);
+router.get('/countries', middleware.profile, locations.getCountry);
+router.get('/cities', middleware.profile, locations.getCity);
+
 router.post('/region', middleware.repeatRegion, middleware.profile, locations.addRegion);
 router.post('/country', middleware.repeatCountry, middleware.profile, locations.addCountry);
 router.post('/city', middleware.repeatCity, middleware.profile, locations.addCity);

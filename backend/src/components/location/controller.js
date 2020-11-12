@@ -1,5 +1,41 @@
 const sequelize = require('../../conexion');
 class Locations{
+    getRegion = (req, res) => {
+        const getRegion = 'SELECT ID, name FROM regions;';
+        return sequelize.query(getRegion)
+        .then(resp => {
+            console.log(resp[0]);
+            res.status(200).json(resp[0]);
+        }).catch(err=>{
+            console.error(err);
+            res.status(400).json('Error en la sintaxis de la petición');
+        });
+    }
+
+    getCountry = (req, res) => {
+        const getCountry = 'SELECT ID, region_id, name FROM countries;';
+        return sequelize.query(getCountry)
+        .then(resp => {
+            console.log(resp[0]);
+            res.status(200).json(resp[0]);
+        }).catch(err=>{
+            console.error(err);
+            res.status(400).json('Error en la sintaxis de la petición');
+        });
+    }
+
+    getCity = (req, res) => {
+        const getCity = 'SELECT ID, country_id, name FROM cities;';
+        return sequelize.query(getCity)
+        .then(resp => {
+            console.log(resp[0]);
+            res.status(200).json(resp[0]);
+        }).catch(err=>{
+            console.error(err);
+            res.status(400).json('Error en la sintaxis de la petición');
+        });
+    }
+
     addRegion = (req, res) => {
         const name = req.body.name;
         const addRegion = 'INSERT INTO `regions` (`name`) VALUES ("'+name+'");';

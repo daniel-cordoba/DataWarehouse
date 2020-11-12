@@ -17,7 +17,7 @@ function login(){
         });
 }
 
-//FUNCION PARA LLENAR TABLA DE CONTACTOS
+//FUNCIONES PARA LLENAR TABLA DE CONTACTOS
 window.onload = fillContacts();
 async function getContacts(){
     const jwt = sessionStorage.getItem("jwt");
@@ -32,6 +32,7 @@ async function getContacts(){
         return dataTable;
     }
 }
+
 async function fillContacts(){
     try {
         let contacts = await getContacts();        
@@ -49,18 +50,12 @@ async function fillContacts(){
             const charge = contact.charge;
             const interest = contact.interest;
             tableContacts(ID, name, last_name, country, region, email, company, charge, interest);        
-        }   
-
-        //Funcion para Iniciar ToolTips
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        });
-
+        }
         //Funcion para Iniciar Libreria DataTables
         let table = $('#table_contacts').DataTable( {
             language: {
                 info: "_START_ - _END_ de _TOTAL_ contactos",
-                infoFiltered: "(filtrados de _MAX_ contactos)",
+                infoFiltered: "",
                 infoEmpty: "No se encontraron resultados",
                 lengthMenu: "Contactos por página _MENU_",
                 select: {
@@ -83,9 +78,7 @@ async function fillContacts(){
             lengthMenu: [[ 9, 18, 27, 36, -1],[ 9, 18, 27, 36, "Todos"]],
             order: [[ 1, 'asc' ]]
         } );
-
-        $('.form-control.form-control-sm').addClass("search_bar");
-
+        //Estilo en barra de búsqueda
         $('#table_contacts_filter').find("label").addClass("input-group").html(`<div class="input-group-prepend">
             <span class="input-group-text bg-info" id="basic-addon1">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="var(--white)" xmlns="http://www.w3.org/2000/svg">
@@ -95,10 +88,20 @@ async function fillContacts(){
             </span>
         </div>
         <input type="search" id="input_bar" class="form-control search_bar d-inline-block ml-0" placeholder="Buscar contactos" aria-controls="table_contacts">`);
-
+        //Setting datatable para la barra de busqueda
         $('#input_bar').on( 'keyup', function () {
             table.search( this.value ).draw();
         } ); 
+        //Agregar botón para crear contactos
+        const div_parent = $('#table_contacts_wrapper').find('.row')[0];
+        console.log( $(div_parent).children().removeClass('col-md-6').addClass('col-md-4'));
+        $(div_parent).append(`<div class="col-sm-12 col-md-4">
+                                <button type="button" class="btn btn-info float-right mr-5" data-toggle="modal" data-target="#add_contact">Agregar Contacto
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                    </svg>
+                                </button>
+                            </div>`);
     } catch (error) {
         console.error(error);
     }
@@ -120,8 +123,8 @@ function tableContacts(ID, name, last_name, country, region, email, company, cha
                         </div>
                      </td>`)
             .append($('<td class="align-middle text-center">')
-                .append('<button class="btn btn-info mr-1" data-toggle="tooltip" data-placement="top" title="Editar"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg></button>')
-                .append('<button class="btn btn-info" data-toggle="modal" data-target="#modal_contact_remove_one" data-toggle="tooltip" data-placement="top" title="Eliminar" onclick="set_eliminate_byIcon(this)"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></button>')
+                .append('<button class="btn btn-info mr-1" data-toggle="modal" data-target="#edit_contact" title="Editar"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg></button>')
+                .append('<button class="btn btn-info" data-toggle="modal" data-target="#modal_contact_remove_one" onclick="set_eliminate_byIcon(this)" title="Eliminar"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></button>')
         )
     );
 }
@@ -166,6 +169,146 @@ async function eliminate_selected() {
         $(contact).remove();
     }    
 }
+
+//FUNCIONES PARA CREAR CONTACTOS
+//ENDPOINT GET Companies
+async function getCompanies() {
+    const jwt = sessionStorage.getItem("jwt");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/companies',
+        {
+            method:'GET',
+            headers:{"Authorization":"Bearer "+jwt}
+        });
+        let companies = await response.json();
+        return companies;
+    }
+}
+//ENDPOINT GET Regions
+async function getRegions() {
+    const jwt = sessionStorage.getItem("jwt");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/regions',
+        {
+            method:'GET',
+            headers:{"Authorization":"Bearer "+jwt}
+        });
+        let regions = await response.json();
+        return regions;
+    }
+}
+//ENDPOINT GET Countries
+async function getCountries() {
+    const jwt = sessionStorage.getItem("jwt");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/countries',
+        {
+            method:'GET',
+            headers:{"Authorization":"Bearer "+jwt}
+        });
+        let countries = await response.json();
+        return countries;
+    }
+}
+//ENDPOINT GET Cities
+async function getCities() {
+    const jwt = sessionStorage.getItem("jwt");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/cities',
+        {
+            method:'GET',
+            headers:{"Authorization":"Bearer "+jwt}
+        });
+        let cities = await response.json();
+        return cities;
+    }
+}
+//Opciones en select de compañias
+$('#add_contact').on('show.bs.modal', async() => {
+        let companies = await getCompanies();
+        companies.forEach(company => {
+            const name = company.name;
+            $('#select_company').append(`<option>${name}</option>`)
+        });
+})
+//Opciones en select de region
+$('#add_contact').on('show.bs.modal', async() => {
+    let regions = await getRegions();
+    console.log(regions);
+    regions.forEach(region => {
+        const name = region.name;
+        const ID = region.ID;
+        $('#select_region').append(`<option value="${ID}">${name}</option>`)
+    });
+})
+//Opciones en select de paises
+/* $('#select_region').on('change', async() => {
+    let countries = await getCountries();
+    console.log(countries[0]);
+    countries[0].forEach(country => {
+        if (country.region_id === ) {
+            
+        }
+        const name = country.name;
+        const ID = country.ID;
+        $('#select_region').append(`<option value="${ID}">${name}</option>`)
+    });
+}) */
+
+//Desabilitar-Habilidad Select Country
+document.getElementById("select_region").onchange = async function () {
+    let select_country = document.getElementById("select_country");
+    let select_city = document.getElementById("select_city");
+    document.getElementById("contact_adress").setAttribute("disabled", "disable");
+    select_country.removeAttribute("disabled");
+    while (select_country.hasChildNodes()) {
+        select_country.removeChild(select_country.firstChild);
+    }
+    while (select_city.hasChildNodes()) {
+        select_city.removeChild(select_city.firstChild);
+    }
+    $(select_country).append(`<option value="0" selected>Seleccionar País</option>`);
+    $(select_city).append(`<option value="0" selected>Seleccionar Ciudad</option>`);
+    const region = document.getElementById('select_region').value;
+    const countries = await getCountries();
+    countries.forEach(country => {
+        if (country.region_id == region) {
+            const name = country.name;
+            const ID = country.ID;
+            $('#select_country').append(`<option value="${ID}">${name}</option>`) 
+        }
+    });
+};
+//Desabilitar-Habilidad Select City
+document.getElementById("select_country").onchange = async function () {
+    let select_city = document.getElementById("select_city");
+    select_city.removeAttribute("disabled");
+    document.getElementById("contact_adress").setAttribute("disabled", "disable");
+    while (select_city.hasChildNodes()) {
+        select_city.removeChild(select_city.firstChild);
+    }
+    $(select_city).append(`<option value="0" selected>Seleccionar Ciudad</option>`);
+    const country = document.getElementById('select_country').value;
+    const cities = await getCities();
+    cities.forEach(city => {
+        if (city.country_id == country) {
+            const name = city.name;
+            const ID = city.ID;
+            $('#select_city').append(`<option value="${ID}">${name}</option>`) 
+        }
+    });
+};
+//Desabilitar-Habilidad Select Adress
+document.getElementById("select_city").onchange = function () {
+    let contact_adress = document.getElementById("contact_adress");
+    contact_adress.removeAttribute("disabled");
+    if (document.getElementById("select_city").value == 0) {
+        //contact_adress.setAttribute("disabled", "disable");
+        document.getElementById("contact_adress").setAttribute("disabled", "disable");
+    } 
+}
+
+
 
 
 

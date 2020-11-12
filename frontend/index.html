@@ -69,9 +69,7 @@
             <table class="table table-hover" id="table_contacts">                
                 <thead class="thead-dark">
                     <tr>
-                        
-                        <th scope="col">
-                            <!-- <input type="checkbox" id="firstf"> --> 
+                        <th scope="col">                            
                         </th>
                         <th scope="col">Contacto</th>
                         <th scope="col">País/Región</th>
@@ -79,13 +77,12 @@
                         <th scope="col">Cargo</th>
                         <th scope="col">Interés</th>
                         <th scope="col" class="text-center">Acciones</th>
-                
                     </tr>
                 </thead>
                 <tbody id="table_contacts">
                 </tbody>
             </table>
-            <button class="btn btn-info d-block mx-auto d-none" onclick="eliminate_selected()">Eliminar contactos seleccionados</button>
+            <button class="btn btn-info d-block mx-auto d-none" data-toggle="modal" data-target="#modal_contacts_remove">Eliminar contactos seleccionados</button>
         </section>
         <section id="companies" class="min-vh-100">
             
@@ -97,6 +94,50 @@
         </section>
         <section id="location">
     
+        </section>
+
+        <section id="modals">
+            <!-- Modal Eliminate Contacts-->
+            <div class="modal fade" id="modal_contacts_remove" tabindex="-1" role="dialog" aria-labelledby="modal_contacts_remove_Title" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modal_contacts_remove_Title">Advertencia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    ¿Está seguro que desea eliminar los contactos seleccionados?
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" onclick="eliminate_selected()" data-dismiss="modal">Eliminar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Modal Eliminate 1 Contact by Icon-->
+            <div class="modal fade" id="modal_contact_remove_one" tabindex="-1" role="dialog" aria-labelledby="modal_contact_remove_one_Title" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Advertencia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    ¿Está seguro que desea eliminar el contacto seleccionado?
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" onclick="do_eliminate_byIcon()" data-dismiss="modal">Eliminar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
         </section>
     </main>
     <!-- BOOTSTRAP JS CDN -->

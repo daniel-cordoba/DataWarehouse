@@ -85,6 +85,7 @@ CREATE TABLE `contacts` (
 	`country` VARCHAR(50) NULL DEFAULT '0',
 	`city` VARCHAR(50) NULL DEFAULT '0',
 	`interest` VARCHAR(50) NULL DEFAULT '0',
+	`adress` VARCHAR(50) NULL DEFAULT '0',
 	PRIMARY KEY (`ID`)
 )
 COLLATE='latin1_swedish_ci'

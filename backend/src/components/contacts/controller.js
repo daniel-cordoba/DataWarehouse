@@ -14,11 +14,11 @@ class Contacts{
     }
 
     addContact = (req, res) => {
-        const {name, last_name, charge, email, company, region, country, city, interest} = req.body;
-        const addContact = 'INSERT INTO `contacts` (`name`, `last_name`, `charge`, `email`, `company`, `region`, `country`, `city`, `interest`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);';
+        const {name, last_name, charge, email, company, region, country, city, interest, adress} = req.body;
+        const addContact = 'INSERT INTO `contacts` (`name`, `last_name`, `charge`, `email`, `company`, `region`, `country`, `city`, `interest`, `adress`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);';
           return sequelize.query(addContact, 
             {
-                replacements: [name, last_name, charge, email, company, region, country, city, interest],
+                replacements: [name, last_name, charge, email, company, region, country, city, interest, adress],
                 type: sequelize.QueryTypes.INSERT  
             }).then(resp => {
                 console.log(resp);

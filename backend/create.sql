@@ -36,7 +36,7 @@ CREATE TABLE `countries` (
 COLLATE='latin1_swedish_ci'
 ;
 INSERT INTO `countries` (`region_id`,`name`)
-VALUES (1, 'Argentina'), (1, 'Colombia'), (1, 'Chile'),
+VALUES (1, 'Argentina'), (1, 'Colombia'), (1, 'Chile'), (1, 'Uruguay'),
 (2, 'Mexico'), (2, 'Estados Unidos');
 
 CREATE TABLE `cities` (
@@ -52,8 +52,9 @@ INSERT INTO `cities` (`country_id`, `name`)
 VALUES (1, 'Buenos Aires'), (1, 'Córdoba'),
 (2, 'Bogotá'), (2, 'Cúcuta'), (2, 'Medellín'),
 (3, 'Atacama'), (3, 'Santiago'), (3, 'Valparaíso'),
-(4, 'Ciudad de México'), (4, 'Tijuana'),
-(5, 'Florida'), (5, 'Texas');
+(4, 'Canelones'), (4, 'Maldonado'), (4, 'Montevideo'),
+(5, 'Ciudad de México'), (5, 'Tijuana'),
+(6, 'Florida'), (6, 'Texas');
 
 CREATE TABLE `companies` (
 	`ID` INT NOT NULL AUTO_INCREMENT,
@@ -69,7 +70,7 @@ CREATE TABLE `companies` (
 COLLATE='latin1_swedish_ci'
 ;
 INSERT INTO `companies` (`name`, `address`, `email`, `phone`, `city`, `city_id`)
-VALUES ('Softtek', 'xxxxxx', 'softtek@soft.com', '3508060201', 'Tijuana', 10),
+VALUES ('Softtek', 'xxxxxx', 'softtek@soft.com', '3508060201', 'Tijuana', 13),
 ('Globant', 'xxxxxx', 'globant@globant.com', '3408060201', 'Buenos Aires', 1),
 ('Rappi', 'xxxxxx', 'rappi@rappi.com', '3308060201', 'Medellín', 5),
 ('MercadoLibre', 'xxxxxx', 'mercadolibre@mercadolibre.com', '3208060201', 'Córdoba', 2);
@@ -81,11 +82,11 @@ CREATE TABLE `contacts` (
 	`charge` VARCHAR(50) NOT NULL DEFAULT '0',
 	`email` VARCHAR(50) NOT NULL DEFAULT '0',
 	`company` VARCHAR(50) NOT NULL DEFAULT '0',
-	`region` VARCHAR(50) NULL DEFAULT '0',
-	`country` VARCHAR(50) NULL DEFAULT '0',
-	`city` VARCHAR(50) NULL DEFAULT '0',
-	`interest` VARCHAR(50) NULL DEFAULT '0',
-	`adress` VARCHAR(50) NULL DEFAULT '0',
+	`region` VARCHAR(50) NULL DEFAULT NULL,
+	`country` VARCHAR(50) NULL DEFAULT NULL,
+	`city` VARCHAR(50) NULL DEFAULT NULL,
+	`interest` VARCHAR(50) NULL DEFAULT NULL,
+	`adress` VARCHAR(50) NULL DEFAULT NULL,
 	PRIMARY KEY (`ID`)
 )
 COLLATE='latin1_swedish_ci'
@@ -96,6 +97,18 @@ VALUES ('Camila', 'Soledad Pantó', 'UX Designer', 'camilapanto123@gmail.com', '
 ('Denver Steven', 'Soria', 'Developer', 'denver-steven@gmail.com', 'Rappi', 'Sudamerica', 'Colombia', 'Medellín', '25%'),
 ('Sebastian Agustín', 'Pantó', 'Product', 'sebapanto@gmail.com', 'MercadoLibre', 'Sudamerica', 'Argentina', 'Córdoba', '25%'),
 ('Stefanía Natalí', 'Soria', 'UI Designer', 'agustinesoria96@gmail.com', 'Softtek', 'Norteamerica', 'México', 'Ciudad de México', '50%')
+;
+
+CREATE TABLE `channels` (
+	`ID` INT NOT NULL,
+	`contact_id` INT NOT NULL,
+	`channel` VARCHAR(50) NOT NULL DEFAULT '',
+	`user` VARCHAR(50) NOT NULL DEFAULT '',
+	`preference` VARCHAR(50) NOT NULL DEFAULT '',
+	PRIMARY KEY (`ID`),
+	CONSTRAINT `FK_channels_contacts` FOREIGN KEY (`contact_id`) REFERENCES `contacts` (`ID`)
+)
+COLLATE='latin1_swedish_ci'
 ;
 
 

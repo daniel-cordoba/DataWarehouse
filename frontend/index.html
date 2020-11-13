@@ -84,9 +84,9 @@
             <button class="btn btn-info d-block mx-auto d-none" data-toggle="modal" data-target="#modal_contacts_remove">Eliminar contactos seleccionados</button>
         </section>
         <section id="companies" class="min-vh-100">
-            
-            <div id="events">
-            </div>
+            <div class="alert alert-primary alert-success" role="alert">
+                A simple primary alert—check it out!
+              </div>
         </section>
         <section id="users">
             
@@ -175,28 +175,28 @@
                       <div class="row">
                         <div class="col-3">
                             <label for="" class="text-muted font-weight-bold">Nombre<span class="text-danger"> *</span></label>
-                            <input type="text" class="form-control" id="">
+                            <input type="text" class="form-control" id="contact_name">
                         </div>
                         <div class="col-3">
                             <label for="" class="text-muted font-weight-bold">Apellido<span class="text-danger"> *</span></label>
-                            <input type="text" class="form-control" id="">
+                            <input type="text" class="form-control" id="contact_lastName">
                         </div>
                         
                         <div class="col-4">
                             <label for="" class="text-muted font-weight-bold">Email<span class="text-danger"> *</span></label>
-                            <input type="text" class="form-control" id="">
+                            <input type="text" class="form-control" id="contact_email">
                         </div>
                         
                     </div>
                     <div class="row mt-3">
                         <div class="col-3">
                             <label for="" class="text-muted font-weight-bold">Cargo<span class="text-danger"> *</span></label>
-                            <input type="text" class="form-control" id="">
+                            <input type="text" class="form-control" id="contact_charge">
                         </div>
                         <div class="col-3">
                             <label for="" class="text-muted font-weight-bold">Compañía<span class="text-danger"> *</span></label>
                             <select class="custom-select" id="select_company">
-                                <option selected>Seleccione una compañía</option>
+                                <option value="0" selected>Seleccione una compañía</option>
                             </select>
                         </div>
                     </div>
@@ -238,7 +238,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-                      <button type="button" class="btn btn-success">Agregar</button>
+                      <button type="button" class="btn btn-success" onclick="postContact()">Agregar</button>
                     </div>
                   </div>
                 </div>

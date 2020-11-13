@@ -223,6 +223,49 @@ async function getCities() {
         return cities;
     }
 }
+//ENDPOINT POST Data to add contact con validaciones
+async function postContact() {
+    $('.alert').alert();
+    //Getting data
+    const name = document.getElementById('contact_name').value;
+    const last_name = document.getElementById('contact_lastName').value;
+    const charge = document.getElementById('contact_charge').value;
+    const email = document.getElementById('contact_email').value;
+    const interest = document.getElementById('select_interest').value;
+    const adress = document.getElementById('contact_adress').value;
+    let company = document.getElementById('select_company');
+    company = company.options[company.selectedIndex].text;
+    let region = document.getElementById('select_region');
+    region = region.options[region.selectedIndex].text;
+    let country = document.getElementById('select_country');
+    country = country.options[country.selectedIndex].text;
+    let city = document.getElementById('select_city');
+    city = city.options[city.selectedIndex].text;
+    //Validating data
+    if (!name) {
+    }else{
+        console.log('nolas');
+    }
+
+    
+
+
+
+
+    /* const jwt = sessionStorage.getItem("jwt");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/contact',
+        {
+            method:'POST',
+            body:`{"email":"${email.value}",
+                "password":"${password.value}"}`,
+            headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
+        });
+        let cities = await response.json();
+        return cities;
+    } */
+}
+
 //Opciones en select de compañias
 $('#add_contact').on('show.bs.modal', async() => {
         let companies = await getCompanies();
@@ -240,25 +283,12 @@ $('#add_contact').on('show.bs.modal', async() => {
         const ID = region.ID;
         $('#select_region').append(`<option value="${ID}">${name}</option>`)
     });
-})
-//Opciones en select de paises
-/* $('#select_region').on('change', async() => {
-    let countries = await getCountries();
-    console.log(countries[0]);
-    countries[0].forEach(country => {
-        if (country.region_id === ) {
-            
-        }
-        const name = country.name;
-        const ID = country.ID;
-        $('#select_region').append(`<option value="${ID}">${name}</option>`)
-    });
-}) */
-
+});
 //Desabilitar-Habilidad Select Country
 document.getElementById("select_region").onchange = async function () {
     let select_country = document.getElementById("select_country");
     let select_city = document.getElementById("select_city");
+    document.getElementById("contact_adress").value="";
     document.getElementById("contact_adress").setAttribute("disabled", "disable");
     select_country.removeAttribute("disabled");
     while (select_country.hasChildNodes()) {
@@ -283,6 +313,7 @@ document.getElementById("select_region").onchange = async function () {
 document.getElementById("select_country").onchange = async function () {
     let select_city = document.getElementById("select_city");
     select_city.removeAttribute("disabled");
+    document.getElementById("contact_adress").value="";
     document.getElementById("contact_adress").setAttribute("disabled", "disable");
     while (select_city.hasChildNodes()) {
         select_city.removeChild(select_city.firstChild);
@@ -303,33 +334,7 @@ document.getElementById("select_city").onchange = function () {
     let contact_adress = document.getElementById("contact_adress");
     contact_adress.removeAttribute("disabled");
     if (document.getElementById("select_city").value == 0) {
-        //contact_adress.setAttribute("disabled", "disable");
+        document.getElementById("contact_adress").value="";
         document.getElementById("contact_adress").setAttribute("disabled", "disable");
     } 
 }
-
-
-
-
-
-
-
-/* function select_to_eliminate(btn) {
-    console.log(btn.parentElement.parentElement);
-    const contact = btn.parentElement.parentElement;
-    const checkbox = $(contact).children()[0];
-    $(checkbox).trigger("click");
-}
-
-function unselect() {
-    alert('Holi');
-    let selected = $('#table_contacts').find('.selected');
-    console.log(selected);
-    $(selected).trigger("click");
-    //selected.removeClass('selected');
-} */
-
-
-
-
-

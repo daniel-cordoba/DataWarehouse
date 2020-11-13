@@ -94,7 +94,7 @@ async function fillContacts(){
         } ); 
         //Agregar botón para crear contactos
         const div_parent = $('#table_contacts_wrapper').find('.row')[0];
-        console.log( $(div_parent).children().removeClass('col-md-6').addClass('col-md-4'));
+        $(div_parent).children().removeClass('col-md-6').addClass('col-md-4');
         $(div_parent).append(`<div class="col-sm-12 col-md-4">
                                 <button type="button" class="btn btn-info float-right mr-5" data-toggle="modal" data-target="#add_contact">Agregar Contacto
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -277,7 +277,6 @@ $('#add_contact').on('show.bs.modal', async() => {
 //Opciones en select de region
 $('#add_contact').on('show.bs.modal', async() => {
     let regions = await getRegions();
-    console.log(regions);
     regions.forEach(region => {
         const name = region.name;
         const ID = region.ID;

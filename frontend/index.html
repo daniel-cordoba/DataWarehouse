@@ -84,9 +84,7 @@
             <button class="btn btn-info d-block mx-auto d-none" data-toggle="modal" data-target="#modal_contacts_remove">Eliminar contactos seleccionados</button>
         </section>
         <section id="companies" class="min-vh-100">
-            <div class="alert alert-primary alert-success" role="alert">
-                A simple primary alert—check it out!
-              </div>
+
         </section>
         <section id="users">
             
@@ -166,7 +164,7 @@
                 <div class="modal-dialog modal-xl">
                   <div class="modal-content">
                     <div class="modal-header bg-info">
-                      <h5 class="modal-title text-white" id="add_contact_Label">Agregar Contacto</h5>
+                      <h4 class="modal-title text-white" id="add_contact_Label">Agregar Contacto</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" class="text-white">&times;</span>
                       </button>
@@ -200,7 +198,7 @@
                             </select>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="my-4">
                     <div class="row">
                         <div class="col-3">
                             <label for="" class="text-muted font-weight-bold">Región</label>
@@ -225,13 +223,65 @@
                             <input type="text" class="form-control" id="contact_adress" disabled>
                         </div>
                         <div class="col-3">
-                            <label for="" class="text-muted font-weight-bold">Interés</label>
+                            <label for="" class="text-muted font-weight-bold mt-3">Interés</label>
                             <select class="custom-select" id="select_interest">
                                 <option selected>0%</option>
                                 <option>25%</option>
                                 <option>50%</option>
                                 <option>75%</option>
                                 <option>100%</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col-2 d-flex align-items-center justify-content-center">
+                            <h5 id="channel_w" class="text-muted">Whatsapp</h5>
+                        </div>
+                        <div class="col-3">
+                            <label for="channel_user_w" class="text-muted font-weight-bold">Número celular</label>
+                            <input type="text" class="form-control" id="channel_user_w">
+                        </div>
+                        <div class="col-3">
+                            <label for="channel_preference_w" class="text-muted font-weight-bold">Preferencias</label>
+                            <select class="custom-select" id="channel_preference_w" disabled>
+                                <option selected>Sin preferencia</option>
+                                <option>Canal favorito</option>
+                                <option>No molestar</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-2 d-flex align-items-center justify-content-center">
+                            <h5 id="channel_f" class="text-muted">Facebook</h5>
+                        </div>
+                        <div class="col-3">
+                            <label for="channel_user_f" class="text-muted font-weight-bold">Cuenta de usuario</label>
+                            <input type="text" class="form-control" id="channel_user_f">
+                        </div>
+                        <div class="col-3">
+                            <label for="channel_preference_f" class="text-muted font-weight-bold">Preferencias</label>
+                            <select class="custom-select" id="channel_preference_f" disabled>
+                                <option selected>Sin preferencia</option>
+                                <option>Canal favorito</option>
+                                <option>No molestar</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-2 d-flex align-items-center justify-content-center">
+                            <h5 id="channel_t" class="text-muted">Twitter</h5>
+                        </div>
+                        <div class="col-3">
+                            <label for="channel_user_t" class="text-muted font-weight-bold">Cuenta de usuario</label>
+                            <input type="text" class="form-control" id="channel_user_t">
+                        </div>
+                        <div class="col-3">
+                            <label for="channel_preference_t" class="text-muted font-weight-bold">Preferencias</label>
+                            <select class="custom-select" id="channel_preference_t" disabled>
+                                <option selected>Sin preferencia</option>
+                                <option>Canal favorito</option>
+                                <option>No molestar</option>
                             </select>
                         </div>
                     </div>

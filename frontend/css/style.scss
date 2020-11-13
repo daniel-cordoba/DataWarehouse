@@ -3,6 +3,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+//Hide arrows from input type number
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    appearance: none;
+}
 
 @import 'signin';
 @import 'header';

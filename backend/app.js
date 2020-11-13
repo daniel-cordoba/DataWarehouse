@@ -8,6 +8,7 @@ const usersRouter = require('./src/components/users');
 const locationRouter = require('./src/components/location');
 const companiesRouter = require('./src/components/companies');
 const contactsRouter = require('./src/components/contacts');
+const channelsRouter = require('./src/components/channels');
 
 app.use(helmet.permittedCrossDomainPolicies({permittedPolicies: "by-content-type"}));
 app.use(function(req, res, next) {
@@ -21,6 +22,7 @@ app.use('/', usersRouter);
 app.use('/', locationRouter);
 app.use('/', companiesRouter);
 app.use('/', contactsRouter);
+app.use('/', channelsRouter);
 
 app.listen(3000, function () {
     console.log('Aplicación usuando el puerto 3000');

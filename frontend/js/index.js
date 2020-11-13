@@ -283,7 +283,7 @@ $('#add_contact').on('show.bs.modal', async() => {
         $('#select_region').append(`<option value="${ID}">${name}</option>`)
     });
 });
-//Desabilitar-Habilidad Select Country
+//Desabilitar-Habilitar Select Country
 document.getElementById("select_region").onchange = async function () {
     let select_country = document.getElementById("select_country");
     let select_city = document.getElementById("select_city");
@@ -308,7 +308,7 @@ document.getElementById("select_region").onchange = async function () {
         }
     });
 };
-//Desabilitar-Habilidad Select City
+//Desabilitar-Habilitar Select City
 document.getElementById("select_country").onchange = async function () {
     let select_city = document.getElementById("select_city");
     select_city.removeAttribute("disabled");
@@ -328,7 +328,7 @@ document.getElementById("select_country").onchange = async function () {
         }
     });
 };
-//Desabilitar-Habilidad Select Adress
+//Desabilitar-Habilitar Select Adress
 document.getElementById("select_city").onchange = function () {
     let contact_adress = document.getElementById("contact_adress");
     contact_adress.removeAttribute("disabled");
@@ -337,3 +337,18 @@ document.getElementById("select_city").onchange = function () {
         document.getElementById("contact_adress").setAttribute("disabled", "disable");
     } 
 }
+//Desabilitar-Habilitar WhatsApp/Facebook/Twitter Select Preferences
+function disable(channel) {
+    document.getElementById("channel_user_"+channel).onchange = function () {
+        let channel_preference = document.getElementById("channel_preference_"+channel);
+        if (document.getElementById("channel_user_"+channel).value) {        
+            channel_preference.removeAttribute("disabled");  
+        }else{
+            channel_preference.setAttribute("disabled", "disabled");       
+        }
+    }
+}
+disable("w");
+disable("f");
+disable("t");
+

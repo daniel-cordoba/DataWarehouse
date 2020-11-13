@@ -172,27 +172,27 @@
                     <div class="modal-body">
                       <div class="row">
                         <div class="col-3">
-                            <label for="" class="text-muted font-weight-bold">Nombre<span class="text-danger"> *</span></label>
+                            <label for="contact_name" class="text-muted font-weight-bold">Nombre<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="contact_name">
                         </div>
                         <div class="col-3">
-                            <label for="" class="text-muted font-weight-bold">Apellido<span class="text-danger"> *</span></label>
+                            <label for="contact_lastName" class="text-muted font-weight-bold">Apellido<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="contact_lastName">
                         </div>
                         
                         <div class="col-4">
-                            <label for="" class="text-muted font-weight-bold">Email<span class="text-danger"> *</span></label>
+                            <label for="contact_email" class="text-muted font-weight-bold">Email<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="contact_email">
                         </div>
                         
                     </div>
                     <div class="row mt-3">
                         <div class="col-3">
-                            <label for="" class="text-muted font-weight-bold">Cargo<span class="text-danger"> *</span></label>
+                            <label for="contact_charge" class="text-muted font-weight-bold">Cargo<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="contact_charge">
                         </div>
                         <div class="col-3">
-                            <label for="" class="text-muted font-weight-bold">Compañía<span class="text-danger"> *</span></label>
+                            <label for="select_company" class="text-muted font-weight-bold">Compañía<span class="text-danger"> *</span></label>
                             <select class="custom-select" id="select_company">
                                 <option value="0" selected>Seleccione una compañía</option>
                             </select>
@@ -201,29 +201,29 @@
                     <hr class="my-4">
                     <div class="row">
                         <div class="col-3">
-                            <label for="" class="text-muted font-weight-bold">Región</label>
+                            <label for="select_region" class="text-muted font-weight-bold">Región</label>
                             <select class="custom-select" id="select_region">
                                 <option value="0" selected>Seleccionar Región</option>
                             </select>
                         </div>
                         <div class="col-3">
-                            <label for="" class="text-muted font-weight-bold">País</label>
+                            <label for="select_country" class="text-muted font-weight-bold">País</label>
                             <select class="custom-select" id="select_country" disabled>
                                 <option value="0" selected>Seleccionar País</option>
                             </select>
                         </div>
                         <div class="col-3">
-                            <label for="" class="text-muted font-weight-bold">Ciudad</label>
+                            <label for="select_city" class="text-muted font-weight-bold">Ciudad</label>
                             <select class="custom-select" id="select_city" disabled>
                                 <option selected>Seleccionar Ciudad</option>
                             </select>
                         </div>
                         <div class="col-3">
-                            <label for="" class="text-muted font-weight-bold">Dirección</label>
+                            <label for="contact_adress" class="text-muted font-weight-bold">Dirección</label>
                             <input type="text" class="form-control" id="contact_adress" disabled>
                         </div>
                         <div class="col-3">
-                            <label for="" class="text-muted font-weight-bold mt-3">Interés</label>
+                            <label for="select_interest" class="text-muted font-weight-bold mt-3">Interés</label>
                             <select class="custom-select" id="select_interest">
                                 <option selected>0%</option>
                                 <option>25%</option>
@@ -240,7 +240,7 @@
                         </div>
                         <div class="col-3">
                             <label for="channel_user_w" class="text-muted font-weight-bold">Número celular</label>
-                            <input type="text" class="form-control" id="channel_user_w">
+                            <input type="number" class="form-control" id="channel_user_w" placeholder="3214865795">
                         </div>
                         <div class="col-3">
                             <label for="channel_preference_w" class="text-muted font-weight-bold">Preferencias</label>
@@ -257,7 +257,7 @@
                         </div>
                         <div class="col-3">
                             <label for="channel_user_f" class="text-muted font-weight-bold">Cuenta de usuario</label>
-                            <input type="text" class="form-control" id="channel_user_f">
+                            <input type="url" class="form-control" id="channel_user_f" placeholder="@ejemplo">
                         </div>
                         <div class="col-3">
                             <label for="channel_preference_f" class="text-muted font-weight-bold">Preferencias</label>
@@ -274,7 +274,7 @@
                         </div>
                         <div class="col-3">
                             <label for="channel_user_t" class="text-muted font-weight-bold">Cuenta de usuario</label>
-                            <input type="text" class="form-control" id="channel_user_t">
+                            <input type="url" class="form-control" id="channel_user_t" placeholder="@ejemplo">
                         </div>
                         <div class="col-3">
                             <label for="channel_preference_t" class="text-muted font-weight-bold">Preferencias</label>

@@ -100,7 +100,7 @@ VALUES ('Camila', 'Soledad Pantó', 'UX Designer', 'camilapanto123@gmail.com', '
 ;
 
 CREATE TABLE `channels` (
-	`ID` INT NOT NULL,
+	`ID` INT NOT NULL AUTO_INCREMENT,
 	`contact_id` INT NOT NULL,
 	`channel` VARCHAR(50) NOT NULL DEFAULT '',
 	`user` VARCHAR(50) NOT NULL DEFAULT '',

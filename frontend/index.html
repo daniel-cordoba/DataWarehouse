@@ -82,6 +82,9 @@
                 </tbody>
             </table>
             <button class="btn btn-info d-block mx-auto d-none" data-toggle="modal" data-target="#modal_contacts_remove">Eliminar contactos seleccionados</button>
+            <div class="alert alert-danger collapse" role="alert" id="alertTry">
+                This is a danger alert—check it out!
+            </div>
         </section>
         <section id="companies" class="min-vh-100">
 
@@ -215,7 +218,7 @@
                         <div class="col-3">
                             <label for="select_city" class="text-muted font-weight-bold">Ciudad</label>
                             <select class="custom-select" id="select_city" disabled>
-                                <option selected>Seleccionar Ciudad</option>
+                                <option value="0" selected>Seleccionar Ciudad</option>
                             </select>
                         </div>
                         <div class="col-3">

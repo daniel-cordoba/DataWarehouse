@@ -224,46 +224,66 @@ async function getCities() {
     }
 }
 //ENDPOINT POST Data to add contact con validaciones
-async function postContact() {
-    $('.alert').alert();
-    //Getting data
-    const name = document.getElementById('contact_name').value;
-    const last_name = document.getElementById('contact_lastName').value;
-    const charge = document.getElementById('contact_charge').value;
-    const email = document.getElementById('contact_email').value;
-    const interest = document.getElementById('select_interest').value;
-    const adress = document.getElementById('contact_adress').value;
-    let company = document.getElementById('select_company');
-    company = company.options[company.selectedIndex].text;
-    let region = document.getElementById('select_region');
-    region = region.options[region.selectedIndex].text;
-    let country = document.getElementById('select_country');
-    country = country.options[country.selectedIndex].text;
-    let city = document.getElementById('select_city');
-    city = city.options[city.selectedIndex].text;
-    //Validating data
-    if (!name) {
-    }else{
-        console.log('nolas');
-    }
-
+async function postContact() { 
+    try {
+        //Getting data
+        const name = document.getElementById('contact_name').value;
+        const last_name = document.getElementById('contact_lastName').value;
+        const charge = document.getElementById('contact_charge').value;
+        const email = document.getElementById('contact_email').value;
+        const interest = document.getElementById('select_interest').value;
+        const adress = document.getElementById('contact_adress').value;
+        let company = document.getElementById('select_company');
+        const company_id = company.value;
+        console.log(company_id);
+        console.log(typeof(company_id));
+        company = company.options[company.selectedIndex].text;
+        let region = document.getElementById('select_region');
+        region = region.options[region.selectedIndex].text;
+        let country = document.getElementById('select_country');
+        country = country.options[country.selectedIndex].text;
+        let city = document.getElementById('select_city');
+        const city_id = city.value;
+        city = city.options[city.selectedIndex].text;
+        //Validating data
+        if (!name || !last_name || !charge || !email || company === "Seleccione una compañía") {
+            alert('Recuerde llenar la información de todos los campos marcados con * (asterisco).')
+            throw Error ('Los campos marcados con * son obligatorios');
+        }
+        if (!/..@../.test(email)) {
+            alert('El email ingresado es inválido');
+            throw Error ('El email ingresado es inválido');
+        }
+        //ENDPOINT POST Contact
+        let city_id_body;
+        if (city_id === "0") {city_id_body = ``;}
+        else{city_id_body = `"city_id":"${city_id}"`;}
+        const jwt = sessionStorage.getItem("jwt");
+        if(jwt!=null){
+            let response = await fetch('http://localhost:3000/contact',
+            {
+                method:'POST',
+                body:`{
+                    "name":"${name}",
+                    "last_name":"${last_name}",
+                    "charge":"${charge}",
+                    "email":"${email}",
+                    "company":"${company}",
+                    "company_id":"${company_id}",
+                    "region":"${region}",
+                    "country":"${country}",
+                    "city":"${city}",
+                    ${city_id_body}
+                    "interest":"${interest}",
+                    "adress":"${adress}"
+                }`,
+                headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
+            });
+            let contacts = await response.json();
+            return contacts;
+        }
+    } catch (error) {console.error(error)} 
     
-
-
-
-
-    /* const jwt = sessionStorage.getItem("jwt");
-    if(jwt!=null){
-        let response = await fetch('http://localhost:3000/contact',
-        {
-            method:'POST',
-            body:`{"email":"${email.value}",
-                "password":"${password.value}"}`,
-            headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
-        });
-        let cities = await response.json();
-        return cities;
-    } */
 }
 
 //Opciones en select de compañias
@@ -271,7 +291,8 @@ $('#add_contact').on('show.bs.modal', async() => {
         let companies = await getCompanies();
         companies.forEach(company => {
             const name = company.name;
-            $('#select_company').append(`<option>${name}</option>`)
+            const ID = company.ID;
+            $('#select_company').append(`<option value="${ID}">${name}</option>`)
         });
 })
 //Opciones en select de region

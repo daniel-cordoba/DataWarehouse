@@ -76,27 +76,35 @@ VALUES ('Softtek', 'xxxxxx', 'softtek@soft.com', '3508060201', 'Tijuana', 13),
 ('MercadoLibre', 'xxxxxx', 'mercadolibre@mercadolibre.com', '3208060201', 'Córdoba', 2);
 
 CREATE TABLE `contacts` (
-	`ID` INT NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(50) NOT NULL DEFAULT '0',
-	`last_name` VARCHAR(50) NOT NULL DEFAULT '0',
-	`charge` VARCHAR(50) NOT NULL DEFAULT '0',
-	`email` VARCHAR(50) NOT NULL DEFAULT '0',
-	`company` VARCHAR(50) NOT NULL DEFAULT '0',
-	`region` VARCHAR(50) NULL DEFAULT NULL,
-	`country` VARCHAR(50) NULL DEFAULT NULL,
-	`city` VARCHAR(50) NULL DEFAULT NULL,
-	`interest` VARCHAR(50) NULL DEFAULT NULL,
-	`adress` VARCHAR(50) NULL DEFAULT NULL,
-	PRIMARY KEY (`ID`)
+	`ID` INT(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`last_name` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`charge` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`email` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`company` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`company_id` INT(11) NULL DEFAULT NULL,
+	`region` VARCHAR(50) NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`country` VARCHAR(50) NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`city` VARCHAR(50) NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`city_id` INT(11) NULL DEFAULT NULL,
+	`interest` VARCHAR(50) NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`adress` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	PRIMARY KEY (`ID`) USING BTREE,
+	INDEX `FK_contacts_companies` (`company_id`) USING BTREE,
+	INDEX `FK_contacts_cities` (`city_id`) USING BTREE,
+	CONSTRAINT `FK_contacts_cities` FOREIGN KEY (`city_id`) REFERENCES `data_warehouse`.`cities` (`ID`) ON UPDATE RESTRICT ON DELETE RESTRICT,
+	CONSTRAINT `FK_contacts_companies` FOREIGN KEY (`company_id`) REFERENCES `data_warehouse`.`companies` (`ID`) ON UPDATE RESTRICT ON DELETE RESTRICT
 )
 COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=71
 ;
-INSERT INTO `contacts` (`name`, `last_name`, `charge`, `email`, `company`, `region`, `country`, `city`, `interest`) 
-VALUES ('Camila', 'Soledad Pantó', 'UX Designer', 'camilapanto123@gmail.com', 'Softtek', 'Norteamerica', 'México', 'Tijuana', '50%'),
-('Agustín Emanuel', 'Soria', 'UI Designer', 'agustinesoria96@gmail.com', 'Globant', 'Sudamerica', 'Argentina', 'Buenos Aires', '100%'),
-('Denver Steven', 'Soria', 'Developer', 'denver-steven@gmail.com', 'Rappi', 'Sudamerica', 'Colombia', 'Medellín', '25%'),
-('Sebastian Agustín', 'Pantó', 'Product', 'sebapanto@gmail.com', 'MercadoLibre', 'Sudamerica', 'Argentina', 'Córdoba', '25%'),
-('Stefanía Natalí', 'Soria', 'UI Designer', 'agustinesoria96@gmail.com', 'Softtek', 'Norteamerica', 'México', 'Ciudad de México', '50%')
+INSERT INTO `contacts` (`name`, `last_name`, `charge`, `email`, `company`, `company_id`, `region`, `country`, `city`, `city_id`, `interest`) 
+VALUES ('Camila', 'Soledad Pantó', 'UX Designer', 'camilapanto123@gmail.com', 'Softtek', 1, 'Norteamerica', 'México', 'Tijuana', 13, '50%'),
+('Agustín Emanuel', 'Soria', 'UI Designer', 'agustinesoria96@gmail.com', 'Globant', 2, 'Sudamerica', 'Argentina', 'Buenos Aires', 1, '100%'),
+('Denver Steven', 'Soria', 'Developer', 'denver-steven@gmail.com', 'Rappi', 3, 'Sudamerica', 'Colombia', 'Medellín', 5, '25%'),
+('Sebastian Agustín', 'Pantó', 'Product', 'sebapanto@gmail.com', 'MercadoLibre', 4, 'Sudamerica', 'Argentina', 'Córdoba', 2, '25%'),
+('Stefanía Natalí', 'Soria', 'UI Designer', 'agustinesoria96@gmail.com', 'Softtek', 1, 'Norteamerica', 'México', 'Ciudad de México', 12, '50%')
 ;
 
 CREATE TABLE `channels` (

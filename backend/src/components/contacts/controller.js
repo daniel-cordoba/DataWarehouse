@@ -14,11 +14,11 @@ class Contacts{
     }
 
     addContact = (req, res) => {
-        const {name, last_name, charge, email, company, region, country, city, interest, adress} = req.body;
-        const addContact = 'INSERT INTO `contacts` (`name`, `last_name`, `charge`, `email`, `company`, `region`, `country`, `city`, `interest`, `adress`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);';
+        const {name, last_name, charge, email, company, company_id, region, country, city, city_id, interest, adress} = req.body;
+        const addContact = 'INSERT INTO `contacts` (`name`, `last_name`, `charge`, `email`, `company`, `company_id`, `region`, `country`, `city`, `city_id`, `interest`, `adress`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
           return sequelize.query(addContact, 
             {
-                replacements: [name, last_name, charge, email, company, region, country, city, interest, adress],
+                replacements: [name, last_name, charge, email, company, company_id, region, country, city, city_id, interest, adress],
                 type: sequelize.QueryTypes.INSERT  
             }).then(resp => {
                 console.log(resp);
@@ -30,8 +30,8 @@ class Contacts{
     }
 
     editContact = (req, res) => {
-        const {ID, name, last_name, charge, email, company, region, country, city, interest} = req.body;
-        const addContact = 'UPDATE contacts SET name="'+name+'", last_name="'+last_name+'", charge="'+charge+'", email="'+email+'", company="'+company+'", region="'+region+'", country="'+country+'", city="'+city+'", interest="'+interest+'" WHERE ID='+ID+';';
+        const {ID, name, last_name, charge, email, company, company_id, region, country, city, city_id, interest} = req.body;
+        const addContact = 'UPDATE contacts SET name="'+name+'", last_name="'+last_name+'", charge="'+charge+'", email="'+email+'", company="'+company+'", company_id="'+company_id+'", region="'+region+'", country="'+country+'", city="'+city+'", city="'+city+'", interest="'+interest+'" WHERE ID='+ID+';';
           return sequelize.query(addContact, {type: sequelize.QueryTypes.INSERT})
             .then(resp => {
                 console.log(resp);

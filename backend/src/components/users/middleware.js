@@ -10,7 +10,7 @@ class MiddlewareUsers{
                 .then(resp=>{
                     if (resp.length>0) {
                         console.log('existe');
-                        res.status(409).json('Este email ya está en uso');
+                        res.status(400).json('Este email ya está en uso');
                     }else{
                         next();
                     }   

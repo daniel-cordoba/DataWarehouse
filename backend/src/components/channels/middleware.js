@@ -10,20 +10,6 @@ class MiddlewareCompanies{
             console.error(error);
             res.status(403).json('Esta petición requiere de login');
         }
-    }   
-    
-    exist(req, res, next) {
-        const ID = req.body.ID;
-        const consulta = 'SELECT ID FROM companies WHERE ID='+ID+';';
-        sequelize.query(consulta).then(resp=>{
-            if (resp[0][0]) {
-                return next();
-            }else{
-                res.status(404).json('El recurso no fue encontrado');
-            }
-        }).catch(err=>{
-            console.error(err);
-        })
     }
 }
 

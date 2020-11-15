@@ -223,10 +223,44 @@ async function getCities() {
         return cities;
     }
 }
+//ENDPOINT Post contact channels
+async function postChannels(channel, user, preference) {   
+    const jwt = sessionStorage.getItem("jwt"); 
+    const contact_id = await lastID();
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/channel',
+        {
+            method:'POST',
+            body:`{
+                "contact_id":${contact_id},
+                "channel":"${channel}",
+                "user":"${user}",
+                "preference":"${preference}"                        
+            }`,
+            headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
+        });
+        let channels = await response.json();
+        console.log(channels);
+    }
+}
+//ENDPOINT GET Last ID from Contacts
+async function lastID() {   
+    const jwt = sessionStorage.getItem("jwt"); 
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/contactID',
+        {
+            method:'GET',            
+            headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
+        });
+        let lastID = await response.json();
+        lastID = lastID[0].LastID;
+        return lastID;
+    }
+}
 //ENDPOINT POST Data to add contact con validaciones
 async function postContact() { 
     try {
-        //Getting data
+        //Getting data for contact POST
         const name = document.getElementById('contact_name').value;
         const last_name = document.getElementById('contact_lastName').value;
         const charge = document.getElementById('contact_charge').value;
@@ -256,10 +290,11 @@ async function postContact() {
         }
         //ENDPOINT POST Contact
         let city_id_body;
-        if (city_id === "0") {city_id_body = ``;}
-        else{city_id_body = `"city_id":"${city_id}"`;}
+        if (city_id === "0") {console.log('No tengo ciudad'); city_id_body = ``;}
+        else{console.log('Si tengo ciudad'); city_id_body = `"city_id":"${city_id}",`;}
         const jwt = sessionStorage.getItem("jwt");
         if(jwt!=null){
+            //POST to contacts
             let response = await fetch('http://localhost:3000/contact',
             {
                 method:'POST',
@@ -280,10 +315,34 @@ async function postContact() {
                 headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
             });
             let contacts = await response.json();
-            return contacts;
+            if (contacts == "Este email ya está en uso") {
+                throw Error ('Este email ya está en uso');
+            }
+            //Getting data for channel POST
+            const channel_user_w = document.getElementById('channel_user_w').value;
+            const channel_user_f = document.getElementById('channel_user_f').value;
+            const channel_user_t = document.getElementById('channel_user_t').value;
+            let channel_preference_w = document.getElementById('channel_preference_w');
+            channel_preference_w = channel_preference_w.options[channel_preference_w.selectedIndex].text;
+            let channel_preference_f = document.getElementById('channel_preference_f');
+            channel_preference_f = channel_preference_f.options[channel_preference_f.selectedIndex].text;
+            let channel_preference_t = document.getElementById('channel_preference_t');
+            channel_preference_t = channel_preference_t.options[channel_preference_t.selectedIndex].text;
+
+            //POSTs TO CHANNELS
+            if (channel_user_w) {
+                await postChannels("Whatsapp", channel_user_w, channel_preference_w);
+            }
+            if (channel_user_f) {
+                await postChannels("Facebook", channel_user_f, channel_preference_f);
+            }
+            if( channel_user_t){
+                await postChannels("Twitter", channel_user_t, channel_preference_t);
+            }
+            console.log(contacts);
+            alert(contacts);
         }
-    } catch (error) {console.error(error)} 
-    
+    } catch (error) {console.error(error)}
 }
 
 //Opciones en select de compañias

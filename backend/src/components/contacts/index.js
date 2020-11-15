@@ -5,6 +5,7 @@ const MiddlewareContacts = require('./middleware.js');
 const middleware = new MiddlewareContacts;
 const contact = new Contacts;
 
+router.get('/contact/:ID', middleware.profile, contact.getOneContact);
 router.get('/contactID', middleware.profile, contact.getLastID);
 router.get('/contacts', middleware.profile, contact.getContact);
 router.post('/contact', middleware.profile, middleware.emailRight, contact.addContact);

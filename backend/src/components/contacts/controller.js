@@ -1,6 +1,19 @@
 const sequelize = require('../../conexion');
 
 class Contacts{
+    getOneContact = (req, res) => {
+        const ID = req.params.ID;
+        const getContact = 'SELECT ID, name, last_name, charge, email, company, region, country, interest FROM contacts WHERE ID='+ID+';';
+          return sequelize.query(getContact, {type: sequelize.QueryTypes.SELECT})
+            .then(resp => {
+                console.log(resp);
+                res.status(200).json(resp);
+            }).catch(err=>{
+                console.error(err);
+                res.status(400).json('Error en la sintaxis de la petición');
+            });
+    }
+
     getLastID = (req, res) => {
         const getMaxId = 'SELECT MAX(ID) AS LastID FROM contacts;';
           return sequelize.query(getMaxId, {type: sequelize.QueryTypes.SELECT})

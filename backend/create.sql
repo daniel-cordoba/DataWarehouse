@@ -44,7 +44,7 @@ CREATE TABLE `cities` (
 	`country_id` INT NOT NULL DEFAULT '0',
 	`name` VARCHAR(50) NOT NULL DEFAULT '0',
 	PRIMARY KEY (`ID`),
-	CONSTRAINT `FK_cities_countries` FOREIGN KEY (`country_id`) REFERENCES `countries` (`ID`)
+	CONSTRAINT `FK_cities_countries` FOREIGN KEY (`country_id`) REFERENCES `countries` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
 )
 COLLATE='latin1_swedish_ci'
 ;
@@ -65,7 +65,7 @@ CREATE TABLE `companies` (
 	`city` VARCHAR(50) NOT NULL DEFAULT '0',
 	`city_id` INT NOT NULL DEFAULT 0,
 	PRIMARY KEY (`ID`),
-	CONSTRAINT `FK_companies_cities` FOREIGN KEY (`city_id`) REFERENCES `cities` (`ID`)
+	CONSTRAINT `FK_companies_cities` FOREIGN KEY (`city_id`) REFERENCES `cities` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
 )
 COLLATE='latin1_swedish_ci'
 ;
@@ -92,8 +92,8 @@ CREATE TABLE `contacts` (
 	PRIMARY KEY (`ID`) USING BTREE,
 	INDEX `FK_contacts_companies` (`company_id`) USING BTREE,
 	INDEX `FK_contacts_cities` (`city_id`) USING BTREE,
-	CONSTRAINT `FK_contacts_cities` FOREIGN KEY (`city_id`) REFERENCES `data_warehouse`.`cities` (`ID`) ON UPDATE RESTRICT ON DELETE RESTRICT,
-	CONSTRAINT `FK_contacts_companies` FOREIGN KEY (`company_id`) REFERENCES `data_warehouse`.`companies` (`ID`) ON UPDATE RESTRICT ON DELETE RESTRICT
+	CONSTRAINT `FK_contacts_cities` FOREIGN KEY (`city_id`) REFERENCES `data_warehouse`.`cities` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT `FK_contacts_companies` FOREIGN KEY (`company_id`) REFERENCES `data_warehouse`.`companies` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
 )
 COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB
@@ -114,7 +114,8 @@ CREATE TABLE `channels` (
 	`user` VARCHAR(50) NOT NULL DEFAULT '',
 	`preference` VARCHAR(50) NOT NULL DEFAULT '',
 	PRIMARY KEY (`ID`),
-	CONSTRAINT `FK_channels_contacts` FOREIGN KEY (`contact_id`) REFERENCES `contacts` (`ID`)
+	INDEX `FK_channels_contacts` (`contact_id`) USING BTREE,
+	CONSTRAINT `FK_channels_contacts` FOREIGN KEY (`contact_id`) REFERENCES `data_warehouse`.`contacts` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
 )
 COLLATE='latin1_swedish_ci'
 ;

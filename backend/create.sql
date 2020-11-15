@@ -28,10 +28,10 @@ VALUES ('Sudamerica'), ('Norteamerica');
 
 CREATE TABLE `countries` (
 	`ID` INT NOT NULL AUTO_INCREMENT,
-	`region_id` INT NOT NULL DEFAULT '0',
+	`region_id` INT NULL DEFAULT NULL,
 	`name` VARCHAR(50) NOT NULL DEFAULT '0',
 	PRIMARY KEY (`ID`),
-	CONSTRAINT `FK_countries_regions` FOREIGN KEY (`region_id`) REFERENCES `regions` (`ID`)
+	CONSTRAINT `FK_countries_regions` FOREIGN KEY (`region_id`) REFERENCES `regions` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
 )
 COLLATE='latin1_swedish_ci'
 ;
@@ -41,7 +41,7 @@ VALUES (1, 'Argentina'), (1, 'Colombia'), (1, 'Chile'), (1, 'Uruguay'),
 
 CREATE TABLE `cities` (
 	`ID` INT NOT NULL AUTO_INCREMENT,
-	`country_id` INT NOT NULL DEFAULT '0',
+	`country_id` INT NULL DEFAULT NULL,
 	`name` VARCHAR(50) NOT NULL DEFAULT '0',
 	PRIMARY KEY (`ID`),
 	CONSTRAINT `FK_cities_countries` FOREIGN KEY (`country_id`) REFERENCES `countries` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
@@ -62,10 +62,10 @@ CREATE TABLE `companies` (
 	`address` VARCHAR(100) NOT NULL DEFAULT '0',
 	`email` VARCHAR(50) NOT NULL DEFAULT '0',
 	`phone` VARCHAR(50) NOT NULL DEFAULT '0',
-	`city` VARCHAR(50) NOT NULL DEFAULT '0',
+	`city` VARCHAR(50) NULL DEFAULT NULL,
 	`city_id` INT NOT NULL DEFAULT 0,
 	PRIMARY KEY (`ID`),
-	CONSTRAINT `FK_companies_cities` FOREIGN KEY (`city_id`) REFERENCES `cities` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
+	CONSTRAINT `FK_companies_cities` FOREIGN KEY (`city_id`) REFERENCES `cities` (`ID`) ON UPDATE CASCADE ON DELETE SET NULL
 )
 COLLATE='latin1_swedish_ci'
 ;
@@ -92,8 +92,8 @@ CREATE TABLE `contacts` (
 	PRIMARY KEY (`ID`) USING BTREE,
 	INDEX `FK_contacts_companies` (`company_id`) USING BTREE,
 	INDEX `FK_contacts_cities` (`city_id`) USING BTREE,
-	CONSTRAINT `FK_contacts_cities` FOREIGN KEY (`city_id`) REFERENCES `data_warehouse`.`cities` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE,
-	CONSTRAINT `FK_contacts_companies` FOREIGN KEY (`company_id`) REFERENCES `data_warehouse`.`companies` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
+	CONSTRAINT `FK_contacts_cities` FOREIGN KEY (`city_id`) REFERENCES `data_warehouse`.`cities` (`ID`) ON UPDATE CASCADE ON DELETE SET NULL,
+	CONSTRAINT `FK_contacts_companies` FOREIGN KEY (`company_id`) REFERENCES `data_warehouse`.`companies` (`ID`) ON UPDATE CASCADE ON DELETE SET NULL
 )
 COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB

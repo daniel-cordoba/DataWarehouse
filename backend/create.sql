@@ -62,10 +62,11 @@ CREATE TABLE `companies` (
 	`address` VARCHAR(100) NOT NULL DEFAULT '0',
 	`email` VARCHAR(50) NOT NULL DEFAULT '0',
 	`phone` VARCHAR(50) NOT NULL DEFAULT '0',
-	`city` VARCHAR(50) NULL DEFAULT NULL,
-	`city_id` INT NOT NULL DEFAULT 0,
+	`city` VARCHAR(50) NOT NULL DEFAULT '0',
+	`city_id` INT NULL DEFAULT NULL,
 	PRIMARY KEY (`ID`),
-	CONSTRAINT `FK_companies_cities` FOREIGN KEY (`city_id`) REFERENCES `cities` (`ID`) ON UPDATE CASCADE ON DELETE SET NULL
+	INDEX `FK_companies_cities` (`city_id`) USING BTREE,
+	CONSTRAINT `FK_companies_cities` FOREIGN KEY (`city_id`) REFERENCES `data_warehouse`.`cities` (`ID`) ON UPDATE CASCADE ON DELETE SET NULL
 )
 COLLATE='latin1_swedish_ci'
 ;
@@ -97,7 +98,6 @@ CREATE TABLE `contacts` (
 )
 COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=71
 ;
 INSERT INTO `contacts` (`name`, `last_name`, `charge`, `email`, `company`, `company_id`, `region`, `country`, `city`, `city_id`, `interest`) 
 VALUES ('Camila', 'Soledad Pantó', 'UX Designer', 'camilapanto123@gmail.com', 'Softtek', 1, 'Norteamerica', 'México', 'Tijuana', 13, '50%'),
@@ -119,7 +119,13 @@ CREATE TABLE `channels` (
 )
 COLLATE='latin1_swedish_ci'
 ;
-
+INSERT INTO `channels` (`contact_id`, `channel`, `user`, `preference`) 
+VALUES ('1', 'Whatsapp', '3216485968', 'No molestar'),
+('1', 'Facebook', 'CamiCa', 'Canal favorito'),
+('3', 'Whatsapp', '3216488008', 'Sin preferencia'),
+('3', 'Facebook', '@TechFb', 'No molestar'),
+('3', 'Twitter', '@TechTw', 'Canal favorito')
+;
 
 
 

@@ -3,7 +3,7 @@ const sequelize = require('../../conexion');
 class Contacts{
     getOneContact = (req, res) => {
         const ID = req.params.ID;
-        const getContact = 'SELECT ID, name, last_name, charge, email, company, region, country, interest FROM contacts WHERE ID='+ID+';';
+        const getContact = 'SELECT ID, name, last_name, charge, email, company, company_id, region, country, city, city_id, interest, adress FROM contacts WHERE ID='+ID+';';
           return sequelize.query(getContact, {type: sequelize.QueryTypes.SELECT})
             .then(resp => {
                 console.log(resp);
@@ -56,7 +56,7 @@ class Contacts{
 
     editContact = (req, res) => {
         const {ID, name, last_name, charge, email, company, company_id, region, country, city, city_id, interest} = req.body;
-        const addContact = 'UPDATE contacts SET name="'+name+'", last_name="'+last_name+'", charge="'+charge+'", email="'+email+'", company="'+company+'", company_id="'+company_id+'", region="'+region+'", country="'+country+'", city="'+city+'", city="'+city+'", interest="'+interest+'" WHERE ID='+ID+';';
+        const addContact = 'UPDATE contacts SET name="'+name+'", last_name="'+last_name+'", charge="'+charge+'", email="'+email+'", company="'+company+'", company_id="'+company_id+'", region="'+region+'", country="'+country+'", city="'+city+'", city_id="'+city_id+'", interest="'+interest+'" WHERE ID='+ID+';';
           return sequelize.query(addContact, {type: sequelize.QueryTypes.INSERT})
             .then(resp => {
                 console.log(resp);

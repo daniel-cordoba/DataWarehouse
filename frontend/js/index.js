@@ -1,4 +1,4 @@
-//FUNCION PARA LOGIN
+/////////////////////////////////////FUNCIONES PARA EL LOGIN/////////////////////////////////////
 function login(){
     const email=document.getElementById("email_input");
     const password=document.getElementById("password_input");
@@ -16,7 +16,7 @@ function login(){
             });
         });
 }
-//FUNCIONES PARA LLENAR TABLA DE CONTACTOS
+/////////////////////////////////////FUNCIONES PARA LLENAR TABLA DE CONTACTOS/////////////////////////////////////
 //ENDPOINT GET Contacts
 window.onload = fillContacts();
 async function getContacts(){
@@ -128,7 +128,7 @@ function tableContacts(ID, name, last_name, country, region, email, company, cha
         )
     );
 }
-//FUNCIONES PARA ELIMINAR CONTACTOS
+/////////////////////////////////////FUNCIONES PARA ELIMINAR CONTACTOS/////////////////////////////////////
 //ENDPOINT eliminate contacts
 async function eliminate_contact(ID){
     const jwt = sessionStorage.getItem("jwt");
@@ -164,7 +164,7 @@ async function eliminate_selected() {
         $(contact).remove();
     }    
 }
-//FUNCIONES PARA CREAR CONTACTOS
+/////////////////////////////////////FUNCIONES PARA CREAR CONTACTOS/////////////////////////////////////
 //ENDPOINT GET Companies
 async function getCompanies() {
     const jwt = sessionStorage.getItem("jwt");
@@ -427,11 +427,11 @@ function disable(channel) {
 disable("w");
 disable("f");
 disable("t");
-//FUNCIONES PARA EDITAR CONTACTOS
+/////////////////////////////////////FUNCIONES PARA EDITAR CONTACTOS/////////////////////////////////////
 //Changes in DOM to switch between add/edit a contact
 async function switchBtnEdit(btn) {
     $('#add_contact_btn').html("Guardar Cambios");
-    $('#add_contact_btn').removeAttr("onclick").attr("onclick", "putContact()");
+    $('#add_contact_btn').removeAttr("onclick").attr("onclick", "data_putContact()");
     $('#add_contact_Label').text('Editar Contacto');
     console.log(btn.parentElement.parentElement.getAttribute("data-id"));
     let ID = btn.parentElement.parentElement.getAttribute("data-id");    
@@ -456,7 +456,6 @@ function switchBtnAdd() {
     $('#add_contact_btn').html("Agregar");
     $('#add_contact_btn').removeAttr("onclick").attr("onclick", "postContact()");
     $('#add_contact_Label').text('Agregar Contacto');
-    //onclick="postContact()"
 }
 //ENDPOINT GET One Contact by ID
 async function getOneContact(ID){
@@ -545,6 +544,121 @@ async function autoCompleteContact(name, last_name, email, charge, company, comp
         }
     });
 }
+//ENDPOINT PUT Contact
+async function putContact(name, last_name, charge, email, company, company_id, region, country, city, city_id, interest, adress) {
+    const jwt = sessionStorage.getItem("jwt");
+    const ID = sessionStorage.getItem("edit_contact");
+    let city_id_body;
+        if (city_id === "0") {city_id_body = ``;}
+        else{city_id_body = `"city_id":"${city_id}",`;}
+
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/contact',
+        {
+            method:'PUT',
+            body:`{
+                "ID":${ID},
+                "name":"${name}",
+                "last_name":"${last_name}",
+                "charge":"${charge}",
+                "email":"${email}",
+                "company":"${company}",
+                "company_id":"${company_id}",
+                "region":"${region}",
+                "country":"${country}",
+                "city":"${city}",
+                ${city_id_body}
+                "interest":"${interest}",
+                "adress":"${adress}"
+            }`,
+            headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
+        });
+        let edit = await response.json();
+        return edit;
+    }
+}
+//ENDPOINT PUT Channel
+async function putChannel(channel, user, preference) {   
+    const jwt = sessionStorage.getItem("jwt"); 
+    const contact_id = sessionStorage.getItem("edit_contact");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/channel',
+        {
+            method:'PUT',
+            body:`{
+                "contact_id":${contact_id},
+                "channel":"${channel}",
+                "user":"${user}",
+                "preference":"${preference}"                        
+            }`,
+            headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
+        });
+        let edit = await response.json();
+        console.log(edit);
+    }
+}
+//Getting data to PUT Contacts
+async function data_putContact() {
+    try {
+        //Getting data to putContact()
+        const name = document.getElementById('contact_name').value;
+        const last_name = document.getElementById('contact_lastName').value;
+        const charge = document.getElementById('contact_charge').value;
+        const email = document.getElementById('contact_email').value;
+        const interest = document.getElementById('select_interest').value;
+        const adress = document.getElementById('contact_adress').value;
+        let company = document.getElementById('select_company');
+        const company_id = company.value;
+        company = company.options[company.selectedIndex].text;
+        let region = document.getElementById('select_region');
+        region = region.options[region.selectedIndex].text;
+        let country = document.getElementById('select_country');
+        country = country.options[country.selectedIndex].text;
+        let city = document.getElementById('select_city');
+        const city_id = city.value;
+        city = city.options[city.selectedIndex].text;
+        //Validating data
+        if (!name || !last_name || !charge || !email || company === "Seleccione una compañía") {
+            alert('Recuerde llenar la información de todos los campos marcados con * (asterisco).')
+            throw Error ('Los campos marcados con * son obligatorios');
+        }
+        if (!/..@../.test(email)) {
+            alert('El email ingresado es inválido');
+            throw Error ('El email ingresado es inválido');
+        }
+        const response = await putContact(name, last_name, charge, email, company, company_id, region, country, city, city_id, interest, adress);
+        
+        //Getting data to putChannel()
+        const channel_user_w = document.getElementById('channel_user_w').value;
+        const channel_user_f = document.getElementById('channel_user_f').value;
+        const channel_user_t = document.getElementById('channel_user_t').value;
+        let channel_preference_w = document.getElementById('channel_preference_w');
+        channel_preference_w = channel_preference_w.options[channel_preference_w.selectedIndex].text;
+        let channel_preference_f = document.getElementById('channel_preference_f');
+        channel_preference_f = channel_preference_f.options[channel_preference_f.selectedIndex].text;
+        let channel_preference_t = document.getElementById('channel_preference_t');
+        channel_preference_t = channel_preference_t.options[channel_preference_t.selectedIndex].text;
+
+        //POSTs TO CHANNELS
+        if (channel_user_w) {
+            await putChannel("Whatsapp", channel_user_w, channel_preference_w);
+        }
+        if (channel_user_f) {
+            await putChannel("Facebook", channel_user_f, channel_preference_f);
+        }
+        if( channel_user_t){
+            await putChannel("Twitter", channel_user_t, channel_preference_t);
+        }
+
+        console.log(response);
+        alert(response);
+            
+        $('#add_contact').modal('hide');
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 function pruebas() {
     select_region.querySelector(`${region}`)

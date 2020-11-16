@@ -104,7 +104,7 @@ VALUES ('Camila', 'Soledad Pantó', 'UX Designer', 'camilapanto123@gmail.com', '
 ('Agustín Emanuel', 'Soria', 'UI Designer', 'agustinesoria96@gmail.com', 'Globant', 2, 'Sudamerica', 'Argentina', 'Buenos Aires', 1, '100%'),
 ('Denver Steven', 'Soria', 'Developer', 'denver-steven@gmail.com', 'Rappi', 3, 'Sudamerica', 'Colombia', 'Medellín', 5, '25%'),
 ('Sebastian Agustín', 'Pantó', 'Product', 'sebapanto@gmail.com', 'MercadoLibre', 4, 'Sudamerica', 'Argentina', 'Córdoba', 2, '25%'),
-('Stefanía Natalí', 'Soria', 'UI Designer', 'agustinesoria96@gmail.com', 'Softtek', 1, 'Norteamerica', 'México', 'Ciudad de México', 12, '50%')
+('Stefanía Natalí', 'Soria', 'UI Designer', 'stefana@gmail.com', 'Softtek', 1, 'Norteamerica', 'México', 'Ciudad de México', 12, '50%')
 ;
 
 CREATE TABLE `channels` (
@@ -122,9 +122,19 @@ COLLATE='latin1_swedish_ci'
 INSERT INTO `channels` (`contact_id`, `channel`, `user`, `preference`) 
 VALUES ('1', 'Whatsapp', '3216485968', 'No molestar'),
 ('1', 'Facebook', 'CamiCa', 'Canal favorito'),
+('1', 'Twitter', 'CamiCa', 'Sin preferencia'),
+('2', 'Whatsapp', '', ''),
+('2', 'Facebook', '', ''),
+('2', 'Twitter', 'Agustintin', 'Sin preferencia'),
 ('3', 'Whatsapp', '3216488008', 'Sin preferencia'),
 ('3', 'Facebook', '@TechFb', 'No molestar'),
-('3', 'Twitter', '@TechTw', 'Canal favorito')
+('3', 'Twitter', '@TechTw', 'Canal favorito'),
+('4', 'Whatsapp', '3216486050', 'Sin preferencia'),
+('4', 'Facebook', '', ''),
+('4', 'Twitter', '', ''),
+('5', 'Whatsapp', '3216586050', 'Sin preferencia'),
+('5', 'Facebook', 'StefaLi', 'No molestar'),
+('5', 'Twitter', 'Sttew', 'Canal favorito')
 ;
 
 

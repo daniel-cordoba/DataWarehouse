@@ -322,15 +322,9 @@ async function postContact() {
             channel_preference_t = channel_preference_t.options[channel_preference_t.selectedIndex].text;
 
             //POSTs TO CHANNELS
-            if (channel_user_w) {
-                await postChannels("Whatsapp", channel_user_w, channel_preference_w);
-            }
-            if (channel_user_f) {
-                await postChannels("Facebook", channel_user_f, channel_preference_f);
-            }
-            if( channel_user_t){
-                await postChannels("Twitter", channel_user_t, channel_preference_t);
-            }
+            await postChannels("Whatsapp", channel_user_w, channel_preference_w);
+            await postChannels("Facebook", channel_user_f, channel_preference_f);
+            await postChannels("Twitter", channel_user_t, channel_preference_t);
             console.log(contacts);
             alert(contacts);
             $('#add_contact').modal('hide');
@@ -579,9 +573,11 @@ async function putContact(name, last_name, charge, email, company, company_id, r
 }
 //ENDPOINT PUT Channel
 async function putChannel(channel, user, preference) {   
+    console.log("holi");
     const jwt = sessionStorage.getItem("jwt"); 
     const contact_id = sessionStorage.getItem("edit_contact");
     if(jwt!=null){
+        console.log("holi2 "+contact_id);
         let response = await fetch('http://localhost:3000/channel',
         {
             method:'PUT',
@@ -638,18 +634,11 @@ async function data_putContact() {
         channel_preference_f = channel_preference_f.options[channel_preference_f.selectedIndex].text;
         let channel_preference_t = document.getElementById('channel_preference_t');
         channel_preference_t = channel_preference_t.options[channel_preference_t.selectedIndex].text;
-
+        
         //POSTs TO CHANNELS
-        if (channel_user_w) {
-            await putChannel("Whatsapp", channel_user_w, channel_preference_w);
-        }
-        if (channel_user_f) {
-            await putChannel("Facebook", channel_user_f, channel_preference_f);
-        }
-        if( channel_user_t){
-            await putChannel("Twitter", channel_user_t, channel_preference_t);
-        }
-
+        await putChannel("Whatsapp", channel_user_w, channel_preference_w);
+        await putChannel("Facebook", channel_user_f, channel_preference_f);
+        await putChannel("Twitter", channel_user_t, channel_preference_t);
         console.log(response);
         alert(response);
             

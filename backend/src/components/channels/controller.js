@@ -30,8 +30,8 @@ class Channels{
     }
 
     editChannel(req, res){
-        const {ID, channel, user, preference} = req.body;
-        const editChannel = 'UPDATE channels SET channel="'+channel+'", user="'+user+'", preference="'+preference+'" WHERE ID='+ID+';';
+        const {contact_id, channel, user, preference} = req.body;
+        const editChannel = 'UPDATE channels SET user="'+user+'", preference="'+preference+'" WHERE contact_id="'+contact_id+'" AND channel="'+channel+'";';
         sequelize.query(editChannel,{type: sequelize.QueryTypes.UPDATE})
             .then(resp=>{
                 console.log(resp);

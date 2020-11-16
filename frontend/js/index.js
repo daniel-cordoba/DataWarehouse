@@ -36,7 +36,7 @@ async function getContacts(){
 async function fillContacts(){
     try {
         let contacts = await getContacts();        
-        sessionStorage.setItem("contacts", JSON.stringify(contacts));        
+        //sessionStorage.setItem("contacts", JSON.stringify(contacts));        
         //console.log(JSON.parse(sessionStorage.getItem("contacts")));
         for (let i = 0; i < contacts.length; i++) {
             const contact = contacts[i];
@@ -358,61 +358,61 @@ $('#add_contact').on('show.bs.modal', async() => {
         const ID = region.ID;
         $('#select_region').append(`<option value="${ID}">${name}</option>`)
     });
-});
-//Desabilitar-Habilitar Select Country
-document.getElementById("select_region").onchange = async function () {
-    let select_country = document.getElementById("select_country");
-    let select_city = document.getElementById("select_city");
-    document.getElementById("contact_adress").value="";
-    document.getElementById("contact_adress").setAttribute("disabled", "disable");
-    select_country.removeAttribute("disabled");
-    while (select_country.hasChildNodes()) {
-        select_country.removeChild(select_country.firstChild);
-    }
-    while (select_city.hasChildNodes()) {
-        select_city.removeChild(select_city.firstChild);
-    }
-    $(select_country).append(`<option value="0" selected>Seleccionar País</option>`);
-    $(select_city).append(`<option value="0" selected>Seleccionar Ciudad</option>`);
-    const region = document.getElementById('select_region').value;
-    const countries = await getCountries();
-    countries.forEach(country => {
-        if (country.region_id == region) {
-            const name = country.name;
-            const ID = country.ID;
-            $('#select_country').append(`<option value="${ID}">${name}</option>`) 
-        }
-    });
-};
-//Desabilitar-Habilitar Select City
-document.getElementById("select_country").onchange = async function () {
-    let select_city = document.getElementById("select_city");
-    select_city.removeAttribute("disabled");
-    document.getElementById("contact_adress").value="";
-    document.getElementById("contact_adress").setAttribute("disabled", "disable");
-    while (select_city.hasChildNodes()) {
-        select_city.removeChild(select_city.firstChild);
-    }
-    $(select_city).append(`<option value="0" selected>Seleccionar Ciudad</option>`);
-    const country = document.getElementById('select_country').value;
-    const cities = await getCities();
-    cities.forEach(city => {
-        if (city.country_id == country) {
-            const name = city.name;
-            const ID = city.ID;
-            $('#select_city').append(`<option value="${ID}">${name}</option>`) 
-        }
-    });
-};
-//Desabilitar-Habilitar Select Adress
-document.getElementById("select_city").onchange = function () {
-    let contact_adress = document.getElementById("contact_adress");
-    contact_adress.removeAttribute("disabled");
-    if (document.getElementById("select_city").value == 0) {
+    //Desabilitar-Habilitar Select Country
+    document.getElementById("select_region").onchange = async function () {
+        let select_country = document.getElementById("select_country");
+        let select_city = document.getElementById("select_city");
         document.getElementById("contact_adress").value="";
         document.getElementById("contact_adress").setAttribute("disabled", "disable");
-    } 
-}
+        select_country.removeAttribute("disabled");
+        while (select_country.hasChildNodes()) {
+            select_country.removeChild(select_country.firstChild);
+        }
+        while (select_city.hasChildNodes()) {
+            select_city.removeChild(select_city.firstChild);
+        }
+        $(select_country).append(`<option value="0" selected>Seleccionar País</option>`);
+        $(select_city).append(`<option value="0" selected>Seleccionar Ciudad</option>`);
+        const region = document.getElementById('select_region').value;
+        const countries = await getCountries();
+        countries.forEach(country => {
+            if (country.region_id == region) {
+                const name = country.name;
+                const ID = country.ID;
+                $('#select_country').append(`<option value="${ID}">${name}</option>`) 
+            }
+        });
+    };
+    //Desabilitar-Habilitar Select City
+    document.getElementById("select_country").onchange = async function () {
+        let select_city = document.getElementById("select_city");
+        select_city.removeAttribute("disabled");
+        document.getElementById("contact_adress").value="";
+        document.getElementById("contact_adress").setAttribute("disabled", "disable");
+        while (select_city.hasChildNodes()) {
+            select_city.removeChild(select_city.firstChild);
+        }
+        $(select_city).append(`<option value="0" selected>Seleccionar Ciudad</option>`);
+        const country = document.getElementById('select_country').value;
+        const cities = await getCities();
+        cities.forEach(city => {
+            if (city.country_id == country) {
+                const name = city.name;
+                const ID = city.ID;
+                $('#select_city').append(`<option value="${ID}">${name}</option>`) 
+            }
+        });
+    };
+    //Desabilitar-Habilitar Select Adress
+    document.getElementById("select_city").onchange = function () {
+        let contact_adress = document.getElementById("contact_adress");
+        contact_adress.removeAttribute("disabled");
+        if (document.getElementById("select_city").value == 0) {
+            document.getElementById("contact_adress").value="";
+            document.getElementById("contact_adress").setAttribute("disabled", "disable");
+        } 
+    }
+});
 //Desabilitar-Habilitar WhatsApp/Facebook/Twitter Select Preferences
 function disable(channel) {
     document.getElementById("channel_user_"+channel).onchange = function () {
@@ -431,6 +431,7 @@ disable("t");
 //Changes in DOM to switch between add/edit a contact
 async function switchBtnEdit(btn) {
     $('#add_contact_btn').html("Guardar Cambios");
+    $('#add_contact_btn').removeAttr("onclick").attr("onclick", "putContact()");
     $('#add_contact_Label').text('Editar Contacto');
     console.log(btn.parentElement.parentElement.getAttribute("data-id"));
     let ID = btn.parentElement.parentElement.getAttribute("data-id");    
@@ -453,7 +454,9 @@ async function switchBtnEdit(btn) {
 }
 function switchBtnAdd() {
     $('#add_contact_btn').html("Agregar");
+    $('#add_contact_btn').removeAttr("onclick").attr("onclick", "postContact()");
     $('#add_contact_Label').text('Agregar Contacto');
+    //onclick="postContact()"
 }
 //ENDPOINT GET One Contact by ID
 async function getOneContact(ID){
@@ -492,7 +495,7 @@ async function autoCompleteContact(name, last_name, email, charge, company, comp
     $('#select_interest').val(interest);
     let select_company = document.getElementById("select_company");
     $('#select_company > option').removeAttr("selected");
-    setTimeout(() => {select_company.querySelector(`[value="${company_id}"]`).setAttribute("selected", true);}, 50);
+    setTimeout(() => {select_company.querySelector(`[value="${company_id}"]`).setAttribute("selected", true);}, 100);
     if (region) {
         let select_region = document.getElementById("select_region");
         $('#select_region > option').removeAttr("selected");
@@ -540,8 +543,7 @@ async function autoCompleteContact(name, last_name, email, charge, company, comp
                 $('#channel_preference_t option').filter(`:contains('${channel.preference}')`).attr("selected", true);
             }
         }
-    })
-
+    });
 }
 
 function pruebas() {
@@ -550,136 +552,120 @@ function pruebas() {
 
 //Reset on Add/Edit modal contact to set default values
 $('#add_contact').on('hidden.bs.modal', () => {
-    $('#add_contact').html('');
-    $('#add_contact').append(`<div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header bg-info">
-        <h4 class="modal-title text-white" id="add_contact_Label">Agregar Contacto</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="text-white">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-3">
-              <label for="contact_name" class="text-muted font-weight-bold">Nombre<span class="text-danger"> *</span></label>
-              <input type="text" class="form-control" id="contact_name">
-          </div>
-          <div class="col-3">
-              <label for="contact_lastName" class="text-muted font-weight-bold">Apellido<span class="text-danger"> *</span></label>
-              <input type="text" class="form-control" id="contact_lastName">
-          </div>
-          
-          <div class="col-4">
-              <label for="contact_email" class="text-muted font-weight-bold">Email<span class="text-danger"> *</span></label>
-              <input type="text" class="form-control" id="contact_email">
-          </div>
-          
-      </div>
-      <div class="row mt-3">
-          <div class="col-3">
-              <label for="contact_charge" class="text-muted font-weight-bold">Cargo<span class="text-danger"> *</span></label>
-              <input type="text" class="form-control" id="contact_charge">
-          </div>
-          <div class="col-3">
-              <label for="select_company" class="text-muted font-weight-bold">Compañía<span class="text-danger"> *</span></label>
-              <select class="custom-select" id="select_company">
-                  <option value="0" selected>Seleccione una compañía</option>
-              </select>
-          </div>
-      </div>
-      <hr class="my-4">
-      <div class="row">
-          <div class="col-3">
-              <label for="select_region" class="text-muted font-weight-bold">Región</label>
-              <select class="custom-select" id="select_region">
-                  <option value="0" selected>Seleccionar Región</option>
-              </select>
-          </div>
-          <div class="col-3">
-              <label for="select_country" class="text-muted font-weight-bold">País</label>
-              <select class="custom-select" id="select_country" disabled>
-                  <option value="0" selected>Seleccionar País</option>
-              </select>
-          </div>
-          <div class="col-3">
-              <label for="select_city" class="text-muted font-weight-bold">Ciudad</label>
-              <select class="custom-select" id="select_city" disabled>
-                  <option value="0" selected>Seleccionar Ciudad</option>
-              </select>
-          </div>
-          <div class="col-3">
-              <label for="contact_adress" class="text-muted font-weight-bold">Dirección</label>
-              <input type="text" class="form-control" id="contact_adress" disabled>
-          </div>
-          <div class="col-3">
-              <label for="select_interest" class="text-muted font-weight-bold mt-3">Interés</label>
-              <select class="custom-select" id="select_interest">
-                  <option selected>0%</option>
-                  <option>25%</option>
-                  <option>50%</option>
-                  <option>75%</option>
-                  <option>100%</option>
-              </select>
-          </div>
-      </div>
-      <hr class="my-4">
-      <div class="row">
-          <div class="col-2 d-flex align-items-center justify-content-center">
-              <h5 id="channel_w" class="text-muted">Whatsapp</h5>
-          </div>
-          <div class="col-3">
-              <label for="channel_user_w" class="text-muted font-weight-bold">Número celular</label>
-              <input type="number" class="form-control" id="channel_user_w" placeholder="3214865795">
-          </div>
-          <div class="col-3">
-              <label for="channel_preference_w" class="text-muted font-weight-bold">Preferencias</label>
-              <select class="custom-select" id="channel_preference_w" disabled>
-                  <option selected>Sin preferencia</option>
-                  <option>Canal favorito</option>
-                  <option>No molestar</option>
-              </select>
-          </div>
-      </div>
-      <div class="row mt-3">
-          <div class="col-2 d-flex align-items-center justify-content-center">
-              <h5 id="channel_f" class="text-muted">Facebook</h5>
-          </div>
-          <div class="col-3">
-              <label for="channel_user_f" class="text-muted font-weight-bold">Cuenta de usuario</label>
-              <input type="url" class="form-control" id="channel_user_f" placeholder="@ejemplo">
-          </div>
-          <div class="col-3">
-              <label for="channel_preference_f" class="text-muted font-weight-bold">Preferencias</label>
-              <select class="custom-select" id="channel_preference_f" disabled>
-                  <option selected>Sin preferencia</option>
-                  <option>Canal favorito</option>
-                  <option>No molestar</option>
-              </select>
-          </div>
-      </div>
-      <div class="row mt-3">
-          <div class="col-2 d-flex align-items-center justify-content-center">
-              <h5 id="channel_t" class="text-muted">Twitter</h5>
-          </div>
-          <div class="col-3">
-              <label for="channel_user_t" class="text-muted font-weight-bold">Cuenta de usuario</label>
-              <input type="url" class="form-control" id="channel_user_t" placeholder="@ejemplo">
-          </div>
-          <div class="col-3">
-              <label for="channel_preference_t" class="text-muted font-weight-bold">Preferencias</label>
-              <select class="custom-select" id="channel_preference_t" disabled>
-                  <option selected>Sin preferencia</option>
-                  <option>Canal favorito</option>
-                  <option>No molestar</option>
-              </select>
-          </div>
-      </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success" onclick="postContact()" id="add_contact_btn">Agregar</button>
-      </div>
+    $('#body_modal').html('');
+    $('#body_modal').append(`<div class="row">
+    <div class="col-3">
+        <label for="contact_name" class="text-muted font-weight-bold">Nombre<span class="text-danger"> *</span></label>
+        <input type="text" class="form-control" id="contact_name">
     </div>
-  </div>`)
+    <div class="col-3">
+        <label for="contact_lastName" class="text-muted font-weight-bold">Apellido<span class="text-danger"> *</span></label>
+        <input type="text" class="form-control" id="contact_lastName">
+    </div>
+    
+    <div class="col-4">
+        <label for="contact_email" class="text-muted font-weight-bold">Email<span class="text-danger"> *</span></label>
+        <input type="text" class="form-control" id="contact_email">
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-3">
+        <label for="contact_charge" class="text-muted font-weight-bold">Cargo<span class="text-danger"> *</span></label>
+        <input type="text" class="form-control" id="contact_charge">
+    </div>
+    <div class="col-3">
+        <label for="select_company" class="text-muted font-weight-bold">Compañía<span class="text-danger"> *</span></label>
+        <select class="custom-select" id="select_company">
+            <option value="0" selected>Seleccione una compañía</option>
+        </select>
+    </div>
+</div>
+<hr class="my-4">
+<div class="row">
+    <div class="col-3">
+        <label for="select_region" class="text-muted font-weight-bold">Región</label>
+        <select class="custom-select" id="select_region">
+            <option value="0" selected>Seleccionar Región</option>
+        </select>
+    </div>
+    <div class="col-3">
+        <label for="select_country" class="text-muted font-weight-bold">País</label>
+        <select class="custom-select" id="select_country" disabled>
+            <option value="0" selected>Seleccionar País</option>
+        </select>
+    </div>
+    <div class="col-3">
+        <label for="select_city" class="text-muted font-weight-bold">Ciudad</label>
+        <select class="custom-select" id="select_city" disabled>
+            <option value="0" selected>Seleccionar Ciudad</option>
+        </select>
+    </div>
+    <div class="col-3">
+        <label for="contact_adress" class="text-muted font-weight-bold">Dirección</label>
+        <input type="text" class="form-control" id="contact_adress" disabled>
+    </div>
+    <div class="col-3">
+        <label for="select_interest" class="text-muted font-weight-bold mt-3">Interés</label>
+        <select class="custom-select" id="select_interest">
+            <option selected>0%</option>
+            <option>25%</option>
+            <option>50%</option>
+            <option>75%</option>
+            <option>100%</option>
+        </select>
+    </div>
+</div>
+<hr class="my-4">
+<div class="row">
+    <div class="col-2 d-flex align-items-center justify-content-center">
+        <h5 id="channel_w" class="text-muted">Whatsapp</h5>
+    </div>
+    <div class="col-3">
+        <label for="channel_user_w" class="text-muted font-weight-bold">Número celular</label>
+        <input type="number" class="form-control" id="channel_user_w" placeholder="3214865795">
+    </div>
+    <div class="col-3">
+        <label for="channel_preference_w" class="text-muted font-weight-bold">Preferencias</label>
+        <select class="custom-select" id="channel_preference_w" disabled>
+            <option selected>Sin preferencia</option>
+            <option>Canal favorito</option>
+            <option>No molestar</option>
+        </select>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-2 d-flex align-items-center justify-content-center">
+        <h5 id="channel_f" class="text-muted">Facebook</h5>
+    </div>
+    <div class="col-3">
+        <label for="channel_user_f" class="text-muted font-weight-bold">Cuenta de usuario</label>
+        <input type="url" class="form-control" id="channel_user_f" placeholder="@ejemplo">
+    </div>
+    <div class="col-3">
+        <label for="channel_preference_f" class="text-muted font-weight-bold">Preferencias</label>
+        <select class="custom-select" id="channel_preference_f" disabled>
+            <option selected>Sin preferencia</option>
+            <option>Canal favorito</option>
+            <option>No molestar</option>
+        </select>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-2 d-flex align-items-center justify-content-center">
+        <h5 id="channel_t" class="text-muted">Twitter</h5>
+    </div>
+    <div class="col-3">
+        <label for="channel_user_t" class="text-muted font-weight-bold">Cuenta de usuario</label>
+        <input type="url" class="form-control" id="channel_user_t" placeholder="@ejemplo">
+    </div>
+    <div class="col-3">
+        <label for="channel_preference_t" class="text-muted font-weight-bold">Preferencias</label>
+        <select class="custom-select" id="channel_preference_t" disabled>
+            <option selected>Sin preferencia</option>
+            <option>Canal favorito</option>
+            <option>No molestar</option>
+        </select>
+    </div>
+</div>`)
   });

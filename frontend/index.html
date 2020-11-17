@@ -112,71 +112,46 @@
         </section>
 
         <section id="modals">
-            
-
-            <!-- Modal Eliminate Contacts-->
+            <!-- MODAL Eliminate Contacts-->
             <div class="modal fade" id="modal_contacts_remove" tabindex="-1" role="dialog" aria-labelledby="modal_contacts_remove_Title" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="modal_contacts_remove_Title">Advertencia</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal_contacts_remove_Title">Advertencia</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        ¿Está seguro que desea eliminar los contactos seleccionados?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" onclick="eliminate_selected()" data-dismiss="modal">Eliminar</button>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                    ¿Está seguro que desea eliminar los contactos seleccionados?
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" onclick="eliminate_selected()" data-dismiss="modal">Eliminar</button>
-                    </div>
-                </div>
                 </div>
             </div>
-
             <!-- MODAL Eliminate 1 Contact by Icon-->
             <div class="modal fade" id="modal_contact_remove_one" tabindex="-1" role="dialog" aria-labelledby="modal_contact_remove_one_Title" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="modal_contact_remove_one_Title">Advertencia</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal_contact_remove_one_Title">Advertencia</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>   
+                        </div>                         
+                        <div class="modal-body">
+                        ¿Está seguro que desea eliminar el contacto seleccionado?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" onclick="do_eliminate_byIcon()" data-dismiss="modal">Eliminar</button>
+                        </div>                        
                     </div>
-                    <div class="modal-body">
-                    ¿Está seguro que desea eliminar el contacto seleccionado?
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" onclick="do_eliminate_byIcon()" data-dismiss="modal">Eliminar</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-
-            <!-- MODAL Edit Contact-->
-            <div class="modal fade" id="edit_contact" tabindex="-1" aria-labelledby="edit_contact_Label" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="edit_contact_Label">Editar Contacto</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      Editar contacto
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-                      <button type="button" class="btn btn-success">Guardar</button>
-                    </div>
-                  </div>
                 </div>
             </div>
-
             <!-- MODAL Add Contact-->
             <div class="modal fade" id="add_contact" tabindex="-1" aria-labelledby="add_contact_Label" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
@@ -312,7 +287,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- MODAL Add Company-->
             <div class="modal fade" id="modal_add_company" tabindex="-1" aria-labelledby="add_company_Label" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
@@ -351,11 +325,30 @@
                                 </div>
                             </div>                            
                         </div>
-                            
                         <div class="modal-footer">
                             <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
                             <button type="button" class="btn btn-success" onclick="postCompanyData()" id="add_company_btn">Agregar</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <!-- MODAL Eliminate 1 Company by Icon-->
+            <div class="modal fade" id="modal_company_eliminate" tabindex="-1" role="dialog" aria-labelledby="modal_company_eliminate_Title" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal_company_eliminate_Title">Advertencia</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>   
+                        </div>                         
+                        <div class="modal-body">
+                        ¿Está seguro que desea eliminar esta compañía?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" onclick="eliminate_company()" data-dismiss="modal">Eliminar</button>
+                        </div>                        
                     </div>
                 </div>
             </div>

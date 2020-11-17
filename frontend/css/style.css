@@ -141,4 +141,11 @@ body main #modals #add_contact div div .modal-body {
   background-repeat: no-repeat;
   background-size: 60%;
 }
+
+body main #modals #modal_add_company div div .modal-body {
+  background-image: url(../assets/building.svg);
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 16%;
+}
 /*# sourceMappingURL=style.css.map */

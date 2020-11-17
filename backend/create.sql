@@ -59,7 +59,7 @@ VALUES (1, 'Buenos Aires'), (1, 'Córdoba'),
 CREATE TABLE `companies` (
 	`ID` INT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(50) NOT NULL DEFAULT '0',
-	`address` VARCHAR(100) NOT NULL DEFAULT '0',
+	`adress` VARCHAR(100) NOT NULL DEFAULT '0',
 	`email` VARCHAR(50) NOT NULL DEFAULT '0',
 	`phone` VARCHAR(50) NOT NULL DEFAULT '0',
 	`city` VARCHAR(50) NOT NULL DEFAULT '0',
@@ -70,7 +70,7 @@ CREATE TABLE `companies` (
 )
 COLLATE='latin1_swedish_ci'
 ;
-INSERT INTO `companies` (`name`, `address`, `email`, `phone`, `city`, `city_id`)
+INSERT INTO `companies` (`name`, `adress`, `email`, `phone`, `city`, `city_id`)
 VALUES ('Softtek', 'xxxxxx', 'softtek@soft.com', '3508060201', 'Tijuana', 13),
 ('Globant', 'xxxxxx', 'globant@globant.com', '3408060201', 'Buenos Aires', 1),
 ('Rappi', 'xxxxxx', 'rappi@rappi.com', '3308060201', 'Medellín', 5),

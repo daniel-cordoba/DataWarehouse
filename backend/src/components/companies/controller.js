@@ -2,7 +2,7 @@ const sequelize = require('../../conexion');
 
 class Companies{
     getCompanies(req, res){
-        const getCompany = 'SELECT ID, name, address, email, phone, city, city_id FROM companies;';
+        const getCompany = 'SELECT ID, name, adress, email, phone, city, city_id FROM companies;';
         sequelize.query(getCompany)
         .then(resp=>{
             console.log(resp[0]);
@@ -14,11 +14,11 @@ class Companies{
     }
 
     addCompany(req, res){
-        const {name, address, email, phone, city, city_id} = req.body;
-        const addCompany = 'INSERT INTO companies (name, address, email, phone, city, city_id) VALUES (?, ?, ?, ?, ?, ?);';
+        const {name, adress, email, phone, city, city_id} = req.body;
+        const addCompany = 'INSERT INTO companies (name, adress, email, phone, city, city_id) VALUES (?, ?, ?, ?, ?, ?);';
         sequelize.query(addCompany, 
             {
-                replacements: [name, address, email, phone, city, city_id],
+                replacements: [name, adress, email, phone, city, city_id],
                 type: sequelize.QueryTypes.INSERT
             }).then(resp=>{
                 console.log(resp);
@@ -30,9 +30,9 @@ class Companies{
     }
 
     editCompany(req, res){
-        const {ID, name, address, email, phone, city, city_id} = req.body;
-        const editCompany = 'UPDATE companies SET name="'+name+'", address="'+address+'", email="'+email+'", phone="'+phone+'", city="'+city+'", city_id='+city_id+' WHERE ID='+ID+';';
-        sequelize.query(editCompany,{type: sequelize.QueryTypes.UPDATE})
+        const {ID, name, adress, email, phone, city, city_id} = req.body;
+        const editCompany = 'UPDATE companies SET name="'+name+'", adress="'+adress+'", email="'+email+'", phone="'+phone+'", city="'+city+'", city_id='+city_id+' WHERE ID='+ID+';';
+        sequelize.query(editCompany, {type: sequelize.QueryTypes.UPDATE})
             .then(resp=>{
                 console.log(resp);
                 res.status(200).json('Compañía editada con éxito');

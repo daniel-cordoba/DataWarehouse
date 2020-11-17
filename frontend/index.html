@@ -23,14 +23,14 @@
                   <a class="nav-link" href="#">Contacto<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Usuarios</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#" onclick="return lastID()">Compañías</a>
+                  <a class="nav-link" href="#" onclick="return pruebas()">Compañías</a>
                 </li>  
                 <li class="nav-item">
                     <a class="nav-link" href="#">Región / Ciudad</a>
-                  </li>               
+                </li>  
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Usuarios</a>
+                </li>             
               </ul>
           </nav>
     </header>  
@@ -68,8 +68,7 @@
             <table class="table table-hover" id="table_contacts">                
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">                            
-                        </th>
+                        <th scope="col"></th>
                         <th scope="col">Contacto</th>
                         <th scope="col">País/Región</th>
                         <th scope="col">Compañía</th>
@@ -78,16 +77,32 @@
                         <th scope="col" class="text-center">Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="table_contacts">
+                <tbody>
                 </tbody>
             </table>
             <button class="btn btn-info d-block mx-auto d-none" data-toggle="modal" data-target="#modal_contacts_remove">Eliminar contactos seleccionados</button>
-            <div class="alert alert-danger collapse" role="alert" id="alertTry">
-                This is a danger alert—check it out!
-            </div>
         </section>
-        <section id="companies" class="min-vh-100">
-
+        <!--SECTION COMPANIES-->
+        <section id="companies" class="min-vh-100 mx-3">
+            <h1 class="h1 text-center bg-dark text-white">COMPAÑÍAS</h1>  
+            <button class="btn btn-info d-block mb-2 ml-auto mr-5" id="btn_company" data-toggle="modal" data-target="#modal_add_company" onclick="modal_company_def()">Agregar compañía
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-building" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694L1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
+                    <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
+                </svg>
+            </button>
+            <table class="table table-hover" id="table_companies">                
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" class="pl-5">Nombre</th>
+                        <th scope="col">Ciudad</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col" class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </section>
         <section id="users">
             
@@ -120,7 +135,7 @@
                 </div>
             </div>
 
-            <!-- Modal Eliminate 1 Contact by Icon-->
+            <!-- MODAL Eliminate 1 Contact by Icon-->
             <div class="modal fade" id="modal_contact_remove_one" tabindex="-1" role="dialog" aria-labelledby="modal_contact_remove_one_Title" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -141,7 +156,7 @@
                 </div>
             </div>
 
-            <!-- Modal Edit Contact-->
+            <!-- MODAL Edit Contact-->
             <div class="modal fade" id="edit_contact" tabindex="-1" aria-labelledby="edit_contact_Label" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -162,7 +177,7 @@
                 </div>
             </div>
 
-            <!-- Modal Add Contact-->
+            <!-- MODAL Add Contact-->
             <div class="modal fade" id="add_contact" tabindex="-1" aria-labelledby="add_contact_Label" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
@@ -185,7 +200,7 @@
                                 
                                 <div class="col-4">
                                     <label for="contact_email" class="text-muted font-weight-bold">Email<span class="text-danger"> *</span></label>
-                                    <input type="text" class="form-control" id="contact_email">
+                                    <input type="text" class="form-control" id="contact_email" placeholder="email@ejemplo.com">
                                 </div>
                             </div>
                             
@@ -293,6 +308,53 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
                             <button type="button" class="btn btn-success" onclick="postContact()" id="add_contact_btn">Agregar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL Add Company-->
+            <div class="modal fade" id="modal_add_company" tabindex="-1" aria-labelledby="add_company_Label" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info">
+                            <h4 class="modal-title text-white" id="add_company_Label">Agregar Compañía</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="text-white">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body px-4" id="body_modal">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="company_name" class="text-muted font-weight-bold">Nombre<span class="text-danger"> *</span></label>
+                                    <input type="text" class="form-control" id="company_name">
+                                </div>
+                                <div class="col-4">
+                                    <label for="company_email" class="text-muted font-weight-bold">Email<span class="text-danger"> *</span></label>
+                                    <input type="text" class="form-control" id="company_email" placeholder="email@ejemplo.com">
+                                </div>
+                                <div class="col-4">
+                                    <label for="company_phone" class="text-muted font-weight-bold">Teléfono<span class="text-danger"> *</span></label>
+                                    <input type="number" class="form-control" id="company_phone">
+                                </div>
+                            </div>  
+                            <div class="row mt-3">
+                                <div class="col-4">
+                                    <label for="company_select_city" class="text-muted font-weight-bold">Ciudad<span class="text-danger"> *</span></label>
+                                    <select class="custom-select" id="company_select_city">
+                                        <option value="0">Seleccionar Ciudad</option>
+                                    </select>
+                                </div>
+                                <div class="col-4">
+                                    <label for="company_adress" class="text-muted font-weight-bold">Dirección<span class="text-danger"> *</span></label>
+                                    <input type="text" class="form-control" id="company_adress">
+                                </div>
+                            </div>                            
+                        </div>
+                            
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-success" onclick="postCompanyData()" id="add_company_btn">Agregar</button>
                         </div>
                     </div>
                 </div>

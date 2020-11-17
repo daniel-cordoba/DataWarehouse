@@ -12,7 +12,7 @@ class MiddlewareCompanies{
         }
     }   
     
-    exist(req, res, next) {
+    /* exist(req, res, next) {
         const ID = req.body.ID;
         const consulta = 'SELECT ID FROM companies WHERE ID='+ID+';';
         sequelize.query(consulta).then(resp=>{
@@ -24,7 +24,7 @@ class MiddlewareCompanies{
         }).catch(err=>{
             console.error(err);
         })
-    }
+    } */
 }
 
 module.exports = MiddlewareCompanies;

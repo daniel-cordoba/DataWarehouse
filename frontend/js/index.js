@@ -961,14 +961,30 @@ async function eliminate_company(){
         $('#table_companies').find(`[data-id='${ID}']`)[0].remove();
     }
 }
+//Setting ID to eliminate a company
 function eliminate_company_icon(btn) {
     console.log(btn.parentElement.parentElement.getAttribute("data-id"));
     let ID = btn.parentElement.parentElement.getAttribute("data-id");    
     sessionStorage.setItem("eliminate_company", ID); 
 }
-    
-
-
+/////////////////////////////////////FUNCIONES DE LA SECCIÓN REGION-CIUDAD/////////////////////////////////////
+/////////////////////////////////////JSTREE FUNCTIONS/////////////////////////////////////
+$('#jstree_demo').jstree({ 'core' : {
+    'data' : [
+       'Simple root node',
+       {
+         'text' : 'Root node 2',
+         'state' : {
+           'opened' : true,
+           'selected' : true
+         },
+         'children' : [
+           { 'text' : 'Child 1' },
+           'Child 2'
+         ]
+      }
+    ]
+} });
 
 
 function pruebas() {

@@ -969,24 +969,57 @@ function eliminate_company_icon(btn) {
 }
 /////////////////////////////////////FUNCIONES DE LA SECCIÓN REGION-CIUDAD/////////////////////////////////////
 /////////////////////////////////////JSTREE FUNCTIONS/////////////////////////////////////
-$('#jstree_demo').jstree({ 'core' : {
-    'data' : [
-       'Simple root node',
-       {
-         'text' : 'Root node 2',
-         'state' : {
-           'opened' : true,
-           'selected' : true
-         },
-         'children' : [
-           { 'text' : 'Child 1' },
-           'Child 2'
-         ]
-      }
-    ]
-} });
+window.onload = call_tree();
+async function call_tree() {
+    const data = await treeNodes();
+    $('#location_tree')
+    .on('changed.jstree', function (e, data) {
+        let i, j, r = [];
+        for(i = 0, j = data.selected.length; i < j; i++) {
+          r.push(data.instance.get_node(data.selected[i]).text);
+          console.log(data.instance.get_node(data.selected[i]).text);
+          //$(data.instance.get_node(data.selected[i]).li_attr).attr("data-id")
+        }
+        $('#event_result').html('Seleccionado: ' + r.join(', '));
+      })
+    .jstree({ 'core' : {
+        'data' : data,
+        'themes': {
+            "dots": false,
+            "icons": false
+        }
+    }, "plugins":["wholerow","state"] });
+}
+//Fill JSTree Nodes
+async function treeNodes() {
+    const regions = await getRegions();
+    const countries = await getCountries();
+    const cities = await getCities();
+    let data = [];
+    regions.forEach(region => {
+        const name_region = region.name;
+        const region_ID = region.ID;
+        data.push({ "id" : name_region, "parent" : "#", "text" : name_region, "li_attr":{"data-id": region_ID, "class":"list-group-item list-group-item-action bg-light"}});
+        countries.forEach(country=>{
+            if (region_ID == country.region_id) {
+                const name_country = country.name;
+                const country_ID = country.ID;
+                data.push({ "id" : name_country, "parent" : name_region, "text" : name_country, "li_attr":{"data-id": country_ID, "data-fk": region_ID,"class":"list-group-item list-group-item-action bg-white"}});
+                cities.forEach(city => {
+                    if (country_ID == city.country_id) {
+                        const name_city = city.name;
+                        const city_ID = city.ID;
+                        data.push({ "id" : name_city, "parent" : name_country, "text" : name_city, "li_attr":{"data-id": city_ID, "data-fk": country_ID,}});     
+                    }
+                });
+            }
+        })
+    });
+    console.log(data);
+    return data;
+}
 
 
 function pruebas() {
-    select_region.querySelector(`${region}`)
+    treeNodes();
 }

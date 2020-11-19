@@ -8,6 +8,22 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
     appearance: none;
 }
+#location_tree ul li a{
+    font-size: 18px;
+}
+#location_tree ul li{
+    //padding: 10px 0;
+    margin: 5px 0;
+}
+/* .jstree-wholerow-hovered:hover{
+    background-color: var(--secondary)!important;
+}
+.jstree-hovered:hover{
+    background-color: var(--secondary)!important;
+}
+.jstree-wholerow-clicked+.jstree-wholerow+.jstree-anchor+.jstree-clicked{
+    background-color: var(--secondary)!important;
+} */
 
 @import 'signin';
 @import 'header';

@@ -1357,30 +1357,75 @@ async function data_post_user() {
         alert(error);
     }
 }
-/////////////////////////////////////FUNTIONS EDIT A USER/////////////////////////////////////
-//SET MODAL to PUT
-function btn_edit_user(btn) {
+/////////////////////////////////////FUNTIONS TO EDIT A USER/////////////////////////////////////
+//SET MODAL to PUT and AUTOCOMPLETE
+async function btn_edit_user(btn) {
     $('#post_user').html("Guardar Cambios");
     $('#post_user').removeAttr("onclick").attr("onclick", "data_put_user()");
     $('#modal_user_add_Title').text('Editar Usuario');
     console.log(btn.parentElement.parentElement.getAttribute("data-id"));
     let ID = btn.parentElement.parentElement.getAttribute("data-id");    
     sessionStorage.setItem("edit_user", ID); 
-    /*let contact_data = await getOneContact(ID);
-    console.log(contact_data);
-    const name = contact_data[0].name;
-    const last_name = contact_data[0].last_name;
-    const email = contact_data[0].email;
-    const charge = contact_data[0].charge;
-    const company = contact_data[0].company;
-    const company_id = contact_data[0].company_id;
-    const region = contact_data[0].region;
-    const country = contact_data[0].country;
-    const city = contact_data[0].city;
-    const city_id = contact_data[0].city_id;
-    const adress = contact_data[0].adress;
-    const interest = contact_data[0].interest;
-    await autoCompleteContact(name, last_name, email, charge, company, company_id, region, country, city, city_id, adress, interest); */
+    const users = await getUsers();
+    users.forEach(user =>{
+        if (user.ID == ID) {
+            document.getElementById('user_name').value = user.name;
+            document.getElementById('user_lastName').value = user.last_name;
+            document.getElementById('user_email').value = user.email;
+            document.getElementById('user_profile').value = user.profile;
+            document.getElementById('user_password').value = user.password;
+            document.getElementById('user_password_match').value = user.password;
+        }
+    });
+}
+//ENDPOINT PUT User
+async function put_user(name, last_name, email, profile, password){
+    const jwt = sessionStorage.getItem("jwt"); 
+    const ID = sessionStorage.getItem("edit_user");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/user',
+        {
+            method:'PUT',
+            body:`{
+                "ID":${ID},
+                "name":"${name}",
+                "last_name":"${last_name}",
+                "email":"${email}",
+                "profile":"${profile}",
+                "password":"${password}"               
+            }`,
+            headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
+        });
+        let edit = await response.json();
+        return edit;
+    }
+}
+//Getting data to PUT User
+async function data_put_user() {
+    try {
+        const name = document.getElementById('user_name').value;
+        const last_name = document.getElementById('user_lastName').value;
+        const email = document.getElementById('user_email').value;
+        const profile = document.getElementById('user_profile').value;
+        const password = document.getElementById('user_password').value;
+        const password_match = document.getElementById('user_password_match').value;
+        //Validation
+        if (!name || !last_name || !email || !profile || !password) {
+            throw Error ('Los campos marcados con *(Asterisco) son obligatorios');
+        }
+        if (!(password == password_match)) {
+            throw Error ('Las contraseñas no coinciden');
+        }
+        const user_edit = await put_user(name, last_name, email, profile, password);
+        console.log(user_edit);
+        alert(user_edit);
+        $('#modal_user_add').modal('hide');
+        $("#table_users tbody").html("");
+        fillUsers();
+    } catch (error) {
+        console.error(error);
+        alert(error);
+    }
 }
 
 function pruebas() {

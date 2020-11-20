@@ -39,7 +39,7 @@ const logIn = (req, res) => {
 }
 
 const getUsers = (req, res) => {
-    const getUsers = 'SELECT name, last_name, email, profile FROM users;';
+    const getUsers = 'SELECT ID, name, last_name, email, profile, password FROM users;';
     sequelize.query(getUsers, 
         {
             type: sequelize.QueryTypes.SELECT

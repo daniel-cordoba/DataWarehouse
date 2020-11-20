@@ -79,6 +79,14 @@ async function fillContacts(){
             lengthMenu: [[ 9, 18, 27, 36, -1],[ 9, 18, 27, 36, "Todos"]],
             order: [[ 1, 'asc' ]]
         } );
+        //Select All Function
+        $("#select_all").on( "click", function(e) {
+            if ($(this).is( ":checked" )) {
+                table.rows().select();        
+            } else {
+                table.rows().deselect(); 
+            }
+        });
         //Estilo en barra de búsqueda
         $('#table_contacts_filter').find("label").addClass("input-group").html(`<div class="input-group-prepend">
             <span class="input-group-text bg-info" id="basic-addon1">
@@ -218,7 +226,7 @@ async function getCities() {
         return cities;
     }
 }
-//ENDPOINT Post contact channels
+//ENDPOINT POST contact channels
 async function postChannels(channel, user, preference) {   
     const jwt = sessionStorage.getItem("jwt"); 
     const contact_id = await lastID();
@@ -793,7 +801,7 @@ function tableCompanies(ID, name, city, adress) {
             .append(`<td class="align-middle">${adress}</td>`)
             .append($('<td class="align-middle text-center">')
                 .append('<button class="btn btn-info mr-1" data-toggle="modal" data-target="#modal_add_company" title="Editar" onclick="edit_company_btn(this)"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg></button>')
-                .append('<button class="btn btn-info" data-toggle="modal" data-target="#modal_company_eliminate" onclick="eliminate_company_icon(this)" title="Eliminar"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></button>')
+                .append('<button class="btn btn-info" data-toggle="modal" data-target="#modal_company_remove" onclick="eliminate_company_icon(this)" title="Eliminar"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></button>')
         )
     );
 }
@@ -860,10 +868,12 @@ async function postCompanyData() {
         console.log(response);
         alert(response);
         $('#modal_add_company').modal('hide');
+        $("#table_companies tbody").html("");
+        fillCompanies();
     } catch (error) {console.error(error);}
 }
 /////////////////////////////////////FUNCIONES PARA EDITAR COMPAÑÍAS/////////////////////////////////////
-//ENDPOINT PUT COMPANY
+//ENDPOINT PUT Company
 async function putCompany(name, adress, email, phone, city, city_id){
     const jwt = sessionStorage.getItem("jwt"); 
     const ID = sessionStorage.getItem("edit_company");
@@ -943,6 +953,8 @@ async function data_putCompany(){
         console.log(edit);
         alert(edit);
         $('#modal_add_company').modal('hide');
+        $("#table_companies tbody").html("");
+        fillCompanies();
     } catch (error) {console.error(error);}
 }
 /////////////////////////////////////FUNCIONES PARA ELIMINAR COMPAÑÍAS/////////////////////////////////////
@@ -974,13 +986,15 @@ async function call_tree() {
     const data = await treeNodes();
     $('#location_tree')
     .on('changed.jstree', function (e, data) {
-        let i, j, r = [];
-        for(i = 0, j = data.selected.length; i < j; i++) {
-          r.push(data.instance.get_node(data.selected[i]).text);
-          console.log(data.instance.get_node(data.selected[i]).text);
-          //$(data.instance.get_node(data.selected[i]).li_attr).attr("data-id")
-        }
-        $('#event_result').html('Seleccionado: ' + r.join(', '));
+        const node_selected = data.instance.get_node(data.selected[0]).text;
+        const node_dataID = $(data.instance.get_node(data.selected[0]).li_attr).attr("data-id");
+        const node_dataFk = $(data.instance.get_node(data.selected[0]).li_attr).attr("data-fk");
+        const node_dataLocation = $(data.instance.get_node(data.selected[0]).li_attr).attr("data-location");
+        sessionStorage.setItem("node_selected", node_selected);
+        sessionStorage.setItem("data-id", node_dataID);
+        sessionStorage.setItem("data-fk", node_dataFk);
+        sessionStorage.setItem("data-location", node_dataLocation);
+        $('#event_result').html('Seleccionado: ' + node_selected);
       })
     .jstree({ 'core' : {
         'data' : data,
@@ -999,24 +1013,253 @@ async function treeNodes() {
     regions.forEach(region => {
         const name_region = region.name;
         const region_ID = region.ID;
-        data.push({ "id" : name_region, "parent" : "#", "text" : name_region, "li_attr":{"data-id": region_ID, "class":"list-group-item list-group-item-action bg-light"}});
+        data.push({ "id" : name_region, "parent" : "#", "text" : name_region, "li_attr":{"data-id": region_ID, "data-location":"region", "class":"list-group-item list-group-item-action bg-light"}});
         countries.forEach(country=>{
             if (region_ID == country.region_id) {
                 const name_country = country.name;
                 const country_ID = country.ID;
-                data.push({ "id" : name_country, "parent" : name_region, "text" : name_country, "li_attr":{"data-id": country_ID, "data-fk": region_ID,"class":"list-group-item list-group-item-action bg-white"}});
+                data.push({ "id" : name_country, "parent" : name_region, "text" : name_country, "li_attr":{"data-id": country_ID, "data-location":"country", "data-fk": region_ID,"class":"list-group-item list-group-item-action bg-white"}});
                 cities.forEach(city => {
                     if (country_ID == city.country_id) {
                         const name_city = city.name;
                         const city_ID = city.ID;
-                        data.push({ "id" : name_city, "parent" : name_country, "text" : name_city, "li_attr":{"data-id": city_ID, "data-fk": country_ID,}});     
+                        data.push({ "id" : name_city, "parent" : name_country, "text" : name_city, "li_attr":{"data-id": city_ID, "data-location":"city", "data-fk": country_ID}});     
                     }
                 });
             }
         })
     });
-    console.log(data);
     return data;
+}
+/////////////////////////////////////FUNCIONES PARA EDITAR REGION/CIUDAD/////////////////////////////////////
+//AUTOCOMPLETE MODAL location edit
+function auto_location_edit() {
+    $("#location_name").val(sessionStorage.getItem("node_selected"));
+}
+//ENDPOINT PUT Location
+async function put_location(){
+    try {
+        const jwt = sessionStorage.getItem("jwt");
+        const ID = sessionStorage.getItem('data-id');
+        const name = document.getElementById('location_name').value;
+        if (name == "") {
+            throw Error ('El campo nombre* está vacio, la solicitud no se puede procesar');
+        }
+        if(jwt!=null){
+            let response = await fetch('http://localhost:3000/'+sessionStorage.getItem("data-location"),
+                {
+                method:'PUT',
+                body:`{
+                    "ID":${ID},
+                    "name":"${name}"
+                }`, 
+                headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
+            });
+            let edit = await response.json();
+            console.log(edit);
+            alert(edit);
+            $('#modal_location_edit').modal('hide');
+            const new_data = await treeNodes();
+            $('#location_tree').jstree(true).settings.core.data = new_data;
+            $('#location_tree').jstree(true).refresh();
+        }
+    } catch (error) {
+        console.error(error);
+        alert(error);
+    }
+    
+}
+/////////////////////////////////////FUNCIONES PARA ELIMINAR REGION/CIUDAD/////////////////////////////////////
+//ENDPOINT DELETE location
+async function del_location() {
+    const jwt = sessionStorage.getItem("jwt");
+    const ID = sessionStorage.getItem("data-id");
+    const location = sessionStorage.getItem("data-location");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/'+location+'/'+ID,
+        {
+            method:'DELETE',
+            headers:{"Authorization":"Bearer "+jwt}
+        });
+        let eliminado = await response.json();
+        console.log(eliminado);
+        alert(eliminado);
+        $('#modal_location_delete').modal('hide');
+        const new_data = await treeNodes();
+        $('#location_tree').jstree(true).settings.core.data = new_data;
+        $('#location_tree').jstree(true).refresh();
+    }
+}
+
+//BTN Dropdown for Region - MODAL Set
+function dropdown_region() {
+    document.getElementById('container_region').classList.add("d-none");
+    document.getElementById('container_country').classList.add("d-none");
+    document.getElementById('location_label').innerHTML = 'Región<span class="text-danger"> *</span>';
+    $('#post_location').attr("onclick", "btn_post_region()");
+}
+//BTN Dropdown for País - MODAL Set
+async function dropdown_country() {
+    document.getElementById('container_region').classList.remove("d-none");
+    document.getElementById('container_country').classList.add("d-none");
+    document.getElementById('location_label').innerHTML = 'País<span class="text-danger"> *</span>';
+    const regions = await getRegions();
+    $('#location_select_region').html("");
+    $('#location_select_region').append(`<option value="0">Seleccione una región</option>`);
+    regions.forEach(region => {
+        const name = region.name;
+        const ID = region.ID;
+        $('#location_select_region').append(`<option value="${ID}">${name}</option>`);
+    });
+    $('#post_location').attr("onclick", "btn_post_country()");
+
+}
+//BTN Dropdown for Ciudad - MODAL Set
+async function dropdown_city() {
+    document.getElementById('container_region').classList.remove("d-none");
+    document.getElementById('container_country').classList.remove("d-none");
+    document.getElementById('location_label').innerHTML = 'Ciudad<span class="text-danger"> *</span>';
+    $('#post_location').attr("onclick", "btn_post_city()");
+    const regions = await getRegions();
+    $('#location_select_region').html("");
+    $('#location_select_region').append(`<option value="0">Seleccione una región</option>`);
+    regions.forEach(region => {
+        const name = region.name;
+        const ID = region.ID;
+        $('#location_select_region').append(`<option value="${ID}">${name}</option>`);
+    });
+    document.getElementById("location_select_region").onchange = async function () {
+        const region = document.getElementById('location_select_region').value;
+        $('#location_select_country').html('');
+        $('#location_select_country').append(`<option value="0">Seleccione un país</option>`);
+        const countries = await getCountries();
+        countries.forEach(country => {
+            if (country.region_id == region) {
+                const name = country.name;
+                const ID = country.ID;
+                $('#location_select_country').append(`<option value="${ID}">${name}</option>`) 
+            }
+        });
+    }
+}
+//ENDPOINT POST Region
+async function post_region(name) {
+    const jwt = sessionStorage.getItem("jwt");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/region',
+        {
+            method:'POST',
+            body:`{
+                "name":"${name}"
+            }`,
+            headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
+        });
+        let region = await response.json();
+        return region;
+    }
+}
+//Getting data to POST Region
+async function btn_post_region() {
+    try {
+        const name = document.getElementById('location_input').value;
+        if (!name) {
+            throw Error ('El campo Región es obligatorio');
+        }
+        const response = await post_region(name);
+        console.log(response);
+        alert(response);
+        $('#modal_location_add').modal('hide');
+        const new_data = await treeNodes();
+        $('#location_tree').jstree(true).settings.core.data = new_data;
+        $('#location_tree').jstree(true).refresh();
+    } catch (error) {
+        console.error(error);
+        alert(error);
+    }
+}
+//ENDPOINT POST Country
+async function post_country(name, region_id) {
+    const jwt = sessionStorage.getItem("jwt");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/country',
+        {
+            method:'POST',
+            body:`{
+                "region_id":"${region_id}",
+                "name":"${name}"
+            }`,
+            headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
+        });
+        let country = await response.json();
+        return country;
+    }
+}
+//Getting data to POST Country
+async function btn_post_country() {
+    try {
+        const name = document.getElementById('location_input').value;
+        const region_id = document.getElementById('location_select_region').value;
+        if (region_id == 0) {
+            throw Error ('Debe seleccionar una región');
+        }
+        if (!name) {
+            throw Error ('El campo País es obligatorio');
+        }
+        const response = await post_country(name, region_id);
+        console.log(response);
+        alert(response);
+        $('#modal_location_add').modal('hide');
+        const new_data = await treeNodes();
+        $('#location_tree').jstree(true).settings.core.data = new_data;
+        $('#location_tree').jstree(true).refresh();
+    } catch (error) {
+        console.error(error);
+        alert(error);
+    }
+}
+//ENDPOINT POST City
+async function post_city(name, country_id) {
+    const jwt = sessionStorage.getItem("jwt");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/city',
+        {
+            method:'POST',
+            body:`{
+                "country_id":"${country_id}",
+                "name":"${name}"
+            }`,
+            headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
+        });
+        let city = await response.json();
+        return city;
+    }
+}
+//Getting data to POST City
+async function btn_post_city() {
+    try {
+        const name = document.getElementById('location_input').value;
+        const region_id = document.getElementById('location_select_region').value;
+        const country_id = document.getElementById('location_select_country').value;
+        if (region_id == 0) {
+            throw Error ('Debe seleccionar una región');
+        }
+        if (country_id == 0) {
+            throw Error ('Debe seleccionar un país');
+        }
+        if (!name) {
+            throw Error ('El campo Ciudad es obligatorio');
+        }
+        const response = await post_city(name, country_id);
+        console.log(response);
+        alert(response);
+        $('#modal_location_add').modal('hide');
+        const new_data = await treeNodes();
+        $('#location_tree').jstree(true).settings.core.data = new_data;
+        $('#location_tree').jstree(true).refresh();
+    } catch (error) {
+        console.error(error);
+        alert(error);
+    }
 }
 
 

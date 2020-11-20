@@ -5,29 +5,6 @@
           box-sizing: border-box;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-          appearance: none;
-}
-
-#location_tree ul li a {
-  font-size: 18px;
-}
-
-#location_tree ul li {
-  margin: 5px 0;
-}
-
-/* .jstree-wholerow-hovered:hover{
-    background-color: var(--secondary)!important;
-}
-.jstree-hovered:hover{
-    background-color: var(--secondary)!important;
-}
-.jstree-wholerow-clicked+.jstree-wholerow+.jstree-anchor+.jstree-clicked{
-    background-color: var(--secondary)!important;
-} */
 body #section-login {
   z-index: 2;
 }
@@ -87,30 +64,43 @@ body main #contacts > #table_contacts_wrapper > div > div #table_contacts_length
           box-shadow: 0 1px 0 0 var(--info);
 }
 
-body main #contacts > #table_contacts_wrapper > div > div > table > #table_contacts .odd .dataTables_empty {
+body main #contacts > #table_contacts_wrapper > div > div > #table_contacts {
+  /* thead{
+                                tr{
+                                    th{
+                                        #select_all{
+                                            border: 1px solid black !important;
+                                            border-radius: 3px !important;
+                                        }
+                                    }
+                                }
+                            } */
+}
+
+body main #contacts > #table_contacts_wrapper > div > div > #table_contacts .odd .dataTables_empty {
   display: none;
 }
 
-body main #contacts > #table_contacts_wrapper > div > div > table > #table_contacts .odd.selected {
+body main #contacts > #table_contacts_wrapper > div > div > #table_contacts .odd.selected {
   background-color: grey;
 }
 
-body main #contacts > #table_contacts_wrapper > div > div > table > #table_contacts .even.selected {
+body main #contacts > #table_contacts_wrapper > div > div > #table_contacts .even.selected {
   background-color: grey;
 }
 
-body main #contacts > #table_contacts_wrapper > div > div > table > #table_contacts > tr > td:first-child {
+body main #contacts > #table_contacts_wrapper > div > div > #table_contacts > tbody > tr > td:first-child {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 40px;
 }
 
-body main #contacts > #table_contacts_wrapper > div > div > table > #table_contacts > tr > .select-checkbox::before {
+body main #contacts > #table_contacts_wrapper > div > div > #table_contacts > tbody > tr > .select-checkbox::before {
   margin-top: 10px;
 }
 
-body main #contacts > #table_contacts_wrapper > div > div > table > #table_contacts > tr > .select-checkbox::after {
+body main #contacts > #table_contacts_wrapper > div > div > #table_contacts > tbody > tr > .select-checkbox::after {
   margin-top: 0px;
   margin-left: -5px;
 }
@@ -152,6 +142,20 @@ body main #companies .active-cyan input.form-control[type=text] {
           box-shadow: 0 1px 0 0 #4dd0e1;
 }
 
+body main #location #location_tree ul li a {
+  font-size: 18px;
+}
+
+body main #location #location_tree ul li {
+  margin: 5px 0;
+}
+
+body main #modals input[type=number]::-webkit-inner-spin-button,
+body main #modals input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+          appearance: none;
+}
+
 body main #modals #add_contact div div .modal-body {
   background-image: url(../assets/person-plus.svg);
   background-position: right;
@@ -161,6 +165,13 @@ body main #modals #add_contact div div .modal-body {
 
 body main #modals #modal_add_company div div .modal-body {
   background-image: url(../assets/building.svg);
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 16%;
+}
+
+body main #modals #modal_location_add div div .modal-body {
+  background-image: url(../assets/geo-alt-fill.svg);
   background-position: right;
   background-repeat: no-repeat;
   background-size: 16%;

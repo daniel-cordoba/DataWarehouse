@@ -1,6 +1,6 @@
 body {
     main {
-        //SECTION CONTACTS
+        //////////////////////SECTION CONTACTS//////////////////////
         #contacts {
             >div{
                 #input_contacts {
@@ -34,20 +34,30 @@ body {
                 }
                 //INSIDE TABLE
                 >div{
-                    >div{
-                        >table {                            
-                            >#table_contacts{
-                                .odd{
-                                    .dataTables_empty{
-                                        display: none;
+                    >div{                           
+                        >#table_contacts{
+                            /* thead{
+                                tr{
+                                    th{
+                                        #select_all{
+                                            border: 1px solid black !important;
+                                            border-radius: 3px !important;
+                                        }
                                     }
-                                }          
-                                .odd.selected{
-                                    background-color: grey;
                                 }
-                                .even.selected{
-                                    background-color: grey;
+                            } */
+                            .odd{
+                                .dataTables_empty{
+                                    display: none;
                                 }
+                            }          
+                            .odd.selected{
+                                background-color: grey;
+                            }
+                            .even.selected{
+                                background-color: grey;
+                            }
+                            >tbody{
                                 >tr{
                                     >td:first-child{
                                         display: flex;
@@ -55,15 +65,16 @@ body {
                                         
                                     }
                                     >.select-checkbox::before{
-                                     margin-top: 10px;   
+                                        margin-top: 10px;   
                                     }
                                     >.select-checkbox::after{
                                         margin-top: 0px; 
                                         margin-left: -5px; 
-                                       }
+                                        }
                                 }
                             }
-                        }                        
+                        }
+                                                
                     }
                 }
                 //AFTER TABLE
@@ -108,8 +119,24 @@ body {
                 box-shadow: 0 1px 0 0 #4dd0e1;
               }
         }
-        //SECTION MODALS
+        //////////////////////SECTION REGION/CITY - LOCATIONS//////////////////////
+        #location{
+            //JSTree setup Region/Ciudad
+            #location_tree ul li a{
+                font-size: 18px;
+            }
+            #location_tree ul li{
+                margin: 5px 0;
+            }
+
+        }
+        //////////////////////SECTION MODALS//////////////////////
         #modals{
+            //Hide arrows from input type number
+            input[type=number]::-webkit-inner-spin-button, 
+            input[type=number]::-webkit-outer-spin-button { 
+                appearance: none;
+            }
             #add_contact{
                 div{
                     div{
@@ -127,6 +154,18 @@ body {
                     div{
                         .modal-body{
                             background-image: url(../assets/building.svg);
+                            background-position: right;
+                            background-repeat: no-repeat;
+                            background-size: 16%;
+                        }
+                    }
+                }
+            }
+            #modal_location_add{
+                div{
+                    div{
+                        .modal-body{
+                            background-image: url(../assets/geo-alt-fill.svg);
                             background-position: right;
                             background-repeat: no-repeat;
                             background-size: 16%;

@@ -1142,6 +1142,7 @@ async function dropdown_city() {
         });
     }
 }
+/////////////////////////////////////FUNCIONES PARA AGREGAR REGION/CIUDAD/////////////////////////////////////
 //ENDPOINT POST Region
 async function post_region(name) {
     const jwt = sessionStorage.getItem("jwt");
@@ -1261,7 +1262,126 @@ async function btn_post_city() {
         alert(error);
     }
 }
-
+/////////////////////////////////////FUNCIONES DE LA SECCION USUARIOS/////////////////////////////////////
+/////////////////////////////////////FUNTIONS TO FILL TABLE DATA/////////////////////////////////////
+window.onload = fillUsers();
+//Fill Company Table
+async function fillUsers() {
+    const users = await getUsers();
+    users.forEach(user =>{
+        const ID = user.ID;
+        const name = user.name;
+        const last_name = user.last_name;
+        const email = user.email;
+        const profile = user.profile;
+        tableUsers(ID, name, last_name, email, profile);
+    })
+}
+function tableUsers(ID, name, last_name, email, profile) {
+    $("#table_users")
+        .append($(`<tr data-id="${ID}">`)
+            .append(`<td scope="row" class="pl-5"><p class="m-0">${name}</p></td>`)
+            .append(`<td><p class="m-0">${last_name}</p></td>`)
+            .append(`<td><p class="m-0">${email}</p></td>`)
+            .append(`<td><p class="m-0">${profile}</p></td>`)
+            .append($('<td class="align-middle text-center">')
+                .append('<button class="btn btn-info mr-1" data-toggle="modal" data-target="#modal_user_add" title="Editar" onclick="btn_edit_user(this)"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg></button>')
+                .append('<button class="btn btn-info" data-toggle="modal" data-target="#modal_company_remove" onclick="eliminate_company_icon(this)" title="Eliminar"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></button>')
+        )
+    );
+}
+//ENDPOINT GET Users
+async function getUsers() {
+    const jwt = sessionStorage.getItem("jwt");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/users',
+        {
+            method:'GET',
+            headers:{"Authorization":"Bearer "+jwt}
+        });
+        let users = await response.json();
+        return users;
+    }
+}
+/////////////////////////////////////FUNTIONS TO POST/CREATE A NEW USER/////////////////////////////////////
+//SET MODAL to POST
+function btn_post_user() {
+    $('#post_user').html("Crear Usuario");
+    $('#post_user').removeAttr("onclick").attr("onclick", "data_post_user()");
+    $('#modal_user_add_Title').text('Crear Usuario');
+}
+//ENDPOINT POST User
+async function post_user(name, last_name, email, profile, password) {
+    const jwt = sessionStorage.getItem("jwt");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/signIn',
+        {
+            method:'POST',
+            body:`{
+                "name":"${name}",
+                "last_name":"${last_name}",
+                "email":"${email}",
+                "profile":"${profile}",
+                "password":"${password}"
+            }`,
+            headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
+        });
+        let new_user = await response.json();
+        return new_user;
+    }
+}
+//Getting data to do a POST on user
+async function data_post_user() {
+    try {
+        const name = document.getElementById('user_name').value;
+        const last_name = document.getElementById('user_lastName').value;
+        const email = document.getElementById('user_email').value;
+        const profile = document.getElementById('user_profile').value;
+        const password = document.getElementById('user_password').value;
+        const password_match = document.getElementById('user_password_match').value;
+        //Validating data
+        if (!name || !last_name || !email || !profile || !password) {
+            throw Error ('Los campos marcados con *(Asterisco) son obligatorios');
+        }
+        if (!(password == password_match)) {
+            throw Error ('Las contraseñas no coinciden');
+        }
+        const new_user = await post_user(name, last_name, email, profile, password);
+        console.log(new_user);
+        alert(new_user);
+        $('#modal_user_add').modal('hide');
+        $("#table_users tbody").html("");
+        fillUsers();
+    } catch (error) {
+        console.error(error);
+        alert(error);
+    }
+}
+/////////////////////////////////////FUNTIONS EDIT A USER/////////////////////////////////////
+//SET MODAL to PUT
+function btn_edit_user(btn) {
+    $('#post_user').html("Guardar Cambios");
+    $('#post_user').removeAttr("onclick").attr("onclick", "data_put_user()");
+    $('#modal_user_add_Title').text('Editar Usuario');
+    console.log(btn.parentElement.parentElement.getAttribute("data-id"));
+    let ID = btn.parentElement.parentElement.getAttribute("data-id");    
+    sessionStorage.setItem("edit_user", ID); 
+    /*let contact_data = await getOneContact(ID);
+    console.log(contact_data);
+    const name = contact_data[0].name;
+    const last_name = contact_data[0].last_name;
+    const email = contact_data[0].email;
+    const charge = contact_data[0].charge;
+    const company = contact_data[0].company;
+    const company_id = contact_data[0].company_id;
+    const region = contact_data[0].region;
+    const country = contact_data[0].country;
+    const city = contact_data[0].city;
+    const city_id = contact_data[0].city_id;
+    const adress = contact_data[0].adress;
+    const interest = contact_data[0].interest;
+    await autoCompleteContact(name, last_name, email, charge, company, company_id, region, country, city, city_id, adress, interest); */
+}
 
 function pruebas() {
     treeNodes();

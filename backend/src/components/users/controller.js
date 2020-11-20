@@ -11,6 +11,9 @@ const signIn = (req, res) => {
         }).then(resp => {
             console.log(resp);
             res.status(200).json('Usuario creado con éxito');
+        }).catch(err=>{
+            console.error(err);
+            res.status(400).json('Error en la sintaxis de la petición');
         });
 }
 
@@ -35,7 +38,57 @@ const logIn = (req, res) => {
         })
 }
 
+const getUsers = (req, res) => {
+    const getUsers = 'SELECT name, last_name, email, profile FROM users;';
+    sequelize.query(getUsers, 
+        {
+            type: sequelize.QueryTypes.SELECT
+        }).then(resp=>{
+            console.log(resp);
+            res.status(200).json(resp);
+        }).catch(err=>{
+            console.error(err);
+            res.status(400).json('Error en la sintaxis de la petición');
+        });
+}
+
+const putUser = (req, res) => {
+    const {ID, name, last_name, email, profile, password} = req.body;
+    const putUser = `UPDATE users SET name = "${name}", last_name = "${last_name}", email = "${email}", profile = "${profile}", password = "${password}" WHERE ID = ${ID};`;
+    return sequelize.query(putUser, {type: sequelize.QueryTypes.UPDATE})
+    .then(resp => {
+            console.log(resp);
+            res.status(200).json('Usuario editado con éxito');
+        }).catch(err=>{
+            console.error(err);
+            res.status(400).json('Error en la sintaxis de la petición');
+        });
+}
+
+const delUser = (req, res) => {
+    const ID = req.params.ID;
+    if(isNaN(ID)){
+        res.status(400).json('Error en la sintaxis de la petición');
+    }else{
+        sequelize.query('DELETE FROM users WHERE ID = '+ID+';')
+        .then(resp=>{
+            console.log(resp);
+            if(resp[0].affectedRows === 0){
+                res.status(404).json('El usuario no fue encontrado'); 
+            }else{
+                res.status(200).json('Usuario eliminada con éxito');
+            }            
+        }).catch(err=>{
+            console.error(err);
+            res.status(400).json('Error en la sintaxis de la petición');
+        });
+    }
+}
+
 module.exports = {
     signIn,
-    logIn
+    logIn,
+    getUsers,
+    putUser,
+    delUser
 }

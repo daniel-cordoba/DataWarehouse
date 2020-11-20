@@ -1,3 +1,7 @@
+//Active modification for dropdown
+.dropdown-item.active, .dropdown-item:active{
+    background-color: var(--info)!important;
+}
 body {
     main {
         //////////////////////SECTION CONTACTS//////////////////////
@@ -169,6 +173,18 @@ body {
                             background-position: right;
                             background-repeat: no-repeat;
                             background-size: 16%;
+                        }
+                    }
+                }
+            }
+            #modal_user_add{
+                div{
+                    div{
+                        .modal-body{
+                            background-image: url(../assets/person-lines-fill.svg);
+                            background-position: 95% 50%;
+                            background-repeat: no-repeat;
+                            background-size: 25%;
                         }
                     }
                 }

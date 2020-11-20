@@ -47,7 +47,7 @@
                             <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
                           </svg>
                     </span>
-                    <input type="email" id="email_input" class="form-control mx-auto" placeholder="Email">
+                    <input type="email" id="email_input" class="form-control mx-auto" placeholder="email@ejemplo.com">
                 </div>
                 <label for="password_input" id="label2_signin" class="d-block mx-auto h5 text-center">Contraseña</label>
                 <div class="d-flex mx-auto align-items-center mb-3">
@@ -138,31 +138,25 @@
         </section>
         <!-- SECCION USERS -->
         <section id="users" class="min-vh-100 mx-3">
-            <h1 class="h1 text-center bg-dark text-white">CREAR USUARIO</h1>
-            <div class="mx-5">
-                <div class="row justify-content-around">
-                    <div class="col-4">
-                        <label for="user_name" class="text-muted font-weight-bold mt-3">Nombre<span class="text-danger"> *</span></label>
-                        <input type="text" class="form-control" id="user_name">
-                        <label for="user_lastName" class="text-muted font-weight-bold mt-3">Apellido<span class="text-danger"> *</span></label>
-                        <input type="text" class="form-control" id="user_lastName">
-                        <label for="user_email" class="text-muted font-weight-bold mt-3">Email<span class="text-danger"> *</span></label>
-                        <input type="text" class="form-control" id="user_email" placeholder="email@ejemplo.com">
-                    </div>
-                    <div class="col-4" >
-                        <label for="user_profile" class="text-muted font-weight-bold mt-3">Perfil<span class="text-danger"> *</span></label>
-                        <select class="custom-select" id="user_profile">
-                            <option value="0">Seleccione un perfil</option>
-                            <option value="1">Administrador</option>
-                            <option value="2">Contactos</option>
-                        </select>
-                        <label for="user_password" class="text-muted font-weight-bold mt-3">Contraseña<span class="text-danger"> *</span></label>
-                        <input type="text" class="form-control" id="user_password">
-                        <label for="user_password_match" class="text-muted font-weight-bold mt-3">Repetir Contraseña<span class="text-danger"> *</span></label>
-                        <input type="text" class="form-control" id="user_password_match">
-                    </div>
-                </div>
-            </div>
+            <h1 class="h1 text-center bg-dark text-white">USUARIOS</h1>
+            <button class="btn btn-info d-block mb-2 ml-auto mr-5 my-3" id="btn_user" data-toggle="modal" data-target="#modal_user_add" onclick="btn_post_user()">Crear usuario
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-lines-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7 1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm2 9a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+            </button>
+            <table class="table table-hover" id="table_users">                
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" class="pl-5">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Perfil</th>
+                        <th scope="col" class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </section>
         
         <!------------------------ MODALS SECTION ------------------------>
@@ -171,10 +165,10 @@
             <div class="modal fade" id="modal_contacts_remove" tabindex="-1" role="dialog" aria-labelledby="modal_contacts_remove_Title" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modal_contacts_remove_Title">Advertencia</h5>
+                        <div class="modal-header bg-info">
+                            <h5 class="modal-title text-white" id="modal_contacts_remove_Title">Advertencia</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true" class="text-white">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
@@ -191,10 +185,10 @@
             <div class="modal fade" id="modal_contact_remove_one" tabindex="-1" role="dialog" aria-labelledby="modal_contact_remove_one_Title" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modal_contact_remove_one_Title">Advertencia</h5>
+                        <div class="modal-header bg-info">
+                            <h5 class="modal-title text-white" id="modal_contact_remove_one_Title">Advertencia</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true" class="text-white">&times;</span>
                             </button>   
                         </div>                         
                         <div class="modal-body">
@@ -207,7 +201,7 @@
                     </div>
                 </div>
             </div>
-            <!-- MODAL Add Contact-->
+            <!-- MODAL ADD Contact-->
             <div class="modal fade" id="add_contact" tabindex="-1" aria-labelledby="add_contact_Label" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
@@ -342,7 +336,7 @@
                     </div>
                 </div>
             </div>
-            <!-- MODAL Add Company-->
+            <!-- MODAL ADD Company-->
             <div class="modal fade" id="modal_add_company" tabindex="-1" aria-labelledby="add_company_Label" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
@@ -391,10 +385,10 @@
             <div class="modal fade" id="modal_company_remove" tabindex="-1" role="dialog" aria-labelledby="modal_company_remove_Title" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modal_company_remove_Title">Advertencia</h5>
+                        <div class="modal-header bg-info">
+                            <h5 class="modal-title text-white" id="modal_company_remove_Title">Advertencia</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true" class="text-white">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
@@ -407,14 +401,14 @@
                     </div>
                 </div>
             </div>
-            <!-- MODAL Edit location-->
+            <!-- MODAL EDIT location-->
             <div class="modal fade" id="modal_location_edit" tabindex="-1" role="dialog" aria-labelledby="modal_location_edit_Title" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modal_location_edit_Title">Editar Nombre</h5>
+                        <div class="modal-header bg-info">
+                            <h5 class="modal-title text-white" id="modal_location_edit_Title">Editar Locación</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true" class="text-white">&times;</span>
                             </button>   
                         </div>                         
                         <div class="modal-body">
@@ -430,14 +424,14 @@
                     </div>
                 </div>
             </div>
-            <!-- MODAL Delete location-->
+            <!-- MODAL DELETE location-->
             <div class="modal fade" id="modal_location_delete" tabindex="-1" role="dialog" aria-labelledby="modal_location_delete_Title" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modal_location_delete_Title">Eliminar locación</h5>
+                        <div class="modal-header bg-info">
+                            <h5 class="modal-title text-white" id="modal_location_delete_Title">Eliminar locación</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true" class="text-white">&times;</span>
                             </button>   
                         </div>                         
                         <div class="modal-body">
@@ -450,14 +444,14 @@
                     </div>
                 </div>
             </div>
-            <!-- MODAL Add location-->
+            <!-- MODAL ADD location-->
             <div class="modal fade" id="modal_location_add" tabindex="-1" role="dialog" aria-labelledby="modal_location_add_Title" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modal_location_add_Title">Agregar Locación</h5>
+                        <div class="modal-header bg-info">
+                            <h5 class="modal-title text-white" id="modal_location_add_Title">Agregar Locación</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true" class="text-white">&times;</span>
                             </button>   
                         </div>                         
                         <div class="modal-body row">
@@ -481,6 +475,57 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
                             <button type="button" class="btn btn-success" id="post_location">Agregar</button>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+            <!-- MODAL ADD Users -->
+            <div class="modal fade" id="modal_user_add" tabindex="-1" role="dialog" aria-labelledby="modal_user_add_Title" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info">
+                            <h5 class="modal-title text-white" id="modal_user_add_Title">Crear Usuario</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="text-white">&times;</span>
+                            </button>   
+                        </div>                         
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="user_name" class="text-muted font-weight-bold mt-3">Nombre<span class="text-danger"> *</span></label>
+                                    <input type="text" class="form-control" id="user_name">
+                                </div>
+                                <div class="col-4">
+                                    <label for="user_lastName" class="text-muted font-weight-bold mt-3">Apellido<span class="text-danger"> *</span></label>
+                                    <input type="text" class="form-control" id="user_lastName">
+                                </div>
+                                <div class="col-4">
+                                    <label for="user_email" class="text-muted font-weight-bold mt-3">Email<span class="text-danger"> *</span></label>
+                                    <input type="email" class="form-control" id="user_email" placeholder="email@ejemplo.com">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="user_profile" class="text-muted font-weight-bold mt-3">Perfil<span class="text-danger"> *</span></label>
+                                    <select class="custom-select" id="user_profile">
+                                        <option value="0">Seleccione un perfil</option>
+                                        <option value="Administrador">Administrador</option>
+                                        <option value="Contactos">Contactos</option>
+                                    </select>
+                                </div>
+                                <div class="col-4">
+                                    <label for="user_password" class="text-muted font-weight-bold mt-3">Contraseña<span class="text-danger"> *</span></label>
+                                    <input type="password" class="form-control" id="user_password">
+                                </div>
+                                <div class="col-4">
+                                    <label for="user_password_match" class="text-muted font-weight-bold mt-3">Repetir Contraseña<span class="text-danger"> *</span></label>
+                                    <input type="password" class="form-control" id="user_password_match">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-success" id="post_user" onclick="data_post_user()">Crear Usuario</button>
                         </div>                        
                     </div>
                 </div>

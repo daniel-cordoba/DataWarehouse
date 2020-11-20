@@ -45,6 +45,10 @@ body > header > nav > img {
   height: 60px;
 }
 
+.dropdown-item.active, .dropdown-item:active {
+  background-color: var(--info) !important;
+}
+
 body main #contacts > div #input_contacts {
   width: 30%;
 }
@@ -175,5 +179,12 @@ body main #modals #modal_location_add div div .modal-body {
   background-position: right;
   background-repeat: no-repeat;
   background-size: 16%;
+}
+
+body main #modals #modal_user_add div div .modal-body {
+  background-image: url(../assets/person-lines-fill.svg);
+  background-position: 95% 50%;
+  background-repeat: no-repeat;
+  background-size: 25%;
 }
 /*# sourceMappingURL=style.css.map */

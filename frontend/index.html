@@ -530,6 +530,26 @@
                     </div>
                 </div>
             </div>
+            <!-- MODAL DELETE User -->
+            <div class="modal fade" id="modal_user_delete" tabindex="-1" role="dialog" aria-labelledby="modal_user_delete_Title" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info">
+                            <h5 class="modal-title text-white" id="modal_user_delete_Title">Eliminar Usuario</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="text-white">&times;</span>
+                            </button>   
+                        </div>                         
+                        <div class="modal-body">
+                            ¿Está seguro que desea eliminar este usuario?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" onclick="delete_user()">Eliminar</button>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
     <!-- BOOTSTRAP JS CDN -->

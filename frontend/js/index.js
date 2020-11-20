@@ -1286,7 +1286,7 @@ function tableUsers(ID, name, last_name, email, profile) {
             .append(`<td><p class="m-0">${profile}</p></td>`)
             .append($('<td class="align-middle text-center">')
                 .append('<button class="btn btn-info mr-1" data-toggle="modal" data-target="#modal_user_add" title="Editar" onclick="btn_edit_user(this)"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg></button>')
-                .append('<button class="btn btn-info" data-toggle="modal" data-target="#modal_company_remove" onclick="eliminate_company_icon(this)" title="Eliminar"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></button>')
+                .append('<button class="btn btn-info" data-toggle="modal" data-target="#modal_user_delete" onclick="btn_delete_user(this)" title="Eliminar"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></button>')
         )
     );
 }
@@ -1309,6 +1309,12 @@ function btn_post_user() {
     $('#post_user').html("Crear Usuario");
     $('#post_user').removeAttr("onclick").attr("onclick", "data_post_user()");
     $('#modal_user_add_Title').text('Crear Usuario');
+    document.getElementById('user_name').value = '';
+    document.getElementById('user_lastName').value = '';
+    document.getElementById('user_email').value = '';
+    document.getElementById('user_profile').value = '0';
+    document.getElementById('user_password').value = '';
+    document.getElementById('user_password_match').value = '';
 }
 //ENDPOINT POST User
 async function post_user(name, last_name, email, profile, password) {
@@ -1427,6 +1433,31 @@ async function data_put_user() {
         alert(error);
     }
 }
+/////////////////////////////////////FUNTIONS TO DELETE A USER/////////////////////////////////////
+//ENDPOINT DELETE User
+async function delete_user() {
+    const jwt = sessionStorage.getItem("jwt");
+    const ID = sessionStorage.getItem("eliminate_user");
+    if(jwt!=null){
+        let response = await fetch('http://localhost:3000/user/'+ID,
+        {
+            method:'DELETE',
+            headers:{"Authorization":"Bearer "+jwt}
+        });
+        let eliminado = await response.json();
+        console.log(eliminado);
+        $('#table_users').find(`[data-id='${ID}']`)[0].remove();
+        $('#modal_user_add').modal('hide');
+    }
+}
+//Getting ID to DELETE
+function btn_delete_user(btn) {
+    console.log(btn.parentElement.parentElement.getAttribute("data-id"));
+    let ID = btn.parentElement.parentElement.getAttribute("data-id");    
+    sessionStorage.setItem("eliminate_user", ID);
+}
+
+
 
 function pruebas() {
     treeNodes();

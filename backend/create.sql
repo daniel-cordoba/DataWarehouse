@@ -12,9 +12,9 @@ CREATE TABLE `users` (
 )
 COLLATE='latin1_swedish_ci'
 ;
-INSERT INTO `users` (`name`, `last_name`, `email`, `profile`, `password`) 
+/* INSERT INTO `users` (`name`, `last_name`, `email`, `profile`, `password`) 
 VALUES ('admin', 'admin', 'admin@admin.com', 'administrador', 'admin123'),
-('contact', 'contact', 'contact@contact.com', 'contactos', 'contact123');
+('contact', 'contact', 'contact@contact.com', 'contactos', 'contact123'); */
 
 CREATE TABLE `regions` (
 	`ID` INT NOT NULL AUTO_INCREMENT,

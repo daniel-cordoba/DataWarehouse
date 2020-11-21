@@ -18,6 +18,17 @@ app.use(function(req, res, next) {
     next();
 });
 
+//CREACION DE USUARIO ADMINISTRADOR
+function admin() {
+    const admin = 'INSERT INTO users (name, last_name, email, profile, password) VALUES (?, ?, ?, ?, ?);';
+    sequelize.query(admin, 
+    {
+        replacements:['admin', 'admin', process.env.U_ADMIN, 'Administrador', process.env.P_ADMIN],
+        type: sequelize.QueryTypes.INSERT
+    });
+}
+admin();
+
 app.use('/', usersRouter);
 app.use('/', locationRouter);
 app.use('/', companiesRouter);

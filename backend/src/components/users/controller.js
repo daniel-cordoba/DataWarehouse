@@ -31,7 +31,8 @@ const logIn = (req, res) => {
                     profile: resp[0].profile
                 };
                 const token = jwt.sign(payload, process.env.S);
-                res.status(200).json(token);
+                const ingreso = [token, resp[0].profile];
+                res.status(200).json(ingreso);
             }else{
                 res.status(400).json('Usuario o contraseña incorrectos')
             }

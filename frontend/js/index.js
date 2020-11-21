@@ -7,9 +7,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
-//Reload the page with 
-function reload() {
-    location.reload();
+//Settings to DISABLE users
+if (sessionStorage.getItem("profile") == "Contactos") {
+    document.getElementById('users').remove();
+    document.getElementById('users_link').remove();
 }
 /////////////////////////////////////FUNCIONES PARA EL LOGIN/////////////////////////////////////
 //Show login-modal when it must, reloading the page
@@ -17,7 +18,6 @@ if (!(sessionStorage.getItem("jwt"))) {
     $('#login_modal').modal('show');
 }else if(sessionStorage.getItem("jwt")){
     fill_general_data();
-    let token = sessionStorage.getItem("jwt");
 }
 //ENDPOINT Login
 function login(){
@@ -32,20 +32,24 @@ function login(){
                 "password":"${password.value}"}`,
             headers:{"Content-Type":"application/json"}
         }).then(res=>{
-            res.json().then(token=>{
-                if (token == "Usuario o contraseña incorrectos") {
-                    throw Error (token);
+            res.json().then(resp=>{
+                if (resp == "Usuario o contraseña incorrectos") {
+                    throw Error (resp);
                 }
-                console.log(token);
-                sessionStorage.setItem("jwt", token);
+                console.log(resp);                
+                sessionStorage.setItem("jwt", resp[0]);
+                sessionStorage.setItem("profile", resp[1]);
+                if (resp[1] == "Contactos") {
+                    document.getElementById('users').remove();
+                    document.getElementById('users_link').remove();
+                }
                 fill_general_data();
                 $('#login_modal').modal('hide');
             });
         });
-        
     } catch (error) {
-        console.error(error);
         alert(error);
+        console.error(error);
     }
     
 }
@@ -1494,10 +1498,4 @@ function btn_delete_user(btn) {
     console.log(btn.parentElement.parentElement.getAttribute("data-id"));
     let ID = btn.parentElement.parentElement.getAttribute("data-id");    
     sessionStorage.setItem("eliminate_user", ID);
-}
-
-
-
-function pruebas() {
-    treeNodes();
 }

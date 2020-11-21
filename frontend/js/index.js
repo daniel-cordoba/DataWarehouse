@@ -1,8 +1,30 @@
+/////////////////////////////////////SMOOTH SCROOLING EN LA NAVEGACIÓN/////////////////////////////////////
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+//Reload the page with 
+function reload() {
+    location.reload();
+}
 /////////////////////////////////////FUNCIONES PARA EL LOGIN/////////////////////////////////////
+//Show login-modal when it must, reloading the page
+if (!(sessionStorage.getItem("jwt"))) {
+    $('#login_modal').modal('show');
+}else if(sessionStorage.getItem("jwt")){
+    fill_general_data();
+    let token = sessionStorage.getItem("jwt");
+}
+//ENDPOINT Login
 function login(){
-    const email=document.getElementById("email_input");
-    const password=document.getElementById("password_input");
-    sessionStorage.clear();
+    try {
+        const email=document.getElementById("email_input");
+        const password=document.getElementById("password_input");
+        sessionStorage.clear();
         fetch('http://localhost:3000/login',
         {
             method:'POST',
@@ -11,19 +33,36 @@ function login(){
             headers:{"Content-Type":"application/json"}
         }).then(res=>{
             res.json().then(token=>{
+                if (token == "Usuario o contraseña incorrectos") {
+                    throw Error (token);
+                }
                 console.log(token);
                 sessionStorage.setItem("jwt", token);
+                fill_general_data();
+                $('#login_modal').modal('hide');
             });
         });
+        
+    } catch (error) {
+        console.error(error);
+        alert(error);
+    }
+    
+}
+//Getting data after login
+function fill_general_data() {
+    fillContacts();
+    fillCompanies();
+    call_tree();
+    fillUsers();
 }
 /////////////////////////////////////FUNCIONES SECCIÓN DE CONTACTOS/////////////////////////////////////
 /////////////////////////////////////FUNCIONES PARA LLENAR TABLA DE CONTACTOS/////////////////////////////////////
 //ENDPOINT GET Contacts
-window.onload = fillContacts();
+//window.onload = fillContacts();
 async function getContacts(){
     const jwt = sessionStorage.getItem("jwt");
     if(jwt!=null){
-        //console.log("Bearer "+jwt);
         let response = await fetch('http://localhost:3000/contacts',
         {
             method:'GET',
@@ -781,7 +820,7 @@ $('#add_contact').on('hidden.bs.modal', () => {
   
 /////////////////////////////////////FUNCIONES DE LA SECCIÓN COMPAÑÍAS/////////////////////////////////////
 /////////////////////////////////////FUNCIONES PARA LLENAR TABLA EN COMPAÑIAS/////////////////////////////////////
-window.onload = fillCompanies();
+//window.onload = fillCompanies();
 //Fill Company Table
 async function fillCompanies() {
     const companies = await getCompanies();
@@ -981,7 +1020,7 @@ function eliminate_company_icon(btn) {
 }
 /////////////////////////////////////FUNCIONES DE LA SECCIÓN REGION-CIUDAD/////////////////////////////////////
 /////////////////////////////////////JSTREE FUNCTIONS/////////////////////////////////////
-window.onload = call_tree();
+//window.onload = call_tree();
 async function call_tree() {
     const data = await treeNodes();
     $('#location_tree')
@@ -1264,7 +1303,7 @@ async function btn_post_city() {
 }
 /////////////////////////////////////FUNCIONES DE LA SECCION USUARIOS/////////////////////////////////////
 /////////////////////////////////////FUNTIONS TO FILL TABLE DATA/////////////////////////////////////
-window.onload = fillUsers();
+//window.onload = fillUsers();
 //Fill Company Table
 async function fillUsers() {
     const users = await getUsers();

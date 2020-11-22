@@ -34,6 +34,7 @@ function login(){
         }).then(res=>{
             res.json().then(resp=>{
                 if (resp == "Usuario o contraseña incorrectos") {
+                    alert(resp);
                     throw Error (resp);
                 }             
                 sessionStorage.setItem("jwt", resp[0]);
@@ -47,7 +48,6 @@ function login(){
             });
         });
     } catch (error) {
-        alert(error);
         console.error(error);
     }
     

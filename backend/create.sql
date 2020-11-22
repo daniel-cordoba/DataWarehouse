@@ -12,9 +12,6 @@ CREATE TABLE `users` (
 )
 COLLATE='latin1_swedish_ci'
 ;
-/* INSERT INTO `users` (`name`, `last_name`, `email`, `profile`, `password`) 
-VALUES ('admin', 'admin', 'admin@admin.com', 'administrador', 'admin123'),
-('contact', 'contact', 'contact@contact.com', 'contactos', 'contact123'); */
 
 CREATE TABLE `regions` (
 	`ID` INT NOT NULL AUTO_INCREMENT,
@@ -104,7 +101,12 @@ VALUES ('Camila', 'Soledad Pantó', 'UX Designer', 'camilapanto123@gmail.com', '
 ('Agustín Emanuel', 'Soria', 'UI Designer', 'agustinesoria96@gmail.com', 'Globant', 2, 'Sudamerica', 'Argentina', 'Buenos Aires', 1, '100%'),
 ('Denver Steven', 'Soria', 'Developer', 'denver-steven@gmail.com', 'Rappi', 3, 'Sudamerica', 'Colombia', 'Medellín', 5, '25%'),
 ('Sebastian Agustín', 'Pantó', 'Product', 'sebapanto@gmail.com', 'MercadoLibre', 4, 'Sudamerica', 'Argentina', 'Córdoba', 2, '25%'),
-('Stefanía Natalí', 'Soria', 'UI Designer', 'stefana@gmail.com', 'Softtek', 1, 'Norteamerica', 'México', 'Ciudad de México', 12, '50%')
+('Stefanía Natalí', 'Soria', 'UI Designer', 'stefana@gmail.com', 'Softtek', 1, 'Norteamerica', 'México', 'Ciudad de México', 12, '75%'),
+('Milena Victoria', 'Soria', 'UX Designer', 'milesoria@gmail.com', 'MercadoLibre', 4, 'Sudamerica', 'Argentina', 'Córdoba', 2, '50%'),
+('Valentino', 'Boetto', 'UI Designer', 'valenboetto@gmail.com', 'Globant', 2, 'Sudamerica', 'Argentina', 'Córdoba', 2, '100%'),
+('Juan', 'Sbeghen', 'Developer', 'juan-sbg@gmail.com', 'Softtek', 1, 'Norteamerica', 'México', 'Ciudad de México', 12, '50%'),
+('Guillermina', 'Budano', 'Product', 'guillebudano@gmail.com', 'Softtek', 1, 'Norteamerica', 'México', 'Tijuana', 13, '25%'),
+('Laura', 'Errante', 'Sales', 'laurapastelera@gmail.com', 'Rappi', 3, 'Sudamerica', 'Colombia', 'Medellín', 5, '100%')
 ;
 
 CREATE TABLE `channels` (
@@ -134,7 +136,22 @@ VALUES ('1', 'Whatsapp', '3216485968', 'No molestar'),
 ('4', 'Twitter', '', ''),
 ('5', 'Whatsapp', '3216586050', 'Sin preferencia'),
 ('5', 'Facebook', 'StefaLi', 'No molestar'),
-('5', 'Twitter', 'Sttew', 'Canal favorito')
+('5', 'Twitter', 'Sttew', 'Canal favorito'),
+('6', 'Whatsapp', '', 'Sin preferencia'),
+('6', 'Facebook', 'Lomas', 'No molestar'),
+('6', 'Twitter', 'LomasTT', 'Canal favorito'),
+('7', 'Whatsapp', '3216586088', 'Canal favorito'),
+('7', 'Facebook', 'Deko', 'No molestar'),
+('7', 'Twitter', 'Deko', 'Sin preferencia'),
+('8', 'Whatsapp', '', 'Sin preferencia'),
+('8', 'Facebook', '', 'Sin preferencia'),
+('8', 'Twitter', 'RedSoci', 'Canal favorito'),
+('9', 'Whatsapp', '', 'Sin preferencia'),
+('9', 'Facebook', '', 'Sin preferencia'),
+('9', 'Twitter', '', 'Sin preferencia'),
+('10', 'Whatsapp', '3146589292', 'Canal favorito'),
+('10', 'Facebook', '', ''),
+('10', 'Twitter', '', '')
 ;
 
 

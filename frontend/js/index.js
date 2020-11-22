@@ -35,8 +35,7 @@ function login(){
             res.json().then(resp=>{
                 if (resp == "Usuario o contraseña incorrectos") {
                     throw Error (resp);
-                }
-                console.log(resp);                
+                }             
                 sessionStorage.setItem("jwt", resp[0]);
                 sessionStorage.setItem("profile", resp[1]);
                 if (resp[1] == "Contactos") {
@@ -80,8 +79,6 @@ async function getContacts(){
 async function fillContacts(){
     try {
         let contacts = await getContacts();        
-        //sessionStorage.setItem("contacts", JSON.stringify(contacts));        
-        //console.log(JSON.parse(sessionStorage.getItem("contacts")));
         for (let i = 0; i < contacts.length; i++) {
             const contact = contacts[i];
             const ID = contact.ID;
@@ -195,7 +192,6 @@ async function eliminate_contact(ID){
     }
 }
 function set_eliminate_byIcon(btn) {
-    console.log(btn.parentElement.parentElement.getAttribute("data-id"));
     let ID = btn.parentElement.parentElement.getAttribute("data-id");    
     sessionStorage.setItem("eliminate_contact", ID); 
 }
@@ -286,7 +282,6 @@ async function postChannels(channel, user, preference) {
             headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
         });
         let channels = await response.json();
-        console.log(channels);
     }
 }
 //ENDPOINT GET Last ID from Contacts
@@ -479,11 +474,9 @@ async function switchBtnEdit(btn) {
     $('#add_contact_btn').html("Guardar Cambios");
     $('#add_contact_btn').removeAttr("onclick").attr("onclick", "data_putContact()");
     $('#add_contact_Label').text('Editar Contacto');
-    console.log(btn.parentElement.parentElement.getAttribute("data-id"));
     let ID = btn.parentElement.parentElement.getAttribute("data-id");    
     sessionStorage.setItem("edit_contact", ID); 
     let contact_data = await getOneContact(ID);
-    console.log(contact_data);
     const name = contact_data[0].name;
     const last_name = contact_data[0].last_name;
     const email = contact_data[0].email;
@@ -546,12 +539,10 @@ async function autoCompleteContact(name, last_name, email, charge, company, comp
         $('#select_region > option').removeAttr("selected");
         setTimeout(() => {
             let options = select_region.getElementsByTagName('option');
-            console.log(options);
             for (const option of options) {
                 if (option.textContent === region) {
                     option.setAttribute("selected", true);
                 }
-                console.log(option.textContent);
             }
         }, 50);
         if (country) {
@@ -646,7 +637,6 @@ async function putChannel(channel, user, preference) {
             headers:{"Authorization":"Bearer "+jwt, "Content-Type":"application/json"}
         });
         let edit = await response.json();
-        console.log(edit);
     }
 }
 //Getting data to PUT Contacts
@@ -944,11 +934,9 @@ async function edit_company_btn(btn) {
     $('#add_company_btn').html("Guardar Cambios");
     $('#add_company_btn').removeAttr("onclick").attr("onclick", "data_putCompany()");
     $('#add_company_Label').text('Editar Compañía');
-    console.log(btn.parentElement.parentElement.getAttribute("data-id"));
     let ID = btn.parentElement.parentElement.getAttribute("data-id");    
     sessionStorage.setItem("edit_company", ID);
     let companies = await getCompanies();
-    console.log(companies);
     //AUTOCOMPLETE for company
     companies.forEach(company=>{
         if (company.ID == ID) {
@@ -957,8 +945,6 @@ async function edit_company_btn(btn) {
             $("#company_phone").val(company.phone);
             $("#company_adress").val(company.adress);
             let company_select_city = document.getElementById("company_select_city");
-            console.log(company_select_city);
-            console.log(company.city_id);
             setTimeout(() => {company_select_city.querySelector(`[value="${company.city_id}"]`).setAttribute("selected", true);}, 500);
         }
     })
@@ -982,7 +968,6 @@ async function data_putCompany(){
         let city = document.getElementById('company_select_city');
         const city_id = city.value;
         city = city.options[city.selectedIndex].text;
-        console.log(name +"\n"+ email +"\n"+ phone +"\n"+ adress +"\n"+ city +"\n"+ city_id);
         //Validations
         if (name == "" || city_id == 0 || adress == "" || email == "" || phone == "") {
             alert('Los campos marcados con *(Asterisco) son obligatorios');
@@ -1018,7 +1003,6 @@ async function eliminate_company(){
 }
 //Setting ID to eliminate a company
 function eliminate_company_icon(btn) {
-    console.log(btn.parentElement.parentElement.getAttribute("data-id"));
     let ID = btn.parentElement.parentElement.getAttribute("data-id");    
     sessionStorage.setItem("eliminate_company", ID); 
 }
@@ -1416,7 +1400,6 @@ async function btn_edit_user(btn) {
     $('#post_user').html("Guardar Cambios");
     $('#post_user').removeAttr("onclick").attr("onclick", "data_put_user()");
     $('#modal_user_add_Title').text('Editar Usuario');
-    console.log(btn.parentElement.parentElement.getAttribute("data-id"));
     let ID = btn.parentElement.parentElement.getAttribute("data-id");    
     sessionStorage.setItem("edit_user", ID); 
     const users = await getUsers();
@@ -1499,7 +1482,6 @@ async function delete_user() {
 }
 //Getting ID to DELETE
 function btn_delete_user(btn) {
-    console.log(btn.parentElement.parentElement.getAttribute("data-id"));
     let ID = btn.parentElement.parentElement.getAttribute("data-id");    
     sessionStorage.setItem("eliminate_user", ID);
 }

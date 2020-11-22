@@ -1122,6 +1122,7 @@ function dropdown_region() {
     document.getElementById('container_region').classList.add("d-none");
     document.getElementById('container_country').classList.add("d-none");
     document.getElementById('location_label').innerHTML = 'Región<span class="text-danger"> *</span>';
+    document.getElementById('location_input').value = "";
     $('#post_location').attr("onclick", "btn_post_region()");
 }
 //BTN Dropdown for País - MODAL Set
@@ -1129,6 +1130,7 @@ async function dropdown_country() {
     document.getElementById('container_region').classList.remove("d-none");
     document.getElementById('container_country').classList.add("d-none");
     document.getElementById('location_label').innerHTML = 'País<span class="text-danger"> *</span>';
+    document.getElementById('location_input').value = "";
     const regions = await getRegions();
     $('#location_select_region').html("");
     $('#location_select_region').append(`<option value="0">Seleccione una región</option>`);
@@ -1145,6 +1147,7 @@ async function dropdown_city() {
     document.getElementById('container_region').classList.remove("d-none");
     document.getElementById('container_country').classList.remove("d-none");
     document.getElementById('location_label').innerHTML = 'Ciudad<span class="text-danger"> *</span>';
+    document.getElementById('location_input').value = "";
     $('#post_location').attr("onclick", "btn_post_city()");
     const regions = await getRegions();
     $('#location_select_region').html("");
@@ -1476,7 +1479,7 @@ async function delete_user() {
         let eliminado = await response.json();
         console.log(eliminado);
         $('#table_users').find(`[data-id='${ID}']`)[0].remove();
-        $('#modal_user_add').modal('hide');
+        $('#modal_user_delete').modal('hide');
     }
 }
 //Getting ID to DELETE

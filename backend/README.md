@@ -18,7 +18,6 @@ Gestor de contactos para una compañía de Marketing, por medio del cual se admi
 U=<Usuario configurado en la base de datos que usualmente es root>
 P=<Contraseña de la base de datos>
 S=<Llave de seguridad para los tokens>
-PORT=<Puerto de la base de datos que usualmente es 3306>
 U_ADMIN=<Email del usuario administrador(Es importante que escriba bien el email y no olvide el símbolo @)>
 P_ADMIN=<Contraseña de usuario administrador>
 ```
@@ -26,4 +25,3 @@ P_ADMIN=<Contraseña de usuario administrador>
 4. Instalar las dependencias de la aplicacion, ejecutando por medio de consola el comando `npm install` (Tener en cuenta que la ruta de la consola debe estar ubicada en la carpeta principal del proyecto).
 
 5. Por último, ejecutar la aplicacion por medio de consola, usando el comando `npm start`.
-    

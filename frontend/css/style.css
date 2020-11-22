@@ -50,19 +50,6 @@ body main #contacts > #table_contacts_wrapper > div > div #table_contacts_length
           box-shadow: 0 1px 0 0 var(--info);
 }
 
-body main #contacts > #table_contacts_wrapper > div > div > #table_contacts {
-  /* thead{
-                                tr{
-                                    th{
-                                        #select_all{
-                                            border: 1px solid black !important;
-                                            border-radius: 3px !important;
-                                        }
-                                    }
-                                }
-                            } */
-}
-
 body main #contacts > #table_contacts_wrapper > div > div > #table_contacts .odd .dataTables_empty {
   display: none;
 }

@@ -11,7 +11,7 @@ Gestor de contactos para una compañía de Marketing, por medio del cual se admi
 
 2. Luego, debe crear la base de datos, para lo cual le recomiendo usar un gestor de bases de datos como `HeidySQL` o `MySQL Workbench`, una vez esté en la interfaz del gestor ejecutará el script `create.sql`. Para evitar errores, cargue el archivo en el gesto de base de datos y luego lo ejecuta (Lo anterior, porque en algunos casos, ejecutarlo directamente, antes de importarlo, puede generar errores).
 
-3. Al tener lista la base de datos, procedemos a configurar las variables de entorno (Tener en cuenta que dentro de estas variables de entorno también vamos a configurar el usario administrador, el cual tendrá acceso a los Endpoint que requieran de su rol), para lo cual debe crear un archivo `.env` en la carpeta `backend`, la cual está ubicada en la carpeta principal de la aplicacion. Dentro del `.env` escribirá el siguiente texto, reemplazando aquello que se encuentra entre `<>` (Incluyendo los símbolos) por las variables correspondientes a su entorno local:
+3. Al tener lista la base de datos, procedemos a configurar las variables de entorno (Tener en cuenta que dentro de estas variables de entorno también vamos a configurar el usario administrador, el cual tendrá acceso a los Endpoint que requieran de su rol), para lo cual debe crear un archivo `.env` en la carpeta `backend`, la cual está ubicada en la carpeta principal de la aplicacion. Dentro del `.env` detallará sus variables de entorno reemplazando aquello que se encuentra entre `<>` (Incluyendo los símbolos) por las variables correspondientes a su entorno local:
 
 ```
 U=<Usuario configurado en la base de datos que usualmente es root>

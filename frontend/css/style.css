@@ -27,6 +27,10 @@ body main section {
   padding-top: 8vh;
 }
 
+body main #section_login {
+  padding-top: unset;
+}
+
 body main #contacts > div #input_contacts {
   width: 30%;
 }

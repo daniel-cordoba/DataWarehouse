@@ -6,27 +6,16 @@ class MiddlewareLocation{
         try {
             const payload = jwt.verify(req.headers.authorization.split(' ')[1], process.env.S);
             console.log(payload);
-            return next();
+            if(payload.profile === "Administrador" || payload.profile === "Contactos"){
+                return next();
+            }else{
+                res.status(403).json('Esta petición requiere de login');
+            }
         } catch (error) {
             console.error(error);
             res.status(403).json('Esta petición requiere de login');
         }
     }   
-/*     profile(req, res, next) {
-        try {
-            const payload = jwt.verify(req.headers.authorization.split(' ')[1], process.env.S);
-            console.log(payload);
-            if(payload.profile === "Administrador"){            
-                return next();
-            }else{
-                console.error('No posee los permisos de administrador');
-                res.status(403).json('La petición requiere del perfil Administrador');
-            } 
-        } catch (error) {
-            console.error(error);
-            res.status(403).json('Esta petición requiere de login');
-        }
-    }    */   
     repeatRegion(req, res, next) {
         const name = req.body.name;
         const repeat = 'SELECT name FROM regions WHERE name = "'+name+'";';

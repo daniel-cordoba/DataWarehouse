@@ -11,7 +11,6 @@ class MiddlewareUsers{
                 sequelize.query(consulta, {type: sequelize.QueryTypes.SELECT})
                 .then(resp=>{
                     if (resp.length>0) {
-                        console.log('existe');
                         res.status(400).json('Este email ya está en uso');
                     }else{
                         next();
@@ -27,7 +26,6 @@ class MiddlewareUsers{
     profile(req, res, next) {
         try {
             const payload = jwt.verify(req.headers.authorization.split(' ')[1], process.env.S);
-            console.log(payload);
             if(payload.profile === "Administrador"){            
                 return next();
             }else{

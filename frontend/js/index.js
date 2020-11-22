@@ -1397,10 +1397,14 @@ async function data_post_user() {
         }
         const new_user = await post_user(name, last_name, email, profile, password);
         console.log(new_user);
-        alert(new_user);
-        $('#modal_user_add').modal('hide');
-        $("#table_users tbody").html("");
-        fillUsers();
+        if (new_user == "Este email ya está en uso") {
+            throw Error ('Este email ya está en uso');
+        }else{
+            alert(new_user);
+            $('#modal_user_add').modal('hide');
+            $("#table_users tbody").html("");
+            fillUsers();
+        }
     } catch (error) {
         console.error(error);
         alert(error);

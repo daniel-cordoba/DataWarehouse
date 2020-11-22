@@ -48,7 +48,11 @@ class MiddlewareContacts{
         try {
             const payload = jwt.verify(req.headers.authorization.split(' ')[1], process.env.S);
             console.log(payload);
-            return next();
+            if(payload.profile === "Administrador" || payload.profile === "Contactos"){
+                return next();
+            }else{
+                res.status(403).json('Esta petición requiere de login');
+            }
         } catch (error) {
             console.error(error);
             res.status(403).json('Esta petición requiere de login');

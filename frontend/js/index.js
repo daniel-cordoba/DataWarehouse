@@ -1110,7 +1110,6 @@ async function del_location() {
         });
         let eliminado = await response.json();
         console.log(eliminado);
-        alert(eliminado);
         $('#modal_location_delete').modal('hide');
         const new_data = await treeNodes();
         $('#location_tree').jstree(true).settings.core.data = new_data;

@@ -21,6 +21,6 @@ U_ADMIN=<Email del usuario administrador(Es importante que escriba bien el email
 P_ADMIN=<Contraseña de usuario administrador>
 ```
 
-4. Instalar las dependencias de la aplicacion, ejecutando por medio de consola el comando `npm install` (Tener en cuenta que la ruta de la consola debe estar ubicada en la carpeta principal del proyecto).
+4. Instalar las dependencias de la aplicacion, ejecutando por medio de consola el comando `npm install` (Tener en cuenta que la ruta de la consola debe estar ubicada en la carpeta backend del proyecto).
 
 5. Por último, ejecutar la aplicacion por medio de consola, usando el comando `npm start`.
